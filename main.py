@@ -1,5 +1,6 @@
 from flask import Flask, request
 from Handlers.userhandler import *
+from Handlers.contactshandler import *
 
 
 app = Flask(__name__)
@@ -20,7 +21,7 @@ def getUserById(uid):
 
 @app.route('/Users/<int:uid>/contacts')
 def getUserContacts(uid):
-    return UserHandler().getUserContacts(uid)
+    return ContactsHandler().getUserContacts(uid)
 
 @app.route('/Users/email/<email>')
 def getUserByEmail(email):

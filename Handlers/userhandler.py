@@ -39,12 +39,12 @@ class UserHandler:
         else:
             return jsonify(Users=email)
 
-    def getUserContacts(self,uid):
+    '''def getUserContacts(self,uid):
         dao = userDAO()
         contacts = dao.getUserContacts(uid)
 
         if contacts == None:
             return jsonify(Error="User has no friends :(")
         else:
-            return jsonify(Users=contacts)
+            return jsonify(Users=contacts)'''
 

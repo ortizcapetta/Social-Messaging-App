@@ -29,7 +29,7 @@ class userDAO:
             if email == e[4]:
                 result.append(e)
         return result
-
+'''
     def getUserContacts(self,uid):
         if uid == 111:
             c = []
@@ -45,5 +45,5 @@ class userDAO:
             c.append(self.users[1])
             return c
         elif uid ==114:
-            return self.users[0][0]
+            return self.users[0][0]'''
 
