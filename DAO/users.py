@@ -33,17 +33,17 @@ class userDAO:
     def getUserContacts(self,uid):
         if uid == 111:
             c = []
-            c.append(self.users[3])
-            c.append(self.users[1])
-            c.append(self.users[2])
+            c.append(self.users[3][0])
+            c.append(self.users[1][0])
+            c.append(self.users[2][0])
             return c
         elif uid == 112:
-            return self.users[0]
+            return self.users[0][0]
         elif uid == 113:
             c = []
-            c.append(self.users[0])
+            c.append(self.users[0][0])
             c.append(self.users[1])
             return c
         elif uid ==114:
-            return self.users[0]
+            return self.users[0][0]
 
