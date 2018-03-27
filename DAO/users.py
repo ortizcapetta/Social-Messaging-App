@@ -7,9 +7,11 @@ class userDAO:
         user0 = [111,'Alejandra','Ortiz',7875554444,'fakegamergirl@placeholder.com']
         user1 = [112,'Antonio','Lugo',9393332222,'tavern_brawler420@placeholder.com']
         user2 = [113,'Naruto','Uzumaki',1234567890,'ramenluvr@placeholder.com']
+        user3 = [114,'Gustavo','Reyes',7871112222,'gustiiiiiii@placeholder.com']
         self.users.append(user0)
         self.users.append(user1)
         self.users.append(user2)
+        self.users.append(user3)
 
     def getUsers(self):
         return self.users
@@ -30,7 +32,11 @@ class userDAO:
 
     def getUserContacts(self,uid):
         if uid == 111:
-            return self.users[1]
+            c = []
+            c.append(self.users[3])
+            c.append(self.users[1])
+            c.append(self.users[2])
+            return c
         elif uid == 112:
             return self.users[0]
         elif uid == 113:
@@ -38,4 +44,6 @@ class userDAO:
             c.append(self.users[0])
             c.append(self.users[1])
             return c
+        elif uid ==114:
+            return self.users[0]
 
