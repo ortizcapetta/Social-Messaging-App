@@ -12,7 +12,9 @@ def home():
 def getUsers():
     user = UserHandler()
     return user.getUsers()
-
+@app.route('/Users/<int:uid>')
+def getUserById(uid):
+    return UserHandler().getUsersID(uid)
 
 if __name__ == '__main__':
     app.run()

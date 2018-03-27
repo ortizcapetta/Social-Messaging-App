@@ -18,6 +18,15 @@ class UserHandler:
         users = dao.getUsers()
         user_list = []
         for row in users:
-            result = self.buildUserDict(row)
-            user_list.append(result)
+            user_list.append(self.buildUserDict(row))
         return jsonify(Users=user_list)
+
+    def getUsersID(self,uid):
+        dao = userDAO()
+        uid = dao.getUsersID(uid)
+
+        if uid == None:
+            return jsonify(Error = "No User with ID in record")
+        else:
+            return jsonify(Users=uid)
+
