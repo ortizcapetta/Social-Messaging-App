@@ -26,7 +26,25 @@ class UserHandler:
         uid = dao.getUsersID(uid)
 
         if uid == None:
-            return jsonify(Error = "No User with ID in record")
+            return jsonify(Error="No User with ID in record")
         else:
             return jsonify(Users=uid)
+
+    def getUsersEmail(self,email):
+        dao = userDAO()
+        email = dao.getUsersEmail(email)
+
+        if email == None:
+            return jsonify(Error="No user found with the email %s" % email)
+        else:
+            return jsonify(Users=email)
+
+    def getUserContacts(self,uid):
+        dao = userDAO()
+        contacts = dao.getUserContacts(uid)
+
+        if contacts == None:
+            return jsonify(Error="User has no friends :(")
+        else:
+            return jsonify(Users=contacts)
 
