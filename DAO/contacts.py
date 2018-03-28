@@ -18,3 +18,6 @@ class contactsDAO:
             elif uid == a[1]:
                 result.append(a[0])
         return result
+
+    def getAllContacts(self):
+        return self.contacts

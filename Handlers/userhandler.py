@@ -36,11 +36,47 @@ class UserHandler:
         user_list = []
         for row in email:
             user_list.append(self.buildUserDict(row))
-        return jsonify(Users=user_list)
+
         if email is None:
             return jsonify(Error="No user found with the email %s" % email)
         else:
-            return jsonify(Users=email)
+            return jsonify(Users=user_list)
+
+    def getUsersPhone(self,phone):
+        dao = userDAO()
+        phone = dao.getUsersPhone(phone)
+        user_list = []
+        for row in phone:
+            user_list.append(self.buildUserDict(row))
+
+        if user_list is None:
+            return jsonify(Error="No phone is system")
+        else:
+            return jsonify(Users=user_list)
+
+    def getUsersFullName(self,name,lname):
+        dao = userDAO()
+        name = dao.getUsersFullName(name,lname)
+        user_list = []
+        for row in name:
+            user_list.append(self.buildUserDict(row))
+
+        if user_list is None:
+            return jsonify(Error="No such name in system")
+        else:
+            return jsonify(Users=user_list)
+
+    def getUsersName(self,name):
+        dao = userDAO()
+        name = dao.getUsersName(name)
+        user_list = []
+        for row in name:
+            user_list.append(self.buildUserDict(row))
+        if user_list is None:
+            return jsonify(Error="No such name in system")
+        else:
+            return jsonify(Users=user_list)
+
 
     '''def getUserContacts(self,uid):
         dao = userDAO()
