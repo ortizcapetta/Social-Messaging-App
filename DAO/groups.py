@@ -10,12 +10,23 @@ class groupsDAO:
         self.groups.append(group1)
         self.groups.append(group2)
 
+    def getGroups(self):
+        return self.groups
+
     #searches for groups with specific owner
-    def getOwner(self, uid):
+    def getOwnerGroups(self, uid):
         result = []
         for a in self.groups:
             if uid == a[2]:
                 result.append(a)
+        return result
+
+    #searches for owner of specific group
+    def getGroupOwner(self, gid):
+        result = []
+        for a in self.groups:
+            if gid == a[0]:
+                result.append(a[2])
         return result
 
     #searches for groups with specific gid
