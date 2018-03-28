@@ -18,7 +18,11 @@ class GroupsHandler:
         groups_list = []
         for row in groups:
             groups_list.append(self.buildGroupDict(row))
-        return jsonify(Groups=groups_list)
+
+        if groups_list is None:
+            return jsonify(Error="No groups in record")
+        else:
+            return jsonify(Groups=groups_list)
 
     #searches for owner of a specific group
     def getGroupOwner(self, gid):
@@ -36,7 +40,11 @@ class GroupsHandler:
         groups_list = []
         for row in groups:
             groups_list.append(self.buildGroupDict(row))
-        return jsonify(Groups=groups_list)
+
+        if groups_list is None:
+            return jsonify(Error="No groups owned in record")
+        else:
+            return jsonify(Groups=groups_list)
 
     #searches for groups with specific gid
     def getGroupID(self, gid):
@@ -45,7 +53,11 @@ class GroupsHandler:
         groups_list = []
         for row in groups:
             groups_list.append(self.buildGroupDict(row))
-        return jsonify(Groups=groups_list)
+
+        if groups_list is None:
+            return jsonify(Error="No group with that ID in record")
+        else:
+            return jsonify(Groups=groups_list)
 
     #searches for groups with specific names
     def getGroupName(self, gname):
@@ -54,4 +66,8 @@ class GroupsHandler:
         groups_list = []
         for row in groups:
             groups_list.append(self.buildGroupDict(row))
-        return jsonify(Groups=groups_list)
+
+        if groups_list is None:
+            return jsonify(Error="No group with that name in record")
+        else:
+            return jsonify(Groups=groups_list)

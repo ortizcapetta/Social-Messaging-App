@@ -25,4 +25,8 @@ class ContactsHandler:
         user_list = []
         for row in contacts:
             user_list.append(self.buildContactsDict(row))
-        return jsonify(Contacts=user_list)
+
+        if user_list is None:
+            return jsonify(Error="No contacts in record")
+        else:
+            return jsonify(Contacts=user_list)
