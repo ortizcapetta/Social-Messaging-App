@@ -1,8 +1,11 @@
 from flask import Flask, request
 from Handlers.userhandler import *
 from Handlers.contactshandler import *
+from Handlers.messageshandler import *
+from Handlers.replieshandler import *
 from Handlers.groupshandler import *
 from Handlers.gUsershandler import *
+
 
 app = Flask(__name__)
 
@@ -48,6 +51,35 @@ def getUsersByFullName(name,lname):
 @app.route('/users/name/<name>') #name can be either last name or first name, it will search for matches in both
 def getUsersByName(name):
     return UserHandler().getUsersName(name)
+
+#######################
+##Routes for Messages##
+#######################
+
+@app.route('/users/messages')
+def getAllMessages():
+    return MessagesHandler().getMessages()
+
+@app.route('/users/<int:uid>/messages')
+def getMessagesByUser(uid):
+    return MessagesHandler().getUserMessages(uid)
+
+@app.route('/users/groups/<int:gid>/messages')
+def getMessagesByGroup(gid):
+    return MessagesHandler().getGroupMessages(gid)
+
+@app.route('/users/messages/<int:mid>')
+def getMessageByID(mid):
+    return MessagesHandler().getMessageID(mid)
+
+##routes for replies##
+@app.route('/users/messages/<int:mid>/replies')
+def getRepliesByMessage(mid):
+    return RepliesHandler().getRepliesByMessage(mid)
+
+@app.route('/users/messages/replies')
+def getAllReplies():
+    return RepliesHandler().getReplies()
 
 
 ###########################

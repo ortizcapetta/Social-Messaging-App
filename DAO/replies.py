@@ -5,7 +5,7 @@ class repliesDAO:
     def __init__(self):
         self.reactions = []
         # [origin, reply]
-        reply0 = [messagesDAO().messages[0][0], messagesDAO().messages[0][0]]
+        reply0 = [messagesDAO().messages[0][0], messagesDAO().messages[3][0]]
         reply1 = [messagesDAO().messages[0][0], messagesDAO().messages[1][0]]
         reply2 = [messagesDAO().messages[0][0], messagesDAO().messages[2][0]]
         self.reactions.append(reply0)
@@ -16,7 +16,7 @@ class repliesDAO:
     def getOrigin(self, mid):
         result = []
         for a in self.reactions:
-            if mid == a[0]:
+            if mid == a[1]:
                 result.append(a)
         return result
 
@@ -24,6 +24,9 @@ class repliesDAO:
     def getReplies(self, mid):
         result = []
         for a in self.reactions:
-            if mid == a[1]:
+            if mid == a[0]:
                 result.append(a)
         return result
+      
+    def getAllReplies(self):
+        return self.reactions
