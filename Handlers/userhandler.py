@@ -19,7 +19,11 @@ class UserHandler:
         user_list = []
         for row in users:
             user_list.append(self.buildUserDict(row))
-        return jsonify(Users=user_list)
+
+        if user_list is None:
+            return jsonify(Error="No groups in record")
+        else:
+            return jsonify(Users=user_list)
 
     def getUsersID(self,uid):
         dao = userDAO()

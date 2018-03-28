@@ -17,7 +17,11 @@ class gUsersHandler:
         users_list = []
         for row in users:
             users_list.append(self.buildgUserDict(row))
-        return jsonify(Users=users_list)
+
+        if users_list is None:
+            return jsonify(Error="No users for this group in record")
+        else:
+            return jsonify(Users=users_list)
 
     #searches for groups specified user is in, might have to test what return value we want/need
     def getGroupsWithUser(self, uid):
@@ -26,4 +30,8 @@ class gUsersHandler:
         groups_list = []
         for row in groups:
             groups_list.append(self.buildgUserDict(row))
-        return jsonify(Groups=groups_list)
+
+        if groups_list is None:
+            return jsonify(Error="No groups with this user in record")
+        else:
+            return jsonify(Groups=groups_list)

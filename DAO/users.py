@@ -4,10 +4,10 @@ class userDAO:
 
     def __init__(self):
         self.users = [] # users in the "database"
-        user0 = [111,'Alejandra','Ortiz',7875554444,'fakegamergirl@placeholder.com']
-        user1 = [112,'Antonio','Lugo',9393332222,'tavern_brawler420@placeholder.com']
-        user2 = [113,'Naruto','Uzumaki',1234567890,'ramenluvr@placeholder.com']
-        user3 = [114,'Gustavo','Reyes',7871112222,'gustiiiiiii@placeholder.com']
+        user0 = [111,'Alejandra','Ortiz',7875554444,'aaaaaaaaaa@placeholder.com', 'password placeholder1']
+        user1 = [112,'Antonio','Lugo',9393332222,'bbbbbbbbbb@placeholder.com', 'password placeholder2']
+        user2 = [113,'Naruto','Uzumaki',1234567890,'ccccccccccc@placeholder.com', 'password placeholder3']
+        user3 = [114,'Gustavo','Reyes',7871112222,'ddddddddddd@placeholder.com', 'password placeholder4']
         self.users.append(user0)
         self.users.append(user1)
         self.users.append(user2)

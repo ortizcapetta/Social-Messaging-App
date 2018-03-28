@@ -86,17 +86,17 @@ def getAllReplies():
 ######Routes for Groups######
 ###########################
 
-@app.route('/groups') #get all groups
+@app.route('/users/groups') #get all groups
 def getGroups():
     group = GroupsHandler()
     return group.getGroups()
 
-@app.route('/groups/<int:gid>') #get all groups with ID
+@app.route('/users/groups/<int:gid>') #get all groups with ID
 def getGroupsById(gid):
     group = GroupsHandler()
     return group.getGroupID(gid)
 
-@app.route('/groups/<name>') #get all groups with Name
+@app.route('/users/groups/<name>') #get all groups with Name
 def getGroupsByName(gname):
     group = GroupsHandler()
     return group.getGroupName(gname)
@@ -111,22 +111,10 @@ def getOwnerGroups(uid):
     group = GroupsHandler()
     return group.getGroupsOwnedBy(uid)
 
-@app.route('/groups/<int:gid>/users') #get all users in group
+@app.route('/users/groups/<int:gid>/users') #get all users in group
 def getGroupUsers(gid):
     users = gUsersHandler()
     return users.getGroupUsers(gid)
-
-
-########## not implemented yet
-@app.route('/groups/messages/<int:mid>') #get all messages in group
-def getGroupMessages(gid):
-    group = GroupsHandler()
-    return group.getGroups()
-
-
-###########################
-######Routes for Messages/Reactions######
-###########################
 
 
 if __name__ == '__main__':

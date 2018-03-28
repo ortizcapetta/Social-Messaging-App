@@ -17,7 +17,11 @@ class reactionsHandler:
         reactions_list = []
         for row in reactions:
             reactions_list.append(self.buildgReactionsDict(row))
-        return jsonify(Reactions=reactions_list)
+
+        if reactions_list is None:
+            return jsonify(Error="No reactions for that message in record")
+        else:
+            return jsonify(Reactions=reactions_list)
 
     #returns all liked/disliked messages of a user
     def getUserReactions(self, uid):
@@ -26,4 +30,8 @@ class reactionsHandler:
         reactions_list = []
         for row in reactions:
             reactions_list.append(self.buildgReactionsDict(row))
-        return jsonify(Reactions=reactions_list)
+
+        if reactions_list is None:
+            return jsonify(Error="No reactions for this user in record")
+        else:
+            return jsonify(Reactions=reactions_list)
