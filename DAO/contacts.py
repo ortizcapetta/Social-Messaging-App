@@ -18,7 +18,3 @@ class contactsDAO:
             elif uid == a[1]:
                 result.append(a[0])
         return result
-
-
-
-
