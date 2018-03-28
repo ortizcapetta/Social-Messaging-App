@@ -1,6 +1,7 @@
 from flask import Flask, request
 from Handlers.userhandler import *
 from Handlers.contactshandler import *
+from Handlers.messageshandler import *
 
 
 app = Flask(__name__)
@@ -48,6 +49,24 @@ def getUsersByFullName(name,lname):
 def getUsersByName(name):
     return UserHandler().getUsersName(name)
 
+#######################
+##Routes for Messages##
+#######################
 
+@app.route('/users/messages')
+def getAllMessages():
+    return MessagesHandler().getMessages()
+
+@app.route('/users/<int:uid>/messages')
+def getMessagesByUser(uid):
+    return MessagesHandler().getUserMessages(uid)
+
+@app.route('/users/groups/<int:gid>/messages')
+def getMessagesByGroup(gid):
+    return MessagesHandler().getGroupMessages(gid)
+
+@app.route('/users/messages/<int:mid>')
+def getMessageByID(mid):
+    return MessagesHandler().getMessageID(mid)
 if __name__ == '__main__':
     app.run()
