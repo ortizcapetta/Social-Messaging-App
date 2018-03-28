@@ -19,6 +19,8 @@ class contactsDAO:
                 result.append(a[0])
         return result
 
+    def getAllContacts(self):
+        return self.contacts
 
 
 

@@ -6,8 +6,8 @@ class ContactsHandler:
 
     def buildUserDict(self, row): #not necessary? have to check
         contacts = {}
-        contacts['uID'] = row[0]
-        contacts['fID'] = row[1]
+        contacts['userID'] = row[0]
+        contacts['friendID'] = row[1]
 
         return contacts
 
@@ -18,3 +18,11 @@ class ContactsHandler:
             return jsonify(Error="No User with ID in record")
         else:
             return jsonify(Contacs=contact)
+
+    def getAllContacts(self):
+        dao = contactsDAO()
+        contacts = dao.getAllContacts()
+        user_list = []
+        for row in contacts:
+            user_list.append(self.buildUserDict(row))
+        return jsonify(Contacts=user_list)

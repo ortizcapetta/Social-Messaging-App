@@ -29,6 +29,28 @@ class userDAO:
             if email == e[4]:
                 result.append(e)
         return result
+
+    def getUsersPhone(self,phone): #searches for phone in DB
+        result = []
+        for p in self.users:
+            if phone == p[3]:
+                result.append(p)
+        return result
+
+    def getUsersName(self,name): #searches by name
+        result = []
+        for n in self.users:
+            if name == n[1] or name == n[2]:
+                result.append(n)
+        return result
+
+    def getUsersFullName(self,name,lname):
+        result = []
+        for n in self.users:
+            if n[1] == name and n[2] == lname:
+                result.append(n)
+        return result
+
 '''
     def getUserContacts(self,uid):
         if uid == 111:

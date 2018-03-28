@@ -8,9 +8,11 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return "Hello World"
+    return "Welcome to Message App"
 
-
+###########################
+######Routes for Users######
+###########################
 @app.route('/users') #get all users
 def getUsers():
     user = UserHandler()
@@ -26,10 +28,25 @@ def getUserById(uid):
 def getUserContacts(uid):
     return ContactsHandler().getUserContacts(uid)
 
+@app.route('/users/contacts')
+def getAllContacts():
+    return ContactsHandler().getAllContacts()
 
-@app.route('/users/email/<email>')  #search by email, not sure if necesary??
+@app.route('/users/email/<email>')  #by email
 def getUserByEmail(email):
     return UserHandler().getUsersEmail(email)
+
+@app.route('/users/phone/<int:phone>') #phone
+def getUsersByPhone(phone):
+    return UserHandler().getUsersPhone(phone)
+
+@app.route('/users/name/<name>_<lname>') #full name, name and last name
+def getUsersByFullName(name,lname):
+    return UserHandler().getUsersFullName(name,lname)
+
+@app.route('/users/name/<name>') #name can be either last name or first name, it will search for matches in both
+def getUsersByName(name):
+    return UserHandler().getUsersName(name)
 
 
 if __name__ == '__main__':
