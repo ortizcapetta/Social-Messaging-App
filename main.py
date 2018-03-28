@@ -2,6 +2,7 @@ from flask import Flask, request
 from Handlers.userhandler import *
 from Handlers.contactshandler import *
 from Handlers.messageshandler import *
+from Handlers.replieshandler import *
 
 
 app = Flask(__name__)
@@ -68,5 +69,16 @@ def getMessagesByGroup(gid):
 @app.route('/users/messages/<int:mid>')
 def getMessageByID(mid):
     return MessagesHandler().getMessageID(mid)
+
+##routes for replies##
+@app.route('/users/messages/<int:mid>/replies')
+def getRepliesByMessage(mid):
+    return RepliesHandler().getRepliesByMessage(mid)
+
+@app.route('/users/messages/replies')
+def getAllReplies():
+    return RepliesHandler().getReplies()
+
+
 if __name__ == '__main__':
     app.run()
