@@ -21,6 +21,3 @@ class contactsDAO:
 
     def getAllContacts(self):
         return self.contacts
-
-
-
