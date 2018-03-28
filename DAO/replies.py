@@ -17,7 +17,7 @@ class repliesDAO:
         result = []
         for a in self.reactions:
             if mid == a[0]:
-                result.append(a[1])
+                result.append(a)
         return result
 
     #Get replies to given message
@@ -25,5 +25,5 @@ class repliesDAO:
         result = []
         for a in self.reactions:
             if mid == a[1]:
-                result.append(a[0])
+                result.append(a)
         return result

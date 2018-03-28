@@ -18,7 +18,7 @@ class messagesDAO:
         result = []
         for a in self.messages:
             if mid == a[0]:
-                result.append(a[4])
+                result.append(a)
         return result
 
     #returns message id's with matching contents (strings only for now)
@@ -26,7 +26,7 @@ class messagesDAO:
         result = []
         for a in self.messages:
             if content == a[4]:
-                result.append(a[0])
+                result.append(a)
         return result
 
     #returns all message id's from group
@@ -34,7 +34,7 @@ class messagesDAO:
         result = []
         for a in self.messages:
             if gid == a[2]:
-                result.append(a[0])
+                result.append(a)
         return result
 
     #returns message time-stamp given ids (work in progress, need to test time/date datatypes)
@@ -42,7 +42,7 @@ class messagesDAO:
         result = []
         for a in self.messages:
             if mid == a[0]:
-                result.append(a[3])
+                result.append(a)
         return result
 
     #returns messages sent by a user id
@@ -50,5 +50,5 @@ class messagesDAO:
         result = []
         for a in self.messages:
             if uid == a[1]:
-                result.append(a[0])
+                result.append(a)
         return result

@@ -26,7 +26,7 @@ class groupsDAO:
         result = []
         for a in self.groups:
             if gid == a[0]:
-                result.append(a[2])
+                result.append(a)
         return result
 
     #searches for groups with specific gid

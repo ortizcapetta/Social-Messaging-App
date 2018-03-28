@@ -14,9 +14,9 @@ class contactsDAO:
         result = []
         for a in self.contacts:
             if uid == a[0]:
-                result.append(a[1])
+                result.append(a)
             elif uid == a[1]:
-                result.append(a[0])
+                result.append(a)
         return result
 
     def getAllContacts(self):
