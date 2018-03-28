@@ -16,14 +16,14 @@ class userDAO:
     def getUsers(self):
         return self.users
 
-    def getUsersID(self,uid): #searches for a specific ID in the DB
+    def getUsersID(self, uid): #searches for a specific ID in the DB
         result = []
         for a in self.users:
             if uid == a[0]:
                 result.append(a)
         return result
 
-    def getUsersEmail(self,email): #searches for email in the DB
+    def getUsersEmail(self, email): #searches for email in the DB
         result = []
         for e in self.users:
             if email == e[4]:

@@ -25,7 +25,7 @@ class UserHandler:
         dao = userDAO()
         uid = dao.getUsersID(uid)
 
-        if uid == None:
+        if uid is None:
             return jsonify(Error="No User with ID in record")
         else:
             return jsonify(Users=uid)
@@ -33,8 +33,11 @@ class UserHandler:
     def getUsersEmail(self,email):
         dao = userDAO()
         email = dao.getUsersEmail(email)
-
-        if email == None:
+        user_list = []
+        for row in email:
+            user_list.append(self.buildUserDict(row))
+        return jsonify(Users=user_list)
+        if email is None:
             return jsonify(Error="No user found with the email %s" % email)
         else:
             return jsonify(Users=email)

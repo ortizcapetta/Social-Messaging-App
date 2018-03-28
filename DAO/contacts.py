@@ -5,7 +5,7 @@ class contactsDAO:
         self.contacts = []
         contact0 = [userDAO().users[0][0], userDAO().users[1][0]]
         contact1 = [userDAO().users[0][0], userDAO().users[2][0]]
-        contact2 = [userDAO().users[1][0], userDAO().users[3][0]]
+        contact2 = [userDAO().users[1][0], userDAO().users[2][0]]
         self.contacts.append(contact0)
         self.contacts.append(contact1)
         self.contacts.append(contact2)
