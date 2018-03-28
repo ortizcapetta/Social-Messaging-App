@@ -24,5 +24,5 @@ class gUsersDAO:
         result = []
         for a in self.uInGroup:
             if gid == a[0]:
-                result.append(a[0])
+                result.append(a[1])
         return result

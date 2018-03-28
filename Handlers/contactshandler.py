@@ -4,7 +4,7 @@ from flask import *
 
 class ContactsHandler:
 
-    def buildUserDict(self, row): #not necessary? have to check
+    def buildContactsDict(self, row): #not necessary? have to check
         contacts = {}
         contacts['userID'] = row[0]
         contacts['friendID'] = row[1]
@@ -24,5 +24,5 @@ class ContactsHandler:
         contacts = dao.getAllContacts()
         user_list = []
         for row in contacts:
-            user_list.append(self.buildUserDict(row))
+            user_list.append(self.buildContactsDict(row))
         return jsonify(Contacts=user_list)

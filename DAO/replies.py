@@ -27,5 +27,6 @@ class repliesDAO:
             if mid == a[0]:
                 result.append(a)
         return result
+      
     def getAllReplies(self):
         return self.reactions

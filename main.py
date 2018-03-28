@@ -3,6 +3,8 @@ from Handlers.userhandler import *
 from Handlers.contactshandler import *
 from Handlers.messageshandler import *
 from Handlers.replieshandler import *
+from Handlers.groupshandler import *
+from Handlers.gUsershandler import *
 
 
 app = Flask(__name__)
@@ -78,6 +80,53 @@ def getRepliesByMessage(mid):
 @app.route('/users/messages/replies')
 def getAllReplies():
     return RepliesHandler().getReplies()
+
+
+###########################
+######Routes for Groups######
+###########################
+
+@app.route('/groups') #get all groups
+def getGroups():
+    group = GroupsHandler()
+    return group.getGroups()
+
+@app.route('/groups/<int:gid>') #get all groups with ID
+def getGroupsById(gid):
+    group = GroupsHandler()
+    return group.getGroupID(gid)
+
+@app.route('/groups/<name>') #get all groups with Name
+def getGroupsByName(gname):
+    group = GroupsHandler()
+    return group.getGroupName(gname)
+
+@app.route('users/<int:uid>/groups') #get all groups with User
+def getUserGroups(uid):
+    group = gUsersHandler()
+    return group.getGroupsWithUser(uid)
+
+@app.route('users/<int:uid>/groups/owners') #get all groups owned by user
+def getOwnerGroups(uid):
+    group = GroupsHandler()
+    return group.getGroupsOwnedBy(uid)
+
+@app.route('/groups/<int:gid>/users') #get all users in group
+def getGroupUsers(gid):
+    users = gUsersHandler()
+    return users.getGroupUsers(gid)
+
+
+########## not implemented yet
+@app.route('/groups/messages/<int:mid>') #get all messages in group
+def getGroupMessages(gid):
+    group = GroupsHandler()
+    return group.getGroups()
+
+
+###########################
+######Routes for Messages/Reactions######
+###########################
 
 
 if __name__ == '__main__':
