@@ -101,12 +101,12 @@ def getGroupsByName(gname):
     group = GroupsHandler()
     return group.getGroupName(gname)
 
-@app.route('users/<int:uid>/groups') #get all groups with User
+@app.route('/users/<int:uid>/groups') #get all groups with User
 def getUserGroups(uid):
     group = gUsersHandler()
     return group.getGroupsWithUser(uid)
 
-@app.route('users/<int:uid>/groups/owners') #get all groups owned by user
+@app.route('/users/<int:uid>/groups/owners') #get all groups owned by user
 def getOwnerGroups(uid):
     group = GroupsHandler()
     return group.getGroupsOwnedBy(uid)

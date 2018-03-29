@@ -23,7 +23,7 @@ class gUsersHandler:
         else:
             return jsonify(Users=users_list)
 
-    #searches for groups specified user is in, might have to test what return value we want/need
+    #searches for groups specified user is in
     def getGroupsWithUser(self, uid):
         dao = gUsersDAO()
         groups = dao.getUserGroups(uid)

@@ -4,7 +4,7 @@ from flask import *
 
 class ContactsHandler:
 
-    def buildContactsDict(self, row): #not necessary? have to check
+    def buildContactsDict(self, row):
         contacts = {}
         contacts['userID'] = row[0]
         contacts['friendID'] = row[1]
