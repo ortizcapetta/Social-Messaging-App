@@ -10,15 +10,19 @@ class ContactsHandler:
         contacts['friendID'] = row[1]
 
         return contacts
-
+    #get contacts of a user
     def getUserContacts(self,uid):
         dao = contactsDAO()
         contact = dao.getUserContacts(uid)
-        if uid is None:
-            return jsonify(Error="No User with ID in record")
+        user_list = []
+        for row in contact:
+            user_list.append(self.buildContactsDict(row))
+
+        if not user_list:
+            return jsonify(Error="No records found"),404
         else:
             return jsonify(Contacs=contact)
-
+    #get all contacts in system
     def getAllContacts(self):
         dao = contactsDAO()
         contacts = dao.getAllContacts()
@@ -26,7 +30,7 @@ class ContactsHandler:
         for row in contacts:
             user_list.append(self.buildContactsDict(row))
 
-        if user_list is None:
-            return jsonify(Error="No contacts in record")
+        if not user_list:
+            return jsonify(Error="No records found"),404
         else:
             return jsonify(Contacts=user_list)

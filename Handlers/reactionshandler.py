@@ -19,8 +19,8 @@ class reactionsHandler:
         for row in reactions:
             reactions_list.append(self.buildgReactionsDict(row))
 
-        if reactions_list is None:
-            return jsonify(Error="No reactions for that message in record")
+        if not reactions_list:
+            return jsonify(Error="No reactions for that message in record"),404
         else:
             return jsonify(Reactions=reactions_list)
 
@@ -32,7 +32,7 @@ class reactionsHandler:
         for row in reactions:
             reactions_list.append(self.buildgReactionsDict(row))
 
-        if reactions_list is None:
-            return jsonify(Error="No reactions for this user in record")
+        if not reactions_list:
+            return jsonify(Error="No reactions for this user in record"),404
         else:
             return jsonify(Reactions=reactions_list)
