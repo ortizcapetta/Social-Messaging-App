@@ -16,7 +16,7 @@ class gUsersDAO:
         result = []
         for a in self.uInGroup:
             if uid == a[1]:
-                result.append(a[0])
+                result.append(a)
         return result
 
     #Get all users in group with gid
@@ -24,5 +24,5 @@ class gUsersDAO:
         result = []
         for a in self.uInGroup:
             if gid == a[0]:
-                result.append(a[1])
+                result.append(a)
         return result
