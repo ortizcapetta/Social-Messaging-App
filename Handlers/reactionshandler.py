@@ -8,6 +8,7 @@ class reactionsHandler:
         reactions = {}
         reactions['uID'] = row[0]
         reactions['mID'] = row[1]
+        reactions['LikeValue'] = row[2]
         return reactions
 
     #returns all reactions of message
