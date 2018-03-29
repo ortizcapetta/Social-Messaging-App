@@ -3,6 +3,7 @@ from Handlers.userhandler import *
 from Handlers.contactshandler import *
 from Handlers.messageshandler import *
 from Handlers.replieshandler import *
+from Handlers.reactionshandler import *
 from Handlers.groupshandler import *
 from Handlers.gUsershandler import *
 
@@ -52,6 +53,10 @@ def getUsersByFullName(name,lname):
 def getUsersByName(name):
     return UserHandler().getUsersName(name)
 
+@app.route('/users/<int:uid>/reactions') #search for user id's reactions
+def getUserReactions(uid):
+    return reactionsHandler().getUserReactions(uid)
+
 #######################
 ##Routes for Messages##
 #######################
@@ -81,6 +86,9 @@ def getRepliesByMessage(mid):
 def getAllReplies():
     return RepliesHandler().getReplies()
 
+@app.route('/users/messages/<int:mid>/reactions') #search for message id's reactions
+def getMessageReactions(mid):
+    return reactionsHandler().getMessageReactions(mid)
 
 ###########################
 ######Routes for Groups######
