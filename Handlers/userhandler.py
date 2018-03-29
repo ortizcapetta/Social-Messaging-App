@@ -11,6 +11,7 @@ class UserHandler:
         users['uLastName'] = row[2]
         users['uPhone'] = row[3]
         users['uEMail'] = row[4]
+        users['uPassword'] = row[5]
         return users
 
     def getUsers(self):
