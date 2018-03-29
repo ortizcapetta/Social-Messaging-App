@@ -19,8 +19,8 @@ class GroupsHandler:
         for row in groups:
             groups_list.append(self.buildGroupDict(row))
 
-        if groups_list is None:
-            return jsonify(Error="No groups in record")
+        if not groups_list:
+            return jsonify(Error="No groups in record"),404
         else:
             return jsonify(Groups=groups_list)
 
@@ -28,8 +28,8 @@ class GroupsHandler:
     def getGroupOwner(self, gid):
         dao = groupsDAO()
         gOwner = dao.getGroupOwner(gid)
-        if gOwner is None:
-            return jsonify(Error="No groups with ID in record")
+        if not gOwner:
+            return jsonify(Error="No groups with ID in record"),404
         else:
             return jsonify(GroupOwner = gOwner)
 
@@ -41,8 +41,8 @@ class GroupsHandler:
         for row in groups:
             groups_list.append(self.buildGroupDict(row))
 
-        if groups_list is None:
-            return jsonify(Error="No groups owned in record")
+        if not groups_list:
+            return jsonify(Error="No groups owned in record"),404
         else:
             return jsonify(Groups=groups_list)
 
@@ -54,8 +54,8 @@ class GroupsHandler:
         for row in groups:
             groups_list.append(self.buildGroupDict(row))
 
-        if groups_list is None:
-            return jsonify(Error="No group with that ID in record")
+        if not groups_list:
+            return jsonify(Error="No group with that ID in record"),404
         else:
             return jsonify(Groups=groups_list)
 
@@ -67,7 +67,7 @@ class GroupsHandler:
         for row in groups:
             groups_list.append(self.buildGroupDict(row))
 
-        if groups_list is None:
-            return jsonify(Error="No group with that name in record")
+        if not groups_list:
+            return jsonify(Error="No group with that name in record"),404
         else:
             return jsonify(Groups=groups_list)

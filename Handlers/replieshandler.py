@@ -14,8 +14,9 @@ class RepliesHandler:
         reply_list = []
         for row in replies:
             reply_list.append(self.buildRepliesDict(row))
-        if reply_list is None:
-            return jsonify(Error = 'No replies to message')
+
+        if not reply_list:
+            return jsonify(Error = 'No replies to message'),404
         else:
             return jsonify(Replies=reply_list)
 
@@ -25,7 +26,7 @@ class RepliesHandler:
         reply_list = []
         for row in replies:
             reply_list.append(self.buildRepliesDict(row))
-        if reply_list is None:
-            return jsonify(Error = 'No replies')
+        if not reply_list:
+            return jsonify(Error = 'No replies'),404
         else:
             return jsonify(Replies=reply_list)

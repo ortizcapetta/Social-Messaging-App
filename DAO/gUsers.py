@@ -7,9 +7,11 @@ class gUsersDAO:
         user0 = [groupsDAO().groups[0][0], userDAO().users[0][0]]
         user1 = [groupsDAO().groups[1][0], userDAO().users[1][0]]
         user2 = [groupsDAO().groups[2][0], userDAO().users[2][0]]
+        user3 = [groupsDAO().groups[2][0],userDAO().users[0][0]]
         self.uInGroup.append(user0)
         self.uInGroup.append(user1)
         self.uInGroup.append(user2)
+        self.uInGroup.append(user3)
 
     #Get all groups of user with uid
     def getUserGroups(self, uid):

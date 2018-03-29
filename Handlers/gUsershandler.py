@@ -18,8 +18,8 @@ class gUsersHandler:
         for row in users:
             users_list.append(self.buildgUserDict(row))
 
-        if users_list is None:
-            return jsonify(Error="No users for this group in record")
+        if not users_list:
+            return jsonify(Error="No users for this group in record"),404
         else:
             return jsonify(Users=users_list)
 
@@ -31,7 +31,7 @@ class gUsersHandler:
         for row in groups:
             groups_list.append(self.buildgUserDict(row))
 
-        if groups_list is None:
-            return jsonify(Error="No groups with this user in record")
+        if not groups_list:
+            return jsonify(Error="No groups with this user in record"),404
         else:
             return jsonify(Groups=groups_list)

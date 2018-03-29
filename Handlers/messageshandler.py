@@ -27,8 +27,8 @@ class MessagesHandler:
         for row in messages:
             message_list.append(self.buildMessageDict(row))
 
-        if message_list is None:
-            return jsonify(Error="User has sent no messages")
+        if not message_list :
+            return jsonify(Error="User has sent no messages"),404
         else:
             return jsonify(Messages=message_list)
 
@@ -40,8 +40,8 @@ class MessagesHandler:
         for row in messages:
             message_list.append(self.buildMessageDict(row))
 
-        if message_list is None:
-            return jsonify(Error="No messages in group")
+        if not message_list:
+            return jsonify(Error="No messages in group"),404
         else:
             return jsonify(Messages=message_list)
 
@@ -52,8 +52,8 @@ class MessagesHandler:
         for row in messages:
             message_list.append(self.buildMessageDict(row))
 
-        if message_list is None:
-            return jsonify(Error="No messages with that id")
+        if not message_list:
+            return jsonify(Error="No messages with that id"),404
         else:
             return jsonify(Messages=message_list)
             
