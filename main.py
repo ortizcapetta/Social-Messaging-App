@@ -119,6 +119,12 @@ def getOwnerGroups(uid):
     group = GroupsHandler()
     return group.getGroupsOwnedBy(uid)
 
+@app.route('/users/groups/<int:gid>/owners') #get all groups owned by user
+def getGroupOwner(gid):
+    group = GroupsHandler()
+    return group.getGroupOwner(gid)
+
+
 @app.route('/users/groups/<int:gid>/users') #get all users in group
 def getGroupUsers(gid):
     users = gUsersHandler()
