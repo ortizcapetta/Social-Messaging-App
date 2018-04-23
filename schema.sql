@@ -1,4 +1,4 @@
-CREATE TABLE User (
+CREATE TABLE Users (
 	uID		    bigserial			    primary key,
 	uFirstName	varchar(21)			    NOT NULL,
 	uLastName	varchar(21)		    	NOT NULL,
@@ -8,7 +8,7 @@ CREATE TABLE User (
 	
 )
 
-CREATE TABLE Message (
+CREATE TABLE Messages (
 	mID		    bigserial		    	primary key,
 	sentBy		foreign key references	User(uID),
 	gID		    foreign key references	Group(gID),	--Group chat msg is in
@@ -16,20 +16,20 @@ CREATE TABLE Message (
 	content	    varchar(300)			NOT NULL
 )
 
-CREATE TABLE Likes (
-	user		foreign key references	User(uID),
-    message	    foreign key references	Message(mID),
+CREATE TABLE Reactions (
+	uID		foreign key references	User(uID),
+    mID	    foreign key references	Message(mID),
     likeValue	int				        NOT NULL,
     Primary key (user,message)
 )
 
-CREATE TABLE Group (
+CREATE TABLE Groups (
     gID		    bigserial			    primary key,
     gName		varchar(21)			    NOT NULL,
     gOwner	    foreign key references  User(uID)
 )
 
-CREATE TABLE Reply (
+CREATE TABLE Replies (
 	originID	foreign key references	Message(mID),
 	replyID		foreign key references	Message(mID),
 	Primary key (originID, replyID)

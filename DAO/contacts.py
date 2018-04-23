@@ -1,23 +1,27 @@
-from DAO.users import *
+from dbconfig import dbconfig
+import psycopg2
 
 class contactsDAO:
     def __init__(self):
-        self.contacts = []
-        contact0 = [userDAO().users[0][0], userDAO().users[1][0]]
-        contact1 = [userDAO().users[0][0], userDAO().users[2][0]]
-        contact2 = [userDAO().users[1][0], userDAO().users[2][0]]
-        self.contacts.append(contact0)
-        self.contacts.append(contact1)
-        self.contacts.append(contact2)
+        curl = "dbname=%s user=%s password=%s" % (dbconfig['dbname'],
+                                                     dbconfig['user'],
+                                                     dbconfig['password'])
+        self.connection = psycopg2._connect(curl)
 
     def getUserContacts(self, uid):
+        cursor = self.connection.cursor()
+        query = "select * from Contacts where uID= %s;"
+        cursor.execute(query,(uid,))
         result = []
-        for a in self.contacts:
-            if uid == a[0]:
-                result.append(a)
-            elif uid == a[1]:
-                result.append(a)
+        for row in cursor:
+            result.append(row)
         return result
 
     def getAllContacts(self):
-        return self.contacts
+        cursor = self.connection.cursor()
+        query = "select * from Contacts;"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result

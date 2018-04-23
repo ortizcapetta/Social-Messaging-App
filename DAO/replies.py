@@ -1,32 +1,38 @@
-from DAO.users import *
-from DAO.messages import *
+from dbconfig import dbconfig
+import psycopg2
 
 class repliesDAO:
     def __init__(self):
-        self.reactions = []
-        # [origin, reply]
-        reply0 = [messagesDAO().messages[0][0], messagesDAO().messages[3][0]]
-        reply1 = [messagesDAO().messages[0][0], messagesDAO().messages[1][0]]
-        reply2 = [messagesDAO().messages[0][0], messagesDAO().messages[2][0]]
-        self.reactions.append(reply0)
-        self.reactions.append(reply1)
-        self.reactions.append(reply2)
+        curl = "dbname=%s user=%s password=%s" % (dbconfig['dbname'],
+                                                     dbconfig['user'],
+                                                     dbconfig['password'])
+        self.connection = psycopg2._connect(curl)
 
     #Get original message that the message is replying to
     def getOrigin(self, mid):
+        cursor = self.connection.cursor()
+        query = "select * from Replies where replyID = %s;"
+        cursor.execute(query,(mid,))
         result = []
-        for a in self.reactions:
-            if mid == a[1]:
-                result.append(a)
+        for row in cursor:
+            result.append(row)
         return result
 
     #Get replies to given message
     def getReplies(self, mid):
+        cursor = self.connection.cursor()
+        query = "select * from Replies where originID = %s;"
+        cursor.execute(query,(mid,))
         result = []
-        for a in self.reactions:
-            if mid == a[0]:
-                result.append(a)
+        for row in cursor:
+            result.append(row)
         return result
       
     def getAllReplies(self):
-        return self.reactions
+        cursor = self.connection.cursor()
+        query = "select * from Replies;"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
