@@ -3,7 +3,7 @@ from DAO.users import *
 class groupsDAO:
     def __init__(self):
         self.groups = []
-        group0 = [111, 'nerds', userDAO().users[0][0]]
+        group0 = [111, 'nerds', userDAO().users[0][0],]
         group1 = [222,'friends', userDAO().users[1][0]]
         group2 = [333,'grupo de databases', userDAO().users[2][0]]
         self.groups.append(group0)

@@ -1,9 +1,15 @@
-
-
+from dbconfig import dbconfig
+import psycopg2
 class userDAO:
 
     def __init__(self):
-        self.users = [] # users in the "database"
+        curl = "dbname=%s user=%s password=%s" % (dbconfig['dbname'],
+                                                     dbconfig['user'],
+                                                     dbconfig['password'])
+
+        self.connection = psycopg2._connect(curl)
+
+        '''self.users = [] # users in the "database"
         user0 = [111,'Alejandra','Ortiz',7875554444,'aaaaaaaaaa@placeholder.com', 'password placeholder1']
         user1 = [112,'Antonio','Lugo',9393332222,'bbbbbbbbbb@placeholder.com', 'password placeholder2']
         user2 = [113,'Naruto','Uzumaki',1234567890,'ccccccccccc@placeholder.com', 'password placeholder3']
@@ -11,16 +17,24 @@ class userDAO:
         self.users.append(user0)
         self.users.append(user1)
         self.users.append(user2)
-        self.users.append(user3)
+        self.users.append(user3)'''
 
     def getUsers(self):
-        return self.users
+        cursor = self.connection.cursor()
+        query = "select * from Users;"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     def getUsersID(self, uid): #searches for a specific ID in the DB
+        cursor = self.connection.cursor()
+        query = "select * from Users where uID= %s"
+        cursor.execute(query,(uid,))
         result = []
-        for a in self.users:
-            if uid == a[0]:
-                result.append(a)
+        for row in cursor:
+            result.append(row)
         return result
 
     def getUsersEmail(self, email): #searches for email in the DB
