@@ -1,60 +1,71 @@
-from DAO.users import *
-from DAO.groups import *
+from dbconfig import dbconfig
+import psycopg2
 from datetime import datetime
 
 class messagesDAO:
     def __init__(self):
-        self.messages = []
-        #check the date/time format, may be incorrect
-        message0 = [111, userDAO().users[0][0], groupsDAO().groups[0][0], '2018-03-27 04:05:44', 'example content1']
-        message1 = [222, userDAO().users[1][0], groupsDAO().groups[1][0], '2018-03-27 05:10:45', 'example content2']
-        message2 = [333, userDAO().users[2][0], groupsDAO().groups[2][0], '2018-03-01 09:23:02', 'example content3']
-        message3 = [116, userDAO().users[1][0], groupsDAO().groups[0][0], '2018-03-27 04:15:44', 'Anyone online?']
-        self.messages.append(message0)
-        self.messages.append(message1)
-        self.messages.append(message2)
-        self.messages.append(message3)
+        curl = "dbname=%s user=%s password=%s" % (dbconfig['dbname'],
+                                                     dbconfig['user'],
+                                                     dbconfig['password'])
+        self.connection = psycopg2._connect(curl)
 
     #returns all messages in the DB
     def getMessages(self):
-        return self.messages
+        cursor = self.connection.cursor()
+        query = "select * from Messages;"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     #returns message content with matching ids
     def getMessageID(self, mid):
+        cursor = self.connection.cursor()
+        query = "select * from Messages where mID = %s;"
+        cursor.execute(query,(mid,))
         result = []
-        for a in self.messages:
-            if mid == a[0]:
-                result.append(a)
+        for row in cursor:
+            result.append(row)
         return result
 
     #returns message id's with matching contents (strings only for now)
     def getMessageContent(self, content):
+        cursor = self.connection.cursor()
+        query = "select * from Messages where content = %s;"
+        cursor.execute(query,(content,))
         result = []
-        for a in self.messages:
-            if content == a[4]:
-                result.append(a)
+        for row in cursor:
+            result.append(row)
         return result
 
-    #returns all message id's from group
+    #returns all message id's from group with gid
+    #might need to edit once schema is updated because we might have to remove gid from Messages, if so use a natural inner join
     def getGroupMessages(self, gid):
+        cursor = self.connection.cursor()
+        query = "select * from Messages where gid = %s;"
+        cursor.execute(query,(gid,))
         result = []
-        for a in self.messages:
-            if gid == a[2]:
-                result.append(a)
+        for row in cursor:
+            result.append(row)
         return result
 
-    #returns message time-stamp given ids (work in progress, need to test time/date datatypes)
-    def getMessageTime(self, mid):
+    #returns message with a time-stamp (work in progress, need to test time/date datatypes)
+    def getMessageTime(self, timeStamp):
+        cursor = self.connection.cursor()
+        query = "select * from Messages where timeStamp = %s;"
+        cursor.execute(query,(timeStamp,))
         result = []
-        for a in self.messages:
-            if mid == a[0]:
-                result.append(a)
+        for row in cursor:
+            result.append(row)
         return result
 
     #returns messages sent by a user id
     def getMessageSentBy(self, uid):
+        cursor = self.connection.cursor()
+        query = "select * from Messages where uid = %s;"
+        cursor.execute(query,(uid,))
         result = []
-        for a in self.messages:
-            if uid == a[1]:
-                result.append(a)
+        for row in cursor:
+            result.append(row)
         return result
