@@ -21,7 +21,8 @@ class repliesDAO:
     #Get replies to given message
     def getReplies(self, mid):
         cursor = self.connection.cursor()
-        query = "select * from Replies where originID = %s;"
+        query = "select mID,uID,gID,timestamp,content from Replies inner join" \
+                " Messages on Replies.replyID = Messages.mID where Replies.originID = %s;"
         cursor.execute(query,(mid,))
         result = []
         for row in cursor:
