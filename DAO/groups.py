@@ -2,48 +2,63 @@ from DAO.users import *
 
 class groupsDAO:
     def __init__(self):
-        self.groups = []
-        group0 = [111, 'nerds', userDAO().users[0][0],]
-        group1 = [222,'friends', userDAO().users[1][0]]
-        group2 = [333,'grupo de databases', userDAO().users[2][0]]
-        self.groups.append(group0)
-        self.groups.append(group1)
-        self.groups.append(group2)
+        curl = "dbname=%s user=%s password=%s" % (dbconfig['dbname'],
+                                                  dbconfig['user'],
+                                                  dbconfig['password'])
+
+        self.connection = psycopg2._connect(curl)
 
     def getGroups(self):
-        return self.groups
+        cursor = self.connection.cursor()
+        query = "select * from Groups;"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     #searches for groups with specific owner
     def getOwnerGroups(self, uid):
+        cursor = self.connection.cursor()
+        query = "select * from Groups where gowner = %s ;"
+        cursor.execute(query,(uid,))
         result = []
-        for a in self.groups:
-            if uid == a[2]:
-                result.append(a)
+        for row in cursor:
+            result.append(row)
         return result
 
     #searches for owner of specific group
+
+    #REVISIT !!!!!!! #
     def getGroupOwner(self, gid):
+        cursor = self.connection.cursor()
+        # i am confused with this query @_@
+        query = "select * from Groups natural inner join Users where gid = %s and uID = gowner"
+        cursor.execute(query, (gid,))
         result = []
-        for a in self.groups:
-            if gid == a[0]:
-                result.append(a)
+        for row in cursor:
+            result.append(row)
         return result
 
     #searches for groups with specific gid
     def getGroupID(self, gid):
+        cursor = self.connection.cursor()
+        query = "select * from Groups where gid = %s ;"
+        cursor.execute(query, (gid,))
         result = []
-        for a in self.groups:
-            if gid == a[0]:
-                result.append(a)
+        for row in cursor:
+            result.append(row)
         return result
 
     #searches for groups with specific names
     def getGroupName(self, gname):
+        cursor = self.connection.cursor()
+        query = "select * from Groups where gname = %s;" ##have to edit this query and route too!!
+        #what if names have spaces, how is that put on the url?
+        cursor.execute(query, (gname,))
         result = []
-        for a in self.groups:
-            if gname == a[1]:
-                result.append(a)
+        for row in cursor:
+            result.append(row)
         return result
-    
         
         

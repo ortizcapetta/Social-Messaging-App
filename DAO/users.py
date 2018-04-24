@@ -22,7 +22,7 @@ class userDAO:
 
     def getUsersID(self, uid): #searches for a specific ID in the DB
         cursor = self.connection.cursor()
-        query = "select * from Users where uID= %s"
+        query = "select * from Users where uID= %s;"
         cursor.execute(query,(uid,))
         result = []
         for row in cursor:
@@ -31,7 +31,7 @@ class userDAO:
 
     def getUsersEmail(self, email): #searches for email in the DB
         cursor = self.connection.cursor()
-        query = "select * from Users where email= %s"
+        query = "select * from Users where email= %s;"
         cursor.execute(query, (email,))
         result = []
         for row in cursor:
@@ -40,7 +40,7 @@ class userDAO:
 
     def getUsersPhone(self,phone): #searches for phone in DB
         cursor = self.connection.cursor()
-        query = "select * from Users where phone= %s"
+        query = "select * from Users where phone= %s;"
         cursor.execute(query, (phone,))
         result = []
         for row in cursor:
@@ -49,7 +49,7 @@ class userDAO:
 
     def getUsersName(self,name): #searches by name
         cursor = self.connection.cursor()
-        query = "select * from Users where ufirstname = %s or ulastname = %s"
+        query = "select * from Users where ufirstname = %s or ulastname = %s;"
         cursor.execute(query, (name, name,))
         result = []
         for row in cursor:
@@ -58,7 +58,7 @@ class userDAO:
 
     def getUsersFullName(self,name,lname):
         cursor = self.connection.cursor()
-        query = "select * from Users where ufirstname =%s and ulastname = %s"
+        query = "select * from Users where ufirstname =%s and ulastname = %s;"
         cursor.execute(query, (name, lname,))
         result = []
         for row in cursor:
