@@ -10,7 +10,7 @@ CREATE TABLE Users (
 
 CREATE TABLE Messages (
 	mID		    bigserial		    	primary key,
-	sentBy		integer references	Users(uID),
+	uID		integer references	Users(uID),
 	gID		    integer references	Groups(gID),	--Group chat msg is in
 	timeStamp	timestamp		    	NOT NULL,
 	content	    varchar(300)			NOT NULL
