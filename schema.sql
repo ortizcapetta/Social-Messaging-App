@@ -3,46 +3,46 @@ CREATE TABLE Users (
 	uFirstName	varchar(21)			    NOT NULL,
 	uLastName	varchar(21)		    	NOT NULL,
     password	varchar(42)		    	NOT NULL,	--encrypted password
-	phoneNum	int				        NOT NULL,
-	email		varchar(100)			NOT NULL
+	phoneNum	varchar(10)			        NOT NULL,
+	email		varchar(100)			NOT NULL UNIQUE
 	
 )
 
 CREATE TABLE Messages (
 	mID		    bigserial		    	primary key,
-	sentBy		foreign key references	User(uID),
-	gID		    foreign key references	Group(gID),	--Group chat msg is in
-	timeStamp	datetime		    	NOT NULL,
+	uID		integer references	Users(uID),
+	gID		    integer references	Groups(gID),	--Group chat msg is in
+	timeStamp	timestamp		    	NOT NULL,
 	content	    varchar(300)			NOT NULL
 )
 
 CREATE TABLE Reactions (
-	uID		foreign key references	User(uID),
-    mID	    foreign key references	Message(mID),
+	uID		integer  references	Users(uID),
+    mID	    integer references	Messages(mID),
     likeValue	int				        NOT NULL,
-    Primary key (user,message)
+    Primary key (uID,mID)
 )
 
 CREATE TABLE Groups (
-    gID		    bigserial			    primary key,
+    gID		    bigserial  primary key,
     gName		varchar(21)			    NOT NULL,
-    gOwner	    foreign key references  User(uID)
+    gOwner	    integer references  Users(uID)
 )
 
 CREATE TABLE Replies (
-	originID	foreign key references	Message(mID),
-	replyID		foreign key references	Message(mID),
+	originID	integer references	Messages(mID),
+	replyID		integer references	Messages(mID),
 	Primary key (originID, replyID)
 )
 
 CREATE TABLE GUsers (
-	gID		    foreign key references	    Group(gID),
-	uID		    foreign key references	    User(uID),
+	gID		    integer references	    Groups(gID),
+	uID		    integer references	    Users(uID),
 	Primary key(gID, uID)
 )
 
 CREATE TABLE Contacts (
-	uID		    foreign key references	    User(uID),	--person
-	friend	    foreign key references	    User(uID),	--friends
+	uID		    integer references	    Users(uID),	--person
+	friend	    integer references	    Users(uID),	--friends
 	Primary key(uID,friend)
 )

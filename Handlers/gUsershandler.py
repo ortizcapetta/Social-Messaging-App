@@ -5,10 +5,18 @@ from flask import *
 class gUsersHandler:
 
     def buildgUserDict(self, row):
-        gUsers = {}
+      ''' gUsers = {}
         gUsers['gID'] = row[0]
         gUsers['uID'] = row[1]
-        return gUsers
+        return gUsers'''
+      users = {}
+      users['uID'] = row[0]
+      users['uFirstName'] = row[1]
+      users['uLastName'] = row[2]
+      users['password'] = row[3]
+      users['phone'] = row[4]
+      users['email'] = row[5]
+      return users
 
     #returns all users in specified group
     def getGroupUsers(self, gid):
@@ -18,10 +26,7 @@ class gUsersHandler:
         for row in users:
             users_list.append(self.buildgUserDict(row))
 
-        if not users_list:
-            return jsonify(Error="No users for this group in record"),404
-        else:
-            return jsonify(Users=users_list)
+        return jsonify(Users=users_list)
 
     #searches for groups specified user is in
     def getGroupsWithUser(self, uid):
@@ -31,7 +36,4 @@ class gUsersHandler:
         for row in groups:
             groups_list.append(self.buildgUserDict(row))
 
-        if not groups_list:
-            return jsonify(Error="No groups with this user in record"),404
-        else:
-            return jsonify(Groups=groups_list)
+        return jsonify(Groups=groups_list)
