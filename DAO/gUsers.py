@@ -9,11 +9,13 @@ class gUsersDAO:
 
         self.connection = psycopg2._connect(curl)
 
+    #NEED TO FIX
+
     #Get all groups of user with uid
     def getUserGroups(self, uid):
         cursor = self.connection.cursor()
-        query = "select * from gUsers natural inner join Users where uID = %s;" #idk what im doin'
-        cursor.execute(query)
+        query = "select * from gUsers where uID = %s or owner = %s;" #idk what im doin'
+        cursor.execute(query,(uid,uid))
         result = []
         for row in cursor:
             result.append(row)

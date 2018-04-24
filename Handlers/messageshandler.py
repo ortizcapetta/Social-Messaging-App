@@ -6,7 +6,7 @@ class MessagesHandler:
     def buildMessageDict(self,row):
         messages = {}
         messages['mID']= row[0]
-        messages['sentBy'] = row[1]
+        messages['uID'] = row[1]
         messages['gID'] = row[2]
         messages['timestamp'] = row[3]
         messages['content'] = row[4]
@@ -27,10 +27,7 @@ class MessagesHandler:
         for row in messages:
             message_list.append(self.buildMessageDict(row))
 
-        if not message_list :
-            return jsonify(Error="User has sent no messages"),404
-        else:
-            return jsonify(Messages=message_list)
+        return jsonify(Messages=message_list)
 
 
     def getGroupMessages(self,gid):
@@ -40,10 +37,7 @@ class MessagesHandler:
         for row in messages:
             message_list.append(self.buildMessageDict(row))
 
-        if not message_list:
-            return jsonify(Error="No messages in group"),404
-        else:
-            return jsonify(Messages=message_list)
+        return jsonify(Messages=message_list)
 
     def getMessageID(self,mid):
         dao = messagesDAO()
@@ -52,8 +46,5 @@ class MessagesHandler:
         for row in messages:
             message_list.append(self.buildMessageDict(row))
 
-        if not message_list:
-            return jsonify(Error="No messages with that id"),404
-        else:
-            return jsonify(Messages=message_list)
+        return jsonify(Messages=message_list)
             

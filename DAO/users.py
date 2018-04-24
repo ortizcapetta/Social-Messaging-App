@@ -56,7 +56,7 @@ class userDAO:
             result.append(row)
         return result
 
-    def getUsersFullName(self,name,lname):
+    def getUsersFullName(self,name, lname):
         cursor = self.connection.cursor()
         query = "select * from Users where ufirstname =%s and ulastname = %s;"
         cursor.execute(query, (name, lname,))
