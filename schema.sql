@@ -6,7 +6,7 @@ CREATE TABLE Users (
 	phoneNum	varchar(10)			        NOT NULL,
 	email		varchar(100)			NOT NULL UNIQUE
 	
-)
+);
 
 CREATE TABLE Messages (
 	mID		    bigserial		    	primary key,
@@ -14,35 +14,35 @@ CREATE TABLE Messages (
 	gID		    integer references	Groups(gID),	--Group chat msg is in
 	timeStamp	timestamp		    	NOT NULL,
 	content	    varchar(300)			NOT NULL
-)
+);
 
 CREATE TABLE Reactions (
 	uID		integer  references	Users(uID),
     mID	    integer references	Messages(mID),
     likeValue	int				        NOT NULL,
     Primary key (uID,mID)
-)
+);
 
 CREATE TABLE Groups (
     gID		    bigserial  primary key,
     gName		varchar(21)			    NOT NULL,
     gOwner	    integer references  Users(uID)
-)
+);
 
 CREATE TABLE Replies (
 	originID	integer references	Messages(mID),
 	replyID		integer references	Messages(mID),
 	Primary key (originID, replyID)
-)
+);
 
 CREATE TABLE GUsers (
 	gID		    integer references	    Groups(gID),
 	uID		    integer references	    Users(uID),
 	Primary key(gID, uID)
-)
+);
 
 CREATE TABLE Contacts (
 	uID		    integer references	    Users(uID),	--person
 	friend	    integer references	    Users(uID),	--friends
 	Primary key(uID,friend)
-)
+);
