@@ -10,6 +10,7 @@ class ContactsHandler:
         contacts['friendID'] = row[1]
 
         return contacts
+        
     #get contacts of a user
     def getUserContacts(self,uid):
         dao = contactsDAO()
@@ -22,6 +23,7 @@ class ContactsHandler:
             return jsonify(Error="No records found"),404
         else:
             return jsonify(Contacs=contact)
+
     #get all contacts in system
     def getAllContacts(self):
         dao = contactsDAO()
