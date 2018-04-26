@@ -41,7 +41,7 @@ class ContactsHandler:
         if not user_list:
             return jsonify(Error="No records found"),404
         else:
-            return jsonify(Contacs=contact)
+            return jsonify(Contacs=contact)'''
 
     #get all contacts in system
     def getAllContacts(self):
@@ -50,4 +50,4 @@ class ContactsHandler:
         user_list = []
         for row in contacts:
             user_list.append(self.buildContactsDict(row))
-        return jsonify(Contacts=user_list) '''
+        return jsonify(Contacts=user_list)

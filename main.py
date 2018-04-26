@@ -10,7 +10,6 @@ from Handlers.gUsershandler import *
 
 app = Flask(__name__)
 
-
 @app.route('/')
 def home():
     return "Welcome to Message App"
