@@ -63,7 +63,7 @@ class messagesDAO:
     #returns messages sent by a user id
     def getMessageSentBy(self, uid):
         cursor = self.connection.cursor()
-        query = "select * from Messages where uid = %s;"
+        query = "select * from Messages where uID = %s;"
         cursor.execute(query,(uid,))
         result = []
         for row in cursor:
