@@ -2,6 +2,6 @@
 
 dbconfig = {
     'user': 'dbusr',
-    'password': '****',
+    'password': 'dbortiz',
     'dbname': 'socialdb'
 }
