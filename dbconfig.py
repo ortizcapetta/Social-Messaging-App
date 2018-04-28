@@ -1,7 +1,7 @@
-#Database configuration information
+#Database config
 
-pg_config = {
-    'user' : 'dev',
-    'passwd' : 'admin',
-    'dbname' : 'Social-Messaging-App'
+dbconfig = {
+    'user': 'dbusr',
+    'password': '****',
+    'dbname': 'socialdb'
 }
