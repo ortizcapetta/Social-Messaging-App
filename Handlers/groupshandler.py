@@ -54,10 +54,7 @@ class GroupsHandler:
         for row in groups:
             groups_list.append(self.buildGroupDict(row))
 
-        if not groups_list:
-            return jsonify(Error="No group with that ID in record"),404
-        else:
-            return jsonify(Groups=groups_list)
+        return jsonify(Groups=groups_list)
 
     #searches for groups with specific names
     def getGroupName(self, gname):
