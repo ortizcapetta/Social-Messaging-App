@@ -32,6 +32,7 @@ class UserHandler:
         for row in uid:
             user_list.append(self.buildUserDict(row))
         return jsonify(Users=user_list)
+        
     #search by email
     def getUsersEmail(self,email):
         dao = userDAO()

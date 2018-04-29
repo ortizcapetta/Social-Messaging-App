@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from Handlers.userhandler import *
 from Handlers.contactshandler import *
 from Handlers.messageshandler import *
@@ -6,9 +6,11 @@ from Handlers.replieshandler import *
 from Handlers.reactionshandler import *
 from Handlers.groupshandler import *
 from Handlers.gUsershandler import *
+from flask_cors import CORS, cross_origin
 
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/')
 def home():
