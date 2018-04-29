@@ -18,6 +18,13 @@ class gUsersHandler:
       users['email'] = row[5]
       return users
 
+    def buildGroupDict(self, row):
+        groups = {}
+        groups['gID'] = row[0]
+        groups['gName'] = row[1]
+        groups['gOwner'] = row[2]
+        return groups
+
     #returns all users in specified group
     def getGroupUsers(self, gid):
         dao = gUsersDAO()
@@ -34,6 +41,6 @@ class gUsersHandler:
         groups = dao.getUserGroups(uid)
         groups_list = []
         for row in groups:
-            groups_list.append(self.buildgUserDict(row))
+            groups_list.append(self.buildGroupDict(row))
 
         return jsonify(Groups=groups_list)
