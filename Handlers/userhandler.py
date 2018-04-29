@@ -40,8 +40,6 @@ class UserHandler:
         user_list = []
         for row in email:
             user_list.append(self.buildUserDict(row))
-
-
         return jsonify(Users=user_list)
     #search by phone
     def getUsersPhone(self,phone):

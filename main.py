@@ -19,6 +19,7 @@ def home():
 ###########################
 ######Routes for Users######
 ###########################
+
 @app.route('/users') #get all users
 def getUsers():
     user = UserHandler()

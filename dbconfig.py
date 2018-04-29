@@ -1,4 +1,4 @@
-#Database configuration information
+#Database config
 
 dbconfig = {
     'user' : 'appusr',
