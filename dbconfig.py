@@ -1,7 +1,7 @@
-#Database configuration information
+#Database config
 
 dbconfig = {
-    'user' : 'dev',
-    'passwd' : 'admin',
-    'dbname' : 'Social-Messaging-App'
+    'user': 'dbusr',
+    'password': 'dbortiz',
+    'dbname': 'socialdb'
 }
