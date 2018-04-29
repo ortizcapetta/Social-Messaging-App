@@ -14,8 +14,8 @@ class gUsersDAO:
     #Get all groups of user with uid
     def getUserGroups(self, uid):
         cursor = self.connection.cursor()
-        query = "select * from gUsers where uID = %s or owner = %s;" #idk what im doin'
-        cursor.execute(query,(uid,uid))
+        query = "select gid,gname,gowner from gUsers natural inner join groups where gUsers.uid = %s"
+        cursor.execute(query,(uid,))
         result = []
         for row in cursor:
             result.append(row)
@@ -24,7 +24,7 @@ class gUsersDAO:
     #Get all users in group with gid
     def getUsersInGroup(self, gid):
         cursor = self.connection.cursor()
-        query = "select * from gUsers natural inner join Users where uID = %s;"  # idk what im doin'
+        query = "select * from gUsers natural inner join Users where uID = %s;"
         cursor.execute(query)
         result = []
         for row in cursor:
