@@ -91,9 +91,17 @@ def getAllReplies():
 @app.route('/users/messages/<int:mid>/reactions') #search for message id's reactions
 def getMessageReactions(mid):
     return reactionsHandler().getMessageReactions(mid)
+@app.route('/users/messages/<int:mid>/reactions/likes') #search for message id's reactions
+def getMessageLikes(mid):
+    return reactionsHandler().getMessageLikes(mid)
+@app.route('/users/messages/<int:mid>/reactions/dislikes') #search for message id's reactions
+def getMessageDislikes(mid):
+    return reactionsHandler().getMessageDislikes(mid)
 
-###########################
-######Routes for Groups######
+
+
+##########################
+#####Routes for Groups####
 ###########################
 
 @app.route('/users/groups') #get all groups
