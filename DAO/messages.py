@@ -9,7 +9,7 @@ class messagesDAO:
                                                      dbconfig['password'])
         self.connection = psycopg2._connect(curl)
 
-    #returns all messages in the DB
+    '''#returns all messages in the DB
     def getMessages(self):
         cursor = self.connection.cursor()
         query = "select * from Messages;"
@@ -18,7 +18,18 @@ class messagesDAO:
         for row in cursor:
             result.append(row)
         return result
+        '''
 
+
+    def getMessages(self):
+        cursor = self.connection.cursor()
+        query = "select mid,uid,gid,timestamp,content,ufirstname,ulastname from" \
+                " Messages natural inner join users order by(timestamp) DESC;"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
     #returns message content with matching ids
     def getMessageID(self, mid):
         cursor = self.connection.cursor()
