@@ -12,12 +12,23 @@ class MessagesHandler:
         messages['content'] = row[4]
         return messages
 
+    def buildMessageDict2(self,row):
+        messages = {}
+        messages['mID']= row[0]
+        messages['uID'] = row[1]
+        messages['gID'] = row[2]
+        messages['timestamp'] = row[3]
+        messages['content'] = row[4]
+        messages['ufirstName'] = row[5]
+        messages['ulastname'] = row[6]
+
+        return messages
     def getMessages(self):
         dao = messagesDAO()
         messages = dao.getMessages()
         message_list = []
         for row in messages:
-            message_list.append(self.buildMessageDict(row))
+            message_list.append(self.buildMessageDict2(row))
         return jsonify(Messages=message_list)
 
     def getUserMessages(self,uid):
