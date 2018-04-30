@@ -27,3 +27,23 @@ class reactionsDAO:
         for row in cursor:
             result.append(row)
         return result
+    #Get reactions to a message
+    def getMessageLikes(self,mid):
+        likeValue = 1
+        cursor = self.connection.cursor()
+        query = "select * from Reactions where mid = %s and likeValue = %s;"
+        cursor.execute(query, (mid, likeValue,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getMessageDislikes(self, mid,):
+        likeValue = -1
+        cursor = self.connection.cursor()
+        query = "select * from Reactions where mid = %s and likeValue = %s;"
+        cursor.execute(query, (mid, likeValue,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
