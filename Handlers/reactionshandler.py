@@ -20,7 +20,6 @@ class reactionsHandler:
         return reactions
 
 
-
     #returns all reactions of message
     def getMessageReactions(self, mid):
         dao = reactionsDAO()
