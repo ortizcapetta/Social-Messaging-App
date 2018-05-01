@@ -98,6 +98,13 @@ def getMessageLikes(mid):
 def getMessageDislikes(mid):
     return reactionsHandler().getMessageDislikes(mid)
 
+@app.route('/users/messages/<int:mid>/reactions/numlikes') #search for message id's reactions
+def getMessageLikesCount(mid):
+    return reactionsHandler().getMessageLikeCount(mid)
+
+@app.route('/users/messages/<int:mid>/reactions/numdislikes') #search for message id's reactions
+def getMessageDislikesCount(mid):
+    return reactionsHandler().getMessageDislikeCount(mid)
 
 
 ##########################

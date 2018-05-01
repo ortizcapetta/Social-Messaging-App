@@ -17,7 +17,12 @@ class reactionsHandler:
 
         return reactions
 
+    def buildLikesCountDict(self, row):
+        reactions = {}
+        reactions['mID'] = row[0]
+        reactions['count'] = row[1]
 
+        return reactions
 
     #returns all reactions of message
     def getMessageReactions(self, mid):
@@ -46,7 +51,25 @@ class reactionsHandler:
         reactions = dao.getMessageDislikes(mid)
         reactions_list = []
         for row in reactions:
-            reactions_list.append(self.buildReactionsDict(row))
+            reactions_list.append(self.buildLikesDict(row))
+
+        return jsonify(Reactions=reactions_list)
+
+    def getMessageLikeCount(self, mid):
+        dao = reactionsDAO()
+        reactions = dao.getNumberofLikes(mid)
+        reactions_list = []
+        for row in reactions:
+            reactions_list.append(self.buildLikesCountDict(row))
+
+        return jsonify(Reactions=reactions_list)
+
+    def getMessageDislikeCount(self, mid):
+        dao = reactionsDAO()
+        reactions = dao.getNumberofDislikes(mid)
+        reactions_list = []
+        for row in reactions:
+            reactions_list.append(self.buildLikesCountDict(row))
 
         return jsonify(Reactions=reactions_list)
 
