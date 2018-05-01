@@ -55,7 +55,7 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
             var today = new Date();
             // Might have to rename the fields here to be inline with our schema
             thisCtrl.messageList.unshift({"mID": nextId, "uID" : nextID, "gID" : 2, "timestamp" :today , "content" : msg,
-            "ufirstName": author, "ulastname": author});
+            "name": author});
             thisCtrl.newText = "";
             print(today)
         };
