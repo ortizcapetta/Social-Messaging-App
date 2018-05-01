@@ -35,7 +35,7 @@ class reactionsDAO:
     def getMessageLikes(self,mid):
         likeValue =1
         cursor = self.connection.cursor()
-        query = "select ufirstname,ulastname as num from " \
+        query = "select ufirstname,ulastname from " \
                 "reactions inner join users on reactions.uid = users.uid " \
                 "where reactions.mid = %s and likeValue = %s;"
         cursor.execute(query, (mid, likeValue,))
@@ -47,18 +47,32 @@ class reactionsDAO:
     def getMessageDislikes(self, mid,):
         likeValue = -1
         cursor = self.connection.cursor()
-        query = "select * from Reactions where mid = %s and likeValue = %s;"
+        query = "select ufirstname,ulastname from " \
+                "reactions inner join users on reactions.uid = users.uid " \
+                "where reactions.mid = %s and likeValue = %s;"
         cursor.execute(query, (mid, likeValue,))
         result = []
         for row in cursor:
             result.append(row)
         return result
 
-    #Get reactions with rID
-    def getReactionsId(self, rid):
+    def getNumberofLikes(self,mid):
+        likeValue = 1
         cursor = self.connection.cursor()
-        query = "select * from Reactions where rid = %s;"
-        cursor.execute(query,(rid,))
+        query = "select mid,count(likeValue) from Reactions where mid = %s and likeValue = %s" \
+                " group by(mid)"
+        cursor.execute(query, (mid, likeValue,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getNumberofDislikes(self,mid):
+        likeValue = -1
+        cursor = self.connection.cursor()
+        query = "select mid,count(likeValue) from Reactions where mid = %s and likeValue = %s" \
+                " group by(mid)"
+        cursor.execute(query, (mid, likeValue,))
         result = []
         for row in cursor:
             result.append(row)
