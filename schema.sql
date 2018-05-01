@@ -3,35 +3,35 @@ CREATE TABLE Users (
 	uFirstName	varchar(21)			    NOT NULL,
 	uLastName	varchar(21)		    	NOT NULL,
     password	varchar(42)		    	NOT NULL,	--encrypted password
-	phoneNum	varchar(10)			        NOT NULL,
+	phoneNum	varchar(10)			    NOT NULL,
 	email		varchar(100)			NOT NULL UNIQUE
 	
 );
 
 CREATE TABLE Messages (
 	mID		    bigserial		    	primary key,
-	uID		integer references	Users(uID),
-	gID		    integer references	Groups(gID),	--Group chat msg is in
+	uID			integer references		Users(uID),
+	gID		    integer references		Groups(gID),	--Group chat msg is in
 	timeStamp	timestamp		    	NOT NULL,
 	content	    varchar(300)			NOT NULL
 );
 
 CREATE TABLE Reactions (
-	uID		integer  references	Users(uID),
-    mID	    integer references	Messages(mID),
-    likeValue	int				        NOT NULL,
-    Primary key (uID,mID)
+	rID			bigserial				primary key,
+	uID			integer  references		Users(uID),
+    mID	    	integer references		Messages(mID),
+    likeValue	int				        NOT NULL
 );
 
 CREATE TABLE Groups (
-    gID		    bigserial  primary key,
+    gID		    bigserial  				primary key,
     gName		varchar(21)			    NOT NULL,
-    gOwner	    integer references  Users(uID)
+    gOwner	    integer references  	Users(uID)
 );
 
 CREATE TABLE Replies (
-	originID	integer references	Messages(mID),
-	replyID		integer references	Messages(mID),
+	originID	integer references		Messages(mID),
+	replyID		integer references		Messages(mID),
 	Primary key (originID, replyID)
 );
 
@@ -45,4 +45,10 @@ CREATE TABLE Contacts (
 	uID		    integer references	    Users(uID),	--person
 	friend	    integer references	    Users(uID),	--friends
 	Primary key(uID,friend)
+);
+
+CREATE TABLE Hashtags(
+	htID		bigserial				primary key,
+	hashtag		varchar(21)				NOT NULL,
+	mID			integer references		Messages(mID)
 );
