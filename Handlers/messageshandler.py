@@ -19,8 +19,8 @@ class MessagesHandler:
         messages['gID'] = row[2]
         messages['timestamp'] = row[3]
         messages['content'] = row[4]
-        messages['ufirstName'] = row[5]
-        messages['ulastname'] = row[6]
+        messages['name'] = row[5] + " " + row[6] #ufirstname + ulastname
+
 
         return messages
     def getMessages(self):

@@ -6,17 +6,15 @@ class reactionsHandler:
 
     def buildgReactionsDict(self, row):
         reactions = {}
-        reactions['rID'] = row[0]
-        reactions['uID'] = row[1]
-        reactions['mID'] = row[2]
-        reactions['LikeValue'] = row[3]
+        reactions['mID'] = row[0]
+        reactions['likeValue'] = row[1]
+        reactions['likeCount'] = row[2]
         return reactions
 
-    def buildReactDict(self, row):
+    def buildLikesDict(self, row):
         reactions = {}
-        reactions['rID'] = row[0]
-        reactions['uID'] = row[1]
-        reactions['mID'] = row[2]
+        reactions['Name'] = row[0] + " " + row[1]
+
         return reactions
 
 
@@ -38,16 +36,17 @@ class reactionsHandler:
         reactions = dao.getMessageLikes(mid)
         reactions_list = []
         for row in reactions:
-            reactions_list.append(self.buildReactDict(row))
+            reactions_list.append(self.buildLikesDict(row))
 
         return jsonify(Reactions=reactions_list)
+
 
     def getMessageDislikes(self, mid):
         dao = reactionsDAO()
         reactions = dao.getMessageDislikes(mid)
         reactions_list = []
         for row in reactions:
-            reactions_list.append(self.buildReactDict(row))
+            reactions_list.append(self.buildReactionsDict(row))
 
         return jsonify(Reactions=reactions_list)
 

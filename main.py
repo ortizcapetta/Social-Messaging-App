@@ -91,10 +91,10 @@ def getAllReplies():
 @app.route('/users/messages/<int:mid>/reactions') #search for message id's reactions
 def getMessageReactions(mid):
     return reactionsHandler().getMessageReactions(mid)
-@app.route('/users/messages/<int:mid>/reactions/likes') #search for message id's reactions
+@app.route('/users/messages/<int:mid>/reactions/likedby') #search for message id's reactions
 def getMessageLikes(mid):
     return reactionsHandler().getMessageLikes(mid)
-@app.route('/users/messages/<int:mid>/reactions/dislikes') #search for message id's reactions
+@app.route('/users/messages/<int:mid>/reactions/dislikedby') #search for message id's reactions
 def getMessageDislikes(mid):
     return reactionsHandler().getMessageDislikes(mid)
 
