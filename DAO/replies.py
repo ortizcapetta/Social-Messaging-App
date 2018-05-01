@@ -11,7 +11,8 @@ class repliesDAO:
     #Get original message that the message is replying to
     def getOrigin(self, mid):
         cursor = self.connection.cursor()
-        query = "select * from Replies where replyID = %s;"
+        query = "select mID as replyID,originID,uID,gID,timestamp,content from Replies inner join messages on " \
+                "replies.replyID = Messages.mID;"
         cursor.execute(query,(mid,))
         result = []
         for row in cursor:
@@ -21,7 +22,7 @@ class repliesDAO:
     #Get replies to given message
     def getReplies(self, mid):
         cursor = self.connection.cursor()
-        query = "select mID,uID,gID,timestamp,content from Replies inner join" \
+        query = "select mID as replyID,originID,uID,gID,timestamp,content from Replies inner join" \
                 " Messages on Replies.replyID = Messages.mID where Replies.originID = %s;"
         cursor.execute(query,(mid,))
         result = []
@@ -31,7 +32,8 @@ class repliesDAO:
       
     def getAllReplies(self):
         cursor = self.connection.cursor()
-        query = "select * from Replies;"
+        query = "select mID as replyID,originID,uID,gID,timestamp,content from Replies inner join messages on " \
+                "replies.replyID = Messages.mID;"
         cursor.execute(query)
         result = []
         for row in cursor:
