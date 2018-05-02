@@ -11,7 +11,7 @@ class hashtagsDAO:
     #Get all hashtags
     def getHashtags(self):
         cursor = self.connection.cursor()
-        query = "select * from Hashtags;"
+        query = "select * from hashtags;"
         cursor.execute(query)
         result = []
         for row in cursor:

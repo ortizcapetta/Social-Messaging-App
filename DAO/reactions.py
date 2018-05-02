@@ -63,7 +63,10 @@ class reactionsDAO:
         query = "select mid,count(likeValue) from Reactions where mid = %s and likeValue = %s" \
                 " group by(mid)"
         cursor.execute(query, (mid, likeValue,))
-
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     #Get reactions with rID
     def getReactionsId(self, rid):
