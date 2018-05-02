@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template, flash, url_for, redirect
 from Handlers.userhandler import *
 from Handlers.contactshandler import *
 from Handlers.messageshandler import *
@@ -6,6 +6,7 @@ from Handlers.replieshandler import *
 from Handlers.reactionshandler import *
 from Handlers.groupshandler import *
 from Handlers.gUsershandler import *
+from Handlers.hashtagshandler import *
 from flask_cors import CORS, cross_origin
 
 
@@ -15,6 +16,38 @@ CORS(app)
 @app.route('/')
 def home():
     return "Welcome to Message App"
+
+
+###########################
+######Route for Login######
+###########################
+
+#untested, hard coded username/password for now as placeholder
+@app.route('/login/', methods=["GET","POST"])
+def login_page():
+
+    error = ''
+    try:
+	
+        if request.method == "POST":
+		
+            attempted_username = request.form['username']
+            attempted_password = request.form['password']
+
+            #flash(attempted_username)
+            #flash(attempted_password)
+
+            if attempted_username == "admin" and attempted_password == "password":
+                return redirect(url_for('getAllMessages'))
+				
+            else:
+                error = "Invalid credentials. Try Again."
+
+        return render_template("login.html", error = error)
+    except Exception as e:
+        #flash(e)
+        return render_template("login.html", error = error)
+
 
 ###########################
 ######Routes for Users######
@@ -88,15 +121,36 @@ def getRepliesByMessage(mid):
 def getAllReplies():
     return RepliesHandler().getReplies()
 
+
+##routes for reactions##
 @app.route('/users/messages/<int:mid>/reactions') #search for message id's reactions
 def getMessageReactions(mid):
     return reactionsHandler().getMessageReactions(mid)
-@app.route('/users/messages/<int:mid>/reactions/likes') #search for message id's reactions
+
+
+@app.route('/users/messages/<int:mid>/reactions/likedby') #search for message id's reactions
 def getMessageLikes(mid):
     return reactionsHandler().getMessageLikes(mid)
-@app.route('/users/messages/<int:mid>/reactions/dislikes') #search for message id's reactions
+
+
+@app.route('/users/messages/<int:mid>/reactions/dislikedby') #search for message id's reactions
 def getMessageDislikes(mid):
     return reactionsHandler().getMessageDislikes(mid)
+
+
+@app.route('/users/messages/<int:mid>/reactions/numlikes') #search for message id's reactions
+def getMessageLikesCount(mid):
+    return reactionsHandler().getMessageLikeCount(mid)
+
+
+@app.route('/users/messages/<int:mid>/reactions/numdislikes') #search for message id's reactions
+def getMessageDislikesCount(mid):
+    return reactionsHandler().getMessageDislikeCount(mid)
+
+###routes for hashtags##
+@app.route('/users/messages/hashtags')
+def getHashtags():
+    return hashtagsHandler().getHashtags()
 
 
 

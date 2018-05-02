@@ -10,11 +10,12 @@ class RepliesHandler:
 
     def buildMessageDict(self, row):
         messages = {}
-        messages['mID'] = row[0]
-        messages['uID'] = row[1]
-        messages['gID'] = row[2]
-        messages['timestamp'] = row[3]
-        messages['content'] = row[4]
+        messages['replyID'] = row[0]
+        messages['originID'] = row[1]
+        messages['uID'] = row[2]
+        messages['gID'] = row[3]
+        messages['timestamp'] = row[4]
+        messages['content'] = row[5]
 
         return messages
 
@@ -31,5 +32,5 @@ class RepliesHandler:
         replies = dao.getAllReplies()
         reply_list = []
         for row in replies:
-            reply_list.append(self.buildRepliesDict(row))
+            reply_list.append(self.buildMessageDict(row))
         return jsonify(Replies=reply_list)
