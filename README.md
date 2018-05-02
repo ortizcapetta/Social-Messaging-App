@@ -7,7 +7,7 @@ A visual representation of this can be seen in "ER-Diagram.png".
 ------------
 
 Entities:
-    User - Application user. Has 7 attributes.
+    Users
 
     uID : bigserial - Unique ID belonging to an application user.
 
@@ -21,14 +21,10 @@ Entities:
 
     password : varchar(42) - Stored password will be one-way encrypted beforehand.
 
-    online : boolean - Assuming updates whenever user opens application, returns true when the user has the application open and false when the user has it closed.
-
-    {group chats} - Composite attribute consisting of list of group chats (gID) the user belongs to.
-
     phone number : phoneNum - User’s phone number.
 
 
-Messages - Has 6 attributes. Weak entity because a message can’t exist without a user that sends it.
+Messages
 
     mID : bigserial - Unique ID for each message sent.
 
@@ -38,30 +34,46 @@ Messages - Has 6 attributes. Weak entity because a message can’t exist without
 
     timestamp : datetime - Date and time information for when message was sent.
 
-    {likes} - Composite attribute with users (uID) and their reaction to the message.
 
-
-Chat Group - Has 5 attributes. Weak entity because a group can’t exist without users in it.
+Chat Groups
 
     gID : bigserial - Unique ID belonging to chat group.
 
     gName : varchar(21)  - Name of the group.
 
-    {users} - Composite attribute consisting of users (uID) that belong to the group.
 
-    {messages} - Composite attribute consisting of messages (mID) sent to the group.
+Reactions
 
-    gOwner : foreign key - Reference to User(uID). Owner of the group chat.
+    rID : bigserial - Unique ID belonging to a specific reaction.
+    
+    uID : foreign key - Reference to Users(uID). User that reacted to a message.
+    
+    mID : bigserial - Reference to Messages(mID). Message that was reacted to.
+    
+    likeValue : int - Integer that represents a positive (+1) or negative (-1) reaction.
+
+
+Hashtags
+
+    htID : bigserial - Unique ID belonging to a tag phrase.
+    
+    hashtag : varchar(21) - Text of the tag phrase.
+    
+    mID : foreign key - Reference to Messages(mID). Message that contained hashtag.
 
 
 Relationships:
 
     Sends - One user can send multiple messages.
-
+    
     Belongs To - One user can send to multiple chat groups.
-
+   
+    gOwner : foreign key - Reference to User(uID). Owner of the group chat.
+    
     Are Sent To - Many messages can be sent to multiple groups and one group can have multiple messages.
-
+    
     Replies - More than one message can be a reply to one other message.
     
-    Friends With - Composite attribute consisting of list of users (uID) belonging to other users.
+    Friends With - List of users (uID) belonging to other users that are in a user’s contact list.
+    
+    Contains - A message can contain various hashtags and a hashtag can be associated with many messages.
