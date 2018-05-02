@@ -7,7 +7,8 @@ class hashtagsHandler:
     def buildgHashtagsDict(self, row):
         hashtags = {}
         hashtags['htID'] = row[0]
-        hashtags['hashtag'] = row[1]
+        hashtags['mID'] = row[1]
+        hashtags['hashtag'] = row[2]
         return hashtags
 
     #returns all hashtags of message

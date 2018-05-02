@@ -31,6 +31,7 @@ class reactionsDAO:
         for row in cursor:
             result.append(row)
         return result
+
     #Get reactions to a message
     def getMessageLikes(self,mid):
         likeValue =1
@@ -62,6 +63,17 @@ class reactionsDAO:
         query = "select mid,count(likeValue) from Reactions where mid = %s and likeValue = %s" \
                 " group by(mid)"
         cursor.execute(query, (mid, likeValue,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    #Get reactions with rID
+    def getReactionsId(self, rid):
+        cursor = self.connection.cursor()
+        query = "select * from Reactions where rid = %s;"
+        cursor.execute(query,(rid,))
+
         result = []
         for row in cursor:
             result.append(row)
