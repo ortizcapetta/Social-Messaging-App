@@ -11,6 +11,12 @@ class GroupsHandler:
         groups['gOwner'] = row[2]
         return groups
 
+    def buildOwnerDict(self,row):
+        groups = {}
+        groups['gID'] = row[0]
+        groups['gName'] = row[1]
+        groups['gOwner'] = row[2]
+
     #returns all groups
     def getGroups(self):
         dao = groupsDAO()
@@ -24,8 +30,11 @@ class GroupsHandler:
     #searches for owner of a specific group
     def getGroupOwner(self, gid):
         dao = groupsDAO()
-        gOwner = dao.getGroupOwner(gid)
-        return jsonify(GroupOwner = gOwner)
+        groups = dao.getGroupOwner(gid)
+        groups_list = []
+        for row in groups:
+            groups_list.append(self.buildOwnerDict(row))
+        return jsonify(GroupOwner=groups_list)
 
     #searches for groups owned by specific user
     def getGroupsOwnedBy(self, uid):
@@ -55,7 +64,4 @@ class GroupsHandler:
         for row in groups:
             groups_list.append(self.buildGroupDict(row))
 
-        if not groups_list:
-            return jsonify(Error="No group with that name in record"),404
-        else:
-            return jsonify(Groups=groups_list)
+        return jsonify(Groups=groups_list)

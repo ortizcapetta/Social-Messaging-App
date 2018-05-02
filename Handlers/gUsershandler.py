@@ -5,17 +5,10 @@ from flask import *
 class gUsersHandler:
 
     def buildgUserDict(self, row):
-      ''' gUsers = {}
-        gUsers['gID'] = row[0]
-        gUsers['uID'] = row[1]
-        return gUsers'''
       users = {}
       users['uID'] = row[0]
       users['uFirstName'] = row[1]
       users['uLastName'] = row[2]
-      users['password'] = row[3]
-      users['phone'] = row[4]
-      users['email'] = row[5]
       return users
 
     def buildGroupDict(self, row):
