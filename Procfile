@@ -1,1 +1,1 @@
-web: gunicorn main: social-messenger
+web: gunicorn main: app
