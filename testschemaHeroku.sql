@@ -12,3 +12,28 @@ INSERT INTO Messages (mID, uID, gID, timeStamp, content)
 VALUES (1, 1, 1, 'January 8 04:05:06 1999 PST','hey there'),
 (2, 2, 2, 'January 8 04:05:06 1999 PST', 'hey there'),
 (3, 3, 3, 'January 8 04:05:06 1999 PST', 'hey there');
+
+INSERT INTO Reactions (rID, uID, mID, likeValue) 
+VALUES (1, 1, 1, 1),
+(2, 2, 2, 1),
+(3, 3, 3, 1);
+
+INSERT INTO Replies (originID, replyID) 
+VALUES (1, 2),
+(2, 3),
+(3, 1);
+
+INSERT INTO GUsers (gID, uID) 
+VALUES (1, 1),
+(2, 2),
+(3, 3);
+
+INSERT INTO Contacts (uID, friend) 
+VALUES (1, 2),
+(2, 3),
+(3, 1);
+
+INSERT INTO Hashtags (htID, hashtag, mID) 
+VALUES (1, 'huelga', 2),
+(2, 'finals',3),
+(3, 'noHuelga',1);
