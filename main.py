@@ -26,7 +26,7 @@ def test_page():
     result = []
     for row in cursor:
         result.append(row)
-    return result
+    return jsonify(Users=result)
 
 @app.route('/')
 def home():
