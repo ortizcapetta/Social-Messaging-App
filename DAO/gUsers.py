@@ -1,5 +1,6 @@
 from DAO.users import *
 from DAO.groups import *
+from sqlalchemy import text
 
 class gUsersDAO:
     def __init__(self):
@@ -7,15 +8,18 @@ class gUsersDAO:
                                                   dbconfig['user'],
                                                   dbconfig['password'])
 
-        self.connection = psycopg2._connect(curl)
+        #self.connection = psycopg2._connect(curl)
 
     #NEED TO FIX
 
     #Get all groups of user with uid
     def getUserGroups(self, uid):
-        cursor = self.connection.cursor()
+        #cursor = self.connection.cursor()
         query = "select gID, gName, gOwner from groups natural inner join gUsers where uID = %s"
-        cursor.execute(query,(uid,))
+        #cursor.execute(query,(uid,))
+        from main import db
+        sql = text(query)
+        cursor = db.engine.execute(sql)
         result = []
         for row in cursor:
             result.append(row)
@@ -23,9 +27,12 @@ class gUsersDAO:
 
     #Get all users in group with gid
     def getUsersInGroup(self, gid):
-        cursor = self.connection.cursor()
+        #cursor = self.connection.cursor()
         query = "select uID,ufirstname,ulastname from gUsers natural inner join users where gID = %s"
-        cursor.execute(query,(gid,))
+        #cursor.execute(query,(gid,))
+        from main import db
+        sql = text(query)
+        cursor = db.engine.execute(sql)
         result = []
         for row in cursor:
             result.append(row)
