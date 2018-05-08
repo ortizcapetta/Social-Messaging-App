@@ -1,4 +1,6 @@
 from dbconfig import dbconfig
+from main import db
+from sqlalchemy import text
 import psycopg2
 
 class userDAO:
@@ -12,9 +14,14 @@ class userDAO:
 
 
     def getUsers(self):
-        cursor = self.connection.cursor()
+        #cursor = self.connection.cursor()
         query = "select * from Users;"
-        cursor.execute(query)
+        #cursor.execute(query)
+
+        #testing heroku/sqlalchemy method, original local way used above commented code
+        sql = text(query)
+        cursor = db.engine.execute(sql)
+
         result = []
         for row in cursor:
             result.append(row)
