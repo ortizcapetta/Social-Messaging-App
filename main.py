@@ -30,7 +30,8 @@ def test_page():
 
 @app.route('/')
 def home():
-    return "Welcome to Message App"
+    return render_template('index.html')
+    #return "Welcome to Message App"
 
 
 ###########################
@@ -71,8 +72,7 @@ def login_page():
 @app.route('/users') #get all users
 def getUsers():
     user = UserHandler()
-    return render_template("index.html")
-    #return user.getUsers()
+    return user.getUsers()
 
 
 @app.route('/users/<int:uid>') #get users by id num
