@@ -13,14 +13,9 @@ class userDAO:
 
 
     def getUsers(self):
-        from main import db
-        #cursor = self.connection.cursor()
+        cursor = self.connection.cursor()
         query = "select * from Users;"
-        #cursor.execute(query)
-
-        #testing heroku/sqlalchemy method, original local way used above commented code
-        sql = text(query)
-        cursor = db.engine.execute(sql)
+        cursor.execute(query)
 
         result = []
         for row in cursor:

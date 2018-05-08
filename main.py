@@ -17,6 +17,16 @@ CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 db = SQLAlchemy(app)
 
+@app.route('/test')
+def test_page():
+    query = "select * from Users;"
+    sql = text(query)
+    cursor = db.engine.execute(sql)
+
+    result = []
+    for row in cursor:
+        result.append(row)
+    return result
 
 @app.route('/')
 def home():
