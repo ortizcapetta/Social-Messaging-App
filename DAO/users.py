@@ -1,5 +1,4 @@
 from dbconfig import dbconfig
-from main import db
 from sqlalchemy import text
 import psycopg2
 
@@ -14,6 +13,7 @@ class userDAO:
 
 
     def getUsers(self):
+        from main import db
         #cursor = self.connection.cursor()
         query = "select * from Users;"
         #cursor.execute(query)
