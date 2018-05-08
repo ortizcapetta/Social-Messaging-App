@@ -20,6 +20,8 @@ class MessagesHandler:
         messages['timestamp'] = row[3]
         messages['content'] = row[4]
         messages['name'] = row[5] + " " + row[6] #ufirstname + ulastname
+        messages['likes'] = row[7]
+        messages['dislikes'] = row[8]
 
 
         return messages
