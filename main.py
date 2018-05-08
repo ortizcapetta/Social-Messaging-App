@@ -71,7 +71,8 @@ def login_page():
 @app.route('/users') #get all users
 def getUsers():
     user = UserHandler()
-    return user.getUsers()
+    return render_template('UI/index.html')
+    #return user.getUsers()
 
 
 @app.route('/users/<int:uid>') #get users by id num
