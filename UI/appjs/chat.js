@@ -88,10 +88,12 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
             // Need to figure out who I am
             var author = "Me";
             var nextId = thisCtrl.counter++;
-            var today = "5/1/2018 14:45:23"
+            var today = "5/1/2019 14:45:23"
+            var likes = 0;
+            var dislikes = 0;
             // Might have to rename the fields here to be inline with our schema
-            thisCtrl.messageList.unshift({"mID": 3, "uID" : 4, "gID" : 2, "timestamp" :today , "content" : msg,
-            "name": author});
+            thisCtrl.messageList.unshift({"mID": 533, "uID" : 423, "gID" : 2, "timestamp" :today , "content" : msg,
+            "name": author, "likes": likes,"dislikes":dislikes});
             thisCtrl.newText = "";
 
         };

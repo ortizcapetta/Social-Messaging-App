@@ -24,8 +24,10 @@ class messagesDAO:
 
     def getMessages(self):
         #cursor = self.connection.cursor()
-        query = "select mid,uid,gid,timestamp,content,ufirstname,ulastname from" \
-                " Messages natural inner join users order by(timestamp) DESC;"
+        query = "select Messages.mid,Messages.uid,gid,timestamp,content,ufirstname,ulastname," \
+                "sum(case likeValue when 1 then 1 else 0 end) as likes,sum(case likeValue when -1 then 1 else 0 end) as dislikes" \
+                " from Messages natural inner join users left join Reactions on Reactions.mID = Messages.mID " \
+                "group by(Messages.mid,messages.uid,gid,timestamp,content,ufirstname,ulastname) order by(timestamp) DESC;"
         #cursor.execute(query)
         from main import db
         sql = text(query)
