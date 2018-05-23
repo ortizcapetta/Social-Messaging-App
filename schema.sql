@@ -8,6 +8,12 @@ CREATE TABLE Users (
 	
 );
 
+CREATE TABLE Groups (
+    gID		    bigserial  				primary key,
+    gName		varchar(21)			    NOT NULL,
+    gOwner	    integer references  	Users(uID)
+);
+
 CREATE TABLE Messages (
 	mID		    bigserial		    	primary key,
 	uID			integer references		Users(uID),
@@ -21,12 +27,6 @@ CREATE TABLE Reactions (
 	uID			integer  references		Users(uID),
     mID	    	integer references		Messages(mID),
     likeValue	int				        NOT NULL
-);
-
-CREATE TABLE Groups (
-    gID		    bigserial  				primary key,
-    gName		varchar(21)			    NOT NULL,
-    gOwner	    integer references  	Users(uID)
 );
 
 CREATE TABLE Replies (
