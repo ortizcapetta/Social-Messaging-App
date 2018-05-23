@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template, flash, url_for, redirect
 from Handlers.userhandler import *
 from Handlers.contactshandler import *
 from Handlers.messageshandler import *
@@ -8,14 +8,47 @@ from Handlers.groupshandler import *
 from Handlers.gUsershandler import *
 from Handlers.hashtagshandler import *
 from flask_cors import CORS, cross_origin
-
+import os
 
 app = Flask(__name__)
 CORS(app)
 
 @app.route('/')
 def home():
+    #return render_template('index.html')
     return "Welcome to Message App"
+
+
+###########################
+######Route for Login######
+###########################
+
+#untested, hard coded username/password for now as placeholder
+@app.route('/login/', methods=["GET","POST"])
+def login_page():
+
+    error = ''
+    try:
+	
+        if request.method == "POST":
+		
+            attempted_username = request.form['username']
+            attempted_password = request.form['password']
+
+            #flash(attempted_username)
+            #flash(attempted_password)
+
+            if attempted_username == "admin" and attempted_password == "password":
+                return redirect(url_for('getAllMessages'))
+				
+            else:
+                error = "Invalid credentials. Try Again."
+
+        return render_template("login.html", error = error)
+    except Exception as e:
+        #flash(e)
+        return render_template("login.html", error = error)
+
 
 ###########################
 ######Routes for Users######

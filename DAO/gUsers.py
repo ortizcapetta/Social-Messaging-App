@@ -9,8 +9,6 @@ class gUsersDAO:
 
         self.connection = psycopg2._connect(curl)
 
-    #NEED TO FIX
-
     #Get all groups of user with uid
     def getUserGroups(self, uid):
         cursor = self.connection.cursor()

@@ -1,7 +1,9 @@
 (function() {
 //<!--declare modules which depends from ngROute from angular
 //configuring navigation routes of page -->
+
     var app = angular.module('AppChat',['ngRoute']);
+    
 
     app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider, $location) {
         $routeProvider.when('/login', { //first route

@@ -17,7 +17,7 @@
 
             //not completely sure how to handle url in case the route is hosted somewhere else
             var url = "http://localhost:5000/users/" + uID + "/groups";
-            console.log('Im inside loadChagroups');
+            console.log('Im inside loadChatgroups');
             console.log("url: " + url);
             $http.get(url).then(// success call back
                 function (response){
@@ -62,12 +62,6 @@
             //create group function
 
         };
-
-
-
-
-
-
 
 }]);**/
 
