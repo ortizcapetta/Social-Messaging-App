@@ -8,30 +8,15 @@ from Handlers.groupshandler import *
 from Handlers.gUsershandler import *
 from Handlers.hashtagshandler import *
 from flask_cors import CORS, cross_origin
-from flask_sqlalchemy import SQLAlchemy
 import os
 
-app = Flask(__name__, template_folder='UI')
+app = Flask(__name__)
 CORS(app)
-#below is code for connecting to heroku server, might break so if stuff blows up comment it out for now [only for SQLalchemy]
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
-db = SQLAlchemy(app)
-
-@app.route('/test')
-def test_page():
-    query = "select * from Users;"
-    sql = text(query)
-    cursor = db.engine.execute(sql)
-
-    result = []
-    for row in cursor:
-        result.append(row)
-    return jsonify(Users=result)
 
 @app.route('/')
 def home():
-    return render_template('index.html')
-    #return "Welcome to Message App"
+    #return render_template('index.html')
+    return "Welcome to Message App"
 
 
 ###########################
