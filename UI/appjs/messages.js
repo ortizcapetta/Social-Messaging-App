@@ -1,4 +1,4 @@
-angular.module('AppChat').controller('MessageController', ['$http', '$log', '$scope','$routeParams', //dependency injections
+/**angular.module('AppChat').controller('MessageController', ['$http', '$log', '$scope','$routeParams', //dependency injections
 //something about name being the name of the main (?)
     function($http, $log, $scope,$routeParams) {
         var thisCtrl = this; //this = object that thhtp service implements
@@ -9,13 +9,9 @@ angular.module('AppChat').controller('MessageController', ['$http', '$log', '$sc
         this.likes=0,this.dislikes=0;
         this.counter  = 2;
         this.newText = "";
-        var gID = $routeParams.gID;
-        this.loadMessages = function(){
-            // Get the messages from the server through the rest api o_o
-            //var url = "http://localhost:5000/blahblahblah/messages chatt app;
-            //there's a way to do this as a singleton tho @_@
 
-            //not completely sure how to handle url in case the route is hosted somewhere else
+        this.loadMessages = function(){
+
             var gID = $routeParams.gID;
 
 
@@ -73,8 +69,64 @@ angular.module('AppChat').controller('MessageController', ['$http', '$log', '$sc
 
 
 
-        this.loadMessages(gID);
+        this.loadMessages();
        // this.loadNumberOfLikes(mID);
 
 
+}]);
+**/
+angular.module('AppChat').controller('MessageController', ['$http', '$log', '$scope', '$location', '$routeParams',
+    function($http, $log, $scope, $location, $routeParams) {
+        // This variable lets you access this controller
+        // from within the callbacks of the $http object
+
+        var thisCtrl = this;
+
+        // This variable hold the information on the part
+        // as read from the REST API
+        var messageList = {};
+
+        this.loadMessages = function(){
+            // Get the target part id from the parameter in the url
+            // using the $routerParams object
+            var gid = $routeParams.gid;
+
+            // Now create the url with the route to talk with the rest API
+             var url = "http://localhost:5000/users/groups/"+gid+"/messages";
+            console.log("reqURL: " + url);
+            // Now issue the http request to the rest API
+            $http.get(url).then(
+                // Success function
+                function (response) {
+                    console.log("data: " + JSON.stringify(response.data));
+                    // assing the part details to the variable in the controller
+                    thisCtrl.partDetails = response.data.Part;
+                }, //Error function
+                function (response) {
+                    // This is the error function
+                    // If we get here, some error occurred.
+                    // Verify which was the cause and show an alert.
+                    var status = response.status;
+                    //console.log("Error: " + reqURL);
+                    //alert("Cristo");
+                    if (status == 0) {
+                        alert("No hay conexion a Internet");
+                    }
+                    else if (status == 401) {
+                        alert("Su sesion expiro. Conectese de nuevo.");
+                    }
+                    else if (status == 403) {
+                        alert("No esta autorizado a usar el sistema.");
+                    }
+                    else if (status == 404) {
+                        alert("No se encontro la informacion solicitada.");
+                    }
+                    else {
+                        alert("Error interno del sistema.");
+                    }
+                }
+            );
+        };
+
+        this.loadMessages();
 }]);
