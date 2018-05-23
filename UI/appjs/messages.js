@@ -1,6 +1,6 @@
-angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope', //dependency injections
+angular.module('AppChat').controller('MessageController', ['$http', '$log', '$scope','$routeParams', //dependency injections
 //something about name being the name of the main (?)
-    function($http, $log, $scope) {
+    function($http, $log, $scope,$routeParams) {
         var thisCtrl = this; //this = object that thhtp service implements
            //makes ref to controller (?)
 
@@ -9,14 +9,18 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
         this.likes=0,this.dislikes=0;
         this.counter  = 2;
         this.newText = "";
-
+        var gID = $routeParams.gID;
         this.loadMessages = function(){
             // Get the messages from the server through the rest api o_o
             //var url = "http://localhost:5000/blahblahblah/messages chatt app;
             //there's a way to do this as a singleton tho @_@
 
             //not completely sure how to handle url in case the route is hosted somewhere else
-            var url = "http://localhost:5000/users/messages";
+            var gID = $routeParams.gID;
+
+
+            var url = "http://localhost:5000/users/groups/"+gID+"/messages";
+            console.log("reqURL: " + url);
 
             $http.get(url).then(// success call back
                 function (response){
@@ -47,39 +51,7 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
             $log.error("Message Loaded: ", JSON.stringify(thisCtrl.messageList));
         };
 
-        this.loadNumberOfLikes = function(mID){
-            var url = "http://localhost:5000/users/messages/" + mID +"/reactions/numlikes"
-        $http.get(url).then(// success call back
-                function (response){
-                // The is the sucess function!
-                    console.log("response: " + JSON.stringify(response));
-                   if(response.data.likes.length == 0 ){
-                    thisCtrl.messageList.push({"mID": mID, "count": 0});
-                    }else{
-                    thisCtrl.likeList = response.data.likes;
-                    }
-            }, // error callback
-            function (response){
-                // This is the error function
-                var status = response.status;
-                if (status == 0){
-                    alert("No hay conexion a Internet");
-                }
-                else if (status == 401){
-                    alert("Su sesion expiro. Conectese de nuevo.");
-                }
-                else if (status == 403){
-                    alert("No esta autorizado a usar el sistema.");
-                }
-                else if (status == 404){
-                    alert("No se encontro la informacion solicitada.");
-                }
-                else {
-                    alert("Error interno del sistema.");
-                }
-            });
-                 $log.error("Message Loaded: ", JSON.stringify(thisCtrl.likeList));
-        };
+
         //check partsapp ui for more stuff
         //callback de exito y callback de error
 
@@ -101,7 +73,7 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
 
 
 
-        this.loadMessages();
+        this.loadMessages(gID);
        // this.loadNumberOfLikes(mID);
 
 
