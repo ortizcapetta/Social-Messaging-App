@@ -1,30 +1,7 @@
-<div ng-cloak style="align-content: center;align-text:center">
-<center>
-    <a class="waves-effect  red lighten-1 btn-small" ng-click="partsCtrl.addPart()">Add Contact to Chat</a>
-    <a class="waves-effect  red lighten-1 btn-small" ng-click="partsCtrl.addPart()">Refresh Messages</a>
-</center>
-
-    <div class="row">
-        <div class="col s12 m6">
-            <div class="card teal darken-1">
-                <div class="card-content ">
-                    <i class="material-icons prefix" style="color: white">mode_edit</i> <span text-white style="font-size:larger; color:white">Message:</span>
-                     <textarea style="background: white" id="textarea1" class="materialize-textarea" ng-model="chatCtrl.newText"></textarea>
-                </div>
-                <div class="card-action white">
-                    <button class="btn waves-effect waves-light " type="submit" name="action" ng-click="chatCtrl.postMsg()">Enviar
-                    <i class="material-icons right">send</i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <!--<div  id="chat-list" style="height:300px;overflow:auto">-->
+ <!--<div  id="chat-list" style="height:300px;overflow:auto">-->
     <div>
         <!-- Here come the messages in the chat, each one presented in card -->
-        <div ng-repeat="m in msgCtrl.messageList">
+        <div ng-repeat="m in msgdtlCtrl.messageDetails">
             <!-- This card prodives space for the message and Like/dislike buttons -->
             <div class="row">
                 <div class="col s12 m6">
@@ -71,17 +48,68 @@
 
                                 </table>
 
-                            <a class="waves-effect  blue lighten-1 btn-small" ng-click="msgCtrl.viewDetails(m.mID)">View Message Details</a>
 
-                            </span>
+                           <!-- <a class="waves-effect  blue lighten-1 btn-small" ng-click="msgCtrl.viewDetails(m.mID)">View Message Details</a>
+                                -->
+
+                            <style>th, td {
+                            padding: 5px;
+                            text-align: center;}</style>
+
+                            <div style ="align:left">
+                            <table style="width:35%;">
+                                  <tr>
+                                    <th>Liked By</th>
+
+
+
+
+                                  </tr>
+
+                                  <tr ng-repeat="m in msgdtlCtrl.messageLikes">
+                                       <td>{{m.Name}}</td>
+
+                                  </tr>
+
+
+
+                                </table>
+                                </div>
+                               <style>th, td {
+                            padding: 5px;
+                            text-align: center;}</style>
+
+
+                            <table style="width:35%;align:right">
+                                  <tr>
+
+                                      <th>DislikedBy</th>
+
+
+
+                                  </tr>
+
+
+
+                                <tr ng-repeat="m in msgdtlCtrl.messageDislikes">
+                                       <td>{{m.Name}}</td>
+
+                                  </tr>
+
+
+                                </table>
+
 
 
                         </div>
-</center>
+    </center>
+
                     </div>
 
                 </div>
             </div>
         </div>
     </div>
-</div>
+    </div>
+
+

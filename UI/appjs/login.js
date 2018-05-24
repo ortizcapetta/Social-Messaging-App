@@ -1,4 +1,5 @@
 
+
 angular.module('AppChat').controller('GroupChatController', ['$http', '$log', '$scope', '$location',
     function($http, $log, $scope, $location) {
         var thisCtrl = this;

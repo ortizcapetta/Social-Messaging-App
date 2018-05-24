@@ -36,7 +36,7 @@ class reactionsDAO:
     def getMessageLikes(self,mid):
         likeValue =1
         cursor = self.connection.cursor()
-        query = "select ufirstname,ulastname from " \
+        query = "select ufirstname,ulastname,users.uID from " \
                 "reactions inner join users on reactions.uid = users.uid " \
                 "where reactions.mid = %s and likeValue = %s;"
         cursor.execute(query, (mid, likeValue,))
@@ -48,7 +48,7 @@ class reactionsDAO:
     def getMessageDislikes(self, mid,):
         likeValue = -1
         cursor = self.connection.cursor()
-        query = "select ufirstname,ulastname from " \
+        query = "select ufirstname,ulastname,users.uID from " \
                 "reactions inner join users on reactions.uid = users.uid " \
                 "where reactions.mid = %s and likeValue = %s;"
         cursor.execute(query, (mid, likeValue,))

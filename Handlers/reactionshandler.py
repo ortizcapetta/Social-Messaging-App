@@ -14,6 +14,7 @@ class reactionsHandler:
     def buildLikesDict(self, row):
         reactions = {}
         reactions['Name'] = row[0] + " " + row[1]
+        reactions['uID'] = row[2]
 
         return reactions
 

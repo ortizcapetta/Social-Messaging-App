@@ -19,6 +19,14 @@
             templateUrl: 'pages/messages.html',
             controller: 'MessageController',
             controllerAs : 'msgCtrl' //controlers
+            }).when('/messages/:mid', {
+            templateUrl: 'pages/messagedetail.html',
+            controller: 'MessageDetailsController',
+            controllerAs : 'msgdtlCtrl' //controlers
+             }).when('/login', {
+            templateUrl: 'pages/login.html',
+            controller: 'loginController',
+            controllerAs : 'loginCtrl' //controlers
 
 
        /*

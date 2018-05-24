@@ -1,31 +1,10 @@
 <div ng-cloak style="align-content: center">
-        <table class="center stripe">
-        <thead>
-        <tr>
-            <th>Details</th>
-            <th>Name</th>
-
-        </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="g in groupChatCtrl.groupList">
-                <td><a class="waves-effect  blue lighten-1 btn-small" ng-click="groupChatCtrl.viewGroup(g.gID)">View Messages</a></td>
-                <td>{{g.gName}}</td>
-
-            </tr>
-        </tbody>
-        </table>
-        <p></p>
-        <center>
-            <a class="waves-effect  red lighten-1 btn-small" ng-click="add">Pending</a>
+ <center>
+            <a class="waves-effect  red lighten-1 btn-small" ng-click="partsCtrl.addPart()">Create New Group</a>
         </center>
-</div>
-
-<div ng-cloak style="align-content: center">
-
 
     <!--<div  id="chat-list" style="height:300px;overflow:auto">-->
-    <div>
+
         <!-- Here come the messages in the chat, each one presented in card -->
         <div ng-repeat="m in groupChatCtrl.groupList">
             <!-- This card prodives space for the message and Like/dislike buttons -->
@@ -59,3 +38,4 @@
         </div>
     </div>
 </div>
+

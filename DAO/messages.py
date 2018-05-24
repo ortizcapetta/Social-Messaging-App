@@ -25,6 +25,7 @@ class messagesDAO:
         cursor = self.connection.cursor()
         '''query = "select mid,uid,gid,timestamp,content,ufirstname,ulastname from" \
                 " Messages natural inner join users order by(timestamp) DESC;"'''
+
         query = "select Messages.mid,Messages.uid,gid,timestamp,content,ufirstname,ulastname," \
                 "sum(case likeValue when 1 then 1 else 0 end) as likes,sum(case likeValue when -1 then 1 else 0 end) as dislikes" \
                 " from Messages natural inner join users left join Reactions on Reactions.mID = Messages.mID " \
@@ -37,7 +38,10 @@ class messagesDAO:
     #returns message content with matching ids
     def getMessageID(self, mid):
         cursor = self.connection.cursor()
-        query = "select * from Messages where mID = %s;"
+        query = "select Messages.mid,Messages.uid,gid,timestamp,content,ufirstname,ulastname," \
+                "sum(case likeValue when 1 then 1 else 0 end) as likes,sum(case likeValue when -1 then 1 else 0 end) as dislikes" \
+                " from Messages natural inner join users left join Reactions on Reactions.mID = Messages.mID " \
+                "where Messages.mID = %s group by(Messages.mid,messages.uid,gid,timestamp,content,ufirstname,ulastname) order by(timestamp) DESC;"
         cursor.execute(query,(mid,))
         result = []
         for row in cursor:
@@ -58,7 +62,10 @@ class messagesDAO:
     #might need to edit once schema is updated because we might have to remove gid from Messages, if so use a natural inner join
     def getGroupMessages(self, gid):
         cursor = self.connection.cursor()
-        query = "select * from Messages where gid = %s;"
+        query = query = "select Messages.mid,Messages.uid,gid,timestamp,content,ufirstname,ulastname," \
+                "sum(case likeValue when 1 then 1 else 0 end) as likes,sum(case likeValue when -1 then 1 else 0 end) as dislikes" \
+                " from Messages natural inner join users left join Reactions on Reactions.mID = Messages.mID " \
+                "where Messages.gID =%s group by(Messages.mid,messages.uid,gid,timestamp,content,ufirstname,ulastname) order by(timestamp) DESC;"
         cursor.execute(query,(gid,))
         result = []
         for row in cursor:

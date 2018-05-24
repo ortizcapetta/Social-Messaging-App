@@ -1,0 +1,31 @@
+  <style>
+div {
+    width: 320px;
+    padding: 10px;
+    border: 5px solid gray;
+    margin: 0;
+}
+.login {
+    max-width: 500px;
+    margin: auto;
+}
+
+</style>
+  <ng-cloak style="align-content: center; text-align: center">
+  <div class ="login">
+      <section class="login">
+        <form name="login" action="index_submit" ng-submit="login()" method="get" accept-charset="utf-8">
+            <ul>
+                <p><input type="email" name="email" placeholder="placeholder@email.com" required ng-model="login.username"></p>
+                <p><input type="password" name="password" placeholder="password" required ng-model="login.password"></p>
+
+
+
+                <input class ="btn" type="submit" value="Login">
+            </ul>
+        </form>
+          <p>Don't have an account yet?</p>
+          <p><button class="btn" type="submit" ng-click="signup()">Register</button></p>
+        </section>
+      </div>
+  </ng-cloak>

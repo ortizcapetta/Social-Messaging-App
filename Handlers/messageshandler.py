@@ -48,7 +48,7 @@ class MessagesHandler:
         messages = dao.getGroupMessages(gid)
         message_list = []
         for row in messages:
-            message_list.append(self.buildMessageDict(row))
+            message_list.append(self.buildMessageDict2(row))
 
         return jsonify(Messages=message_list)
 
@@ -57,7 +57,7 @@ class MessagesHandler:
         messages = dao.getMessageID(mid)
         message_list = []
         for row in messages:
-            message_list.append(self.buildMessageDict(row))
+            message_list.append(self.buildMessageDict2(row))
 
         return jsonify(Messages=message_list)
             
