@@ -31,7 +31,7 @@ def loginUser():
     return UserHandler().loginUser(request.form)
 
 ###########################
-######Routes for Users######
+#####Routes for Users######
 ###########################
 
 @app.route('/users') #get all users
@@ -85,9 +85,13 @@ def getAllMessages():
 def getMessagesByUser(uid):
     return MessagesHandler().getUserMessages(uid)
 
-@app.route('/users/groups/<int:gid>/messages')
+#need to check how to add messages as replies as well in the same route, on hold for now
+@app.route('/users/groups/<int:gid>/messages', methods=['GET','POST'])
 def getMessagesByGroup(gid):
-    return MessagesHandler().getGroupMessages(gid)
+    if request.method == 'POST':
+        return MessagesHandler().addMessage(request.form)
+    else:
+        return MessagesHandler().getGroupMessages(gid)
 
 @app.route('/users/messages/<int:mid>')
 def getMessageByID(mid):

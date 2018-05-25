@@ -22,9 +22,21 @@ class MessagesHandler:
         messages['name'] = row[5] + " " + row[6] #ufirstname + ulastname
         messages['likes'] = row[7]
         messages['dislikes'] = row[8]
-
-
         return messages
+
+    #message logging
+    def addMessage(self, form):
+            uid = form.get("uid")
+            gid = form.get("gid")
+            timeStamp = form.get("timeStamp")
+            content = form.get("content")
+            if uid and gid and timeStamp and content:
+                dao = messagesDAO()
+                uid = dao.addMessage(uid, gid, timeStamp, content)
+                return self.getMessageID(uid)
+            else:
+                return jsonify(Error="Unexpected attributes in post request"), 400
+
     def getMessages(self):
         dao = messagesDAO()
         messages = dao.getMessages()
