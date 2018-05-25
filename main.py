@@ -196,6 +196,11 @@ def getGroupUsers(gid):
     users = gUsersHandler()
     return users.getGroupUsers(gid)
 
+@app.route('/users/groups/<int:gid>/hashtags') #get all users in group
+def getHashtagsByGroup(gid):
+    hashtags = hashtagsHandler()
+    return hashtags.getMessageWithHashtagByGroup(gid)
+
 
 if __name__ == '__main__':
     app.run()

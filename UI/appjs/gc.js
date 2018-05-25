@@ -54,6 +54,7 @@ angular.module('AppChat').controller('GroupChatController', ['$http', '$log', '$
         this.viewGroup = function (gid) {
             $location.url('/groups/' + gid + '/messages');
         };
+
         // got to screen to add new parts
         this.addGroup = function(){
             $location.url('/newGroup');

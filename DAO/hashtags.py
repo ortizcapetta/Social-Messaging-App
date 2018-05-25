@@ -17,6 +17,17 @@ class hashtagsDAO:
         for row in cursor:
             result.append(row)
         return result
+
+    def getMessagesWithHashtagsByGroup(self,gID):
+        cursor = self.connection.cursor()
+        query = "select htid,hashtags.mID, hashtag,content from hashtags natural inner join messages where messages.gid = %s;"
+        cursor.execute(query,(gID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+
     
     #Get hashtags by mID
     def getMessageHashtags(self, mid):

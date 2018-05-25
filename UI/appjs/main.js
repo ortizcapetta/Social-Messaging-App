@@ -27,6 +27,10 @@
             templateUrl: 'pages/login.html',
             controller: 'loginController',
             controllerAs : 'loginCtrl' //controlers
+             }).when('/register', {
+            templateUrl: 'pages/register.html',
+            controller: 'registerController',
+            controllerAs : 'registerCtrl' //controlers
 
 
        /*
