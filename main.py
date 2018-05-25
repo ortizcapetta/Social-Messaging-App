@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template, flash, url_for, redirect
+from flask import Flask, request, jsonify, render_template, flash, url_for, redirect, session
 from Handlers.userhandler import *
 from Handlers.contactshandler import *
 from Handlers.messageshandler import *
@@ -18,37 +18,17 @@ def home():
     #return render_template('index.html')
     return "Welcome to Message App"
 
-
 ###########################
-######Route for Login######
+#Routes for login/register#
 ###########################
 
-#untested, hard coded username/password for now as placeholder
-@app.route('/login/', methods=["GET","POST"])
-def login_page():
+@app.route('/register', methods = ['POST'])
+def addUser():
+    return UserHandler().addUser(request.form)
 
-    error = ''
-    try:
-	
-        if request.method == "POST":
-		
-            attempted_username = request.form['username']
-            attempted_password = request.form['password']
-
-            #flash(attempted_username)
-            #flash(attempted_password)
-
-            if attempted_username == "admin" and attempted_password == "password":
-                return redirect(url_for('getAllMessages'))
-				
-            else:
-                error = "Invalid credentials. Try Again."
-
-        return render_template("login.html", error = error)
-    except Exception as e:
-        #flash(e)
-        return render_template("login.html", error = error)
-
+@app.route('/login', methods = ['POST'])
+def loginUser():
+    return UserHandler().loginUser(request.form)
 
 ###########################
 ######Routes for Users######
