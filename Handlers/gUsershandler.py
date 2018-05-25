@@ -37,3 +37,20 @@ class gUsersHandler:
             groups_list.append(self.buildGroupDict(row))
 
         return jsonify(Groups=groups_list)
+
+    #guser registration
+    def addGroupUser(self, form):
+        if len(form) != 2:
+            return jsonify(Error = "Malformed post request") , 400
+        else:
+            gid = form.get("gID")
+            uid = form.get("uID")
+            if gid and uid:
+                dao = gUsersDAO()
+                if dao.getUidInGroup(uid, gid) is not None:
+                    return jsonify(Error="User already exists in group"), 400
+                else:
+                    uid = dao.addGroupUser(gid, uid)
+                    return self.getGroupUsers(gid)
+            else:
+                return jsonify(Error="Unexpected attributes in post request"), 400
