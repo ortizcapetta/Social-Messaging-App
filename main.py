@@ -108,9 +108,12 @@ def getAllReplies():
 
 
 ##routes for reactions##
-@app.route('/users/messages/<int:mid>/reactions') #search for message id's reactions
+@app.route('/users/messages/<int:mid>/reactions', methods=['GET','POST']) #search for message id's reactions
 def getMessageReactions(mid):
-    return reactionsHandler().getMessageReactions(mid)
+    if request.method == 'POST':
+        return reactionsHandler().addReaction(request.form)
+    else:
+        return reactionsHandler().getMessageReactions(mid)
 
 
 @app.route('/users/messages/<int:mid>/reactions/likedby') #search for message id's reactions
