@@ -178,7 +178,7 @@ def getGroupOwner(gid):
     return group.getGroupOwner(gid)
 
 
-@app.route('/users/groups/<int:gid>/users', methods = 'POST') #get all users in group
+@app.route('/users/groups/<int:gid>/users', methods = ["POST"]) #get all users in group
 def getGroupUsers(gid):
     group = gUsersHandler()
     if request.method == 'POST':
