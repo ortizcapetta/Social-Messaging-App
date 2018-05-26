@@ -25,6 +25,33 @@ class reactionsHandler:
 
         return reactions
 
+    def addReaction(self, form):
+        if len(form) != 3:
+            return jsonify(Error = "Malformed post request") , 400
+        else:
+            uid = form.get("uID")
+            mid = form.get("mID")
+            likeValue = form.get("likeValue")
+            if uid and mid:
+                dao = reactionsDAO()
+                if dao.getUserMessageReaction(uid, mid) is not None:
+                    return jsonify(Error="Reaction from user already exists for message"), 400
+                else:
+                    rid = dao.addReaction(uid, mid, likeValue)
+                    return self.getIdReaction(rid)
+            else:
+                return jsonify(Error="Unexpected attributes in post request"), 400
+
+    #returns all reactions w/ rid
+    def getIdReaction(self, rid):
+        dao = reactionsDAO()
+        reactions = dao.getReactionsId(rid)
+        reactions_list = []
+        for row in reactions:
+            reactions_list.append(self.buildgReactionsDict(row))
+
+        return jsonify(Reactions=reactions_list)
+
     #returns all reactions of message
     def getMessageReactions(self, mid):
         dao = reactionsDAO()

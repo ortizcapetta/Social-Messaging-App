@@ -20,6 +20,14 @@ class messagesDAO:
         return result
         '''
 
+    #used for logging new messages
+    def addMessage(self, uid, gid, timeStamp, content):
+        cursor = self.connection.cursor()
+        query = "insert into Messages(uid, gid, timeStamp, content) values ( %s, %s, %s, %s) returning mid"
+        cursor.execute(query, (uid, gid, timeStamp, content))
+        mid = cursor.fetchone()[0]
+        self.connection.commit()
+        return mid
 
     def getMessages(self):
         cursor = self.connection.cursor()
