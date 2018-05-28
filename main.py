@@ -122,7 +122,7 @@ def getAllReplies():
 @app.route('/users/messages/<int:mid>/reactions', methods=['GET','POST']) #search for message id's reactions
 def getMessageReactions(mid):
     if request.method == 'POST':
-        return reactionsHandler().addReaction(request.form)
+        return reactionsHandler().addReaction(request.get_json())
     else:
         return reactionsHandler().getMessageReactions(mid)
 

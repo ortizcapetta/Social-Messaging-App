@@ -91,7 +91,9 @@ class reactionsDAO:
     #Get reactions with rID
     def getReactionsId(self, rid):
         cursor = self.connection.cursor()
-        query = "select * from Reactions where rid = %s;"
+        query = "select reactions.mid,likeValue,count(likeValue) as num from " \
+                "reactions " \
+                "where reactions.rid = %s group by(reactions.mid,likeValue);"
         cursor.execute(query,(rid,))
 
         result = []
