@@ -93,14 +93,25 @@ def getMessagesByGroup(gid):
     else:
         return MessagesHandler().getGroupMessages(gid)
 
+#getting hashtags in a group, else returns all hashtags
+@app.route('/users/groups/<int:gid>/messages/hashtags', methods=['GET'])
+def getMessagesHashtagsByGroup(gid):
+    if request.method == 'GET':
+        return hashtagsHandler().getGroupHashtags(gid)
+    else:
+        return hashtagsHandler().getHashtags()
+
 @app.route('/users/messages/<int:mid>')
 def getMessageByID(mid):
     return MessagesHandler().getMessageID(mid)
 
 ##routes for replies##
-@app.route('/users/messages/<int:mid>/replies')
+@app.route('/users/messages/<int:mid>/replies', methods = ['POST', 'GET'])
 def getRepliesByMessage(mid):
-    return RepliesHandler().getRepliesByMessage(mid)
+    if request.method == 'POST':
+        return RepliesHandler().addReply(request.form)
+    else:
+        return RepliesHandler().getRepliesByMessage(mid)
 
 @app.route('/users/messages/replies')
 def getAllReplies():
@@ -162,10 +173,13 @@ def getGroupsByName(gname):
     group = GroupsHandler()
     return group.getGroupName(gname)
 
-@app.route('/users/<int:uid>/groups') #get all groups with User
+@app.route('/users/<int:uid>/groups', methods = 'GET') #get all groups with User
 def getUserGroups(uid):
     group = gUsersHandler()
-    return group.getGroupsWithUser(uid)
+    if(request.method == 'GET'):
+        return group.getGroupsWithUser(uid)
+    else:
+        return group.getGroupsWithUser(uid)
 
 @app.route('/users/<int:uid>/groups/owner') #get all groups owned by user
 def getOwnerGroups(uid):

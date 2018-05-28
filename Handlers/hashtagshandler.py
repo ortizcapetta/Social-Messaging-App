@@ -29,6 +29,16 @@ class hashtagsHandler:
 
         return jsonify(hashtags=hashtags_list)
 
+    #returns all hashtags in group
+    def getGroupHashtags(self, gid):
+        dao = hashtagsDAO()
+        hashtags = dao.getGroupHashtags(gid)
+        hashtags_list = []
+        for row in hashtags:
+            hashtags_list.append(self.buildgHashtagsDict(row))
+
+        return jsonify(hashtags=hashtags_list)
+
     #returns all hashtags with content
     def getContentHashtags(self, content):
         dao = hashtagsDAO()

@@ -19,6 +19,15 @@ class repliesDAO:
             result.append(row)
         return result
 
+    #used for logging new messages
+    def addReply(self, originID, replyID):
+        cursor = self.connection.cursor()
+        query = "insert into Replies(originID, replyID) values ( %s, %s) returning mid"
+        cursor.execute(query, (originID, replyID,))
+        mid = cursor.fetchone()[0]
+        self.connection.commit()
+        return mid
+
     #Get replies to given message
     def getReplies(self, mid):
         cursor = self.connection.cursor()
