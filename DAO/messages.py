@@ -21,10 +21,10 @@ class messagesDAO:
         '''
 
     #used for logging new messages
-    def addMessage(self, uid, gid, timeStamp, content):
+    def addMessage(self, uid, gid,content):
         cursor = self.connection.cursor()
-        query = "insert into Messages(uid, gid, timeStamp, content) values ( %s, %s, %s, %s) returning mid"
-        cursor.execute(query, (uid, gid, timeStamp, content,))
+        query = "insert into Messages(uid, gid, timeStamp, content) values ( %s, %s, now(), %s) returning mid"
+        cursor.execute(query, (uid, gid,content,))
         mid = cursor.fetchone()[0]
         self.connection.commit()
         return mid

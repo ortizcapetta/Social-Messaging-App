@@ -89,7 +89,7 @@ def getMessagesByUser(uid):
 @app.route('/users/groups/<int:gid>/messages', methods=['GET','POST'])
 def getMessagesByGroup(gid):
     if request.method == 'POST':
-        return MessagesHandler().addMessage(request.form)
+        return MessagesHandler().addMessage(request.get_json())
     else:
         return MessagesHandler().getGroupMessages(gid)
 
@@ -173,7 +173,7 @@ def getGroupsByName(gname):
     group = GroupsHandler()
     return group.getGroupName(gname)
 
-@app.route('/users/<int:uid>/groups', methods = 'GET') #get all groups with User
+@app.route('/users/<int:uid>/groups', methods = ["GET"]) #get all groups with User
 def getUserGroups(uid):
     group = gUsersHandler()
     if(request.method == 'GET'):
