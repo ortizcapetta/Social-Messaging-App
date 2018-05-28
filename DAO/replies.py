@@ -22,17 +22,23 @@ class repliesDAO:
     #used for logging new messages
     def addReply(self, originID, replyID):
         cursor = self.connection.cursor()
-        query = "insert into Replies(originID, replyID) values ( %s, %s) returning mid"
+        query = "insert into Replies(originID, replyID) values ( %s, %s)"
         cursor.execute(query, (originID, replyID,))
-        mid = cursor.fetchone()[0]
+       # mid = cursor.fetchone()[0]
         self.connection.commit()
-        return mid
+        return originID
 
     #Get replies to given message
     def getReplies(self, mid):
         cursor = self.connection.cursor()
-        query = "select mID as replyID,originID,uID,gID,timestamp,content from Replies inner join" \
+        '''query = "select mID as replyID,originID,uID,gID,timestamp,content, Messages.content from Replies inner join" 
+                " Messages on Replies.replyID = Messages.mID where Replies.originID = %s;"'''
+
+        query = "select mID as replyID,originID,uID,gID,timestamp,content," \
+                " (select content from Messages where Replies.originID =Messages. mID) original from Replies inner join" \
                 " Messages on Replies.replyID = Messages.mID where Replies.originID = %s;"
+
+
         cursor.execute(query,(mid,))
         result = []
         for row in cursor:

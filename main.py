@@ -106,7 +106,7 @@ def getMessageByID(mid):
     return MessagesHandler().getMessageID(mid)
 
 ##routes for replies##
-@app.route('/users/messages/<int:mid>/replies', methods = ['POST', 'GET'])
+@app.route('/users/messages/<int:mid>/replies', methods = ['GET','POST'])
 def getRepliesByMessage(mid):
     if request.method == 'POST':
         return RepliesHandler().addReply(request.form)
@@ -196,7 +196,7 @@ def getGroupOwner(gid):
 def getGroupUsers(gid):
     group = gUsersHandler()
     if request.method == 'POST':
-        return group.addGroupUser(request.form)
+        return group.addGroupUser(request.get_json())
     else:
         return group.getGroupUsers(gid)
     
