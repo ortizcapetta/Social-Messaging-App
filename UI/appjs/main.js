@@ -2,14 +2,14 @@
 //<!--declare modules which depends from ngROute from angular
 //configuring navigation routes of page -->
 
-    var app = angular.module('AppChat',['ngRoute']);
+    var app = angular.module('AppChat',['ngStorage','ngRoute']);
     
 
-    app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider, $location) {
+    app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider, $location,loggedUser) {
         $routeProvider.when('/login', { //first route
             templateUrl: 'pages/login.html',
             controller: 'LoginController',
-            controllerAs : 'logingCtrl'
+            controllerAs : 'loginCtrl'
 
              }).when('/groups', { //detail from specific part, i can add /chat/gid or smthng
             templateUrl: 'pages/chatgroups.html',
@@ -23,14 +23,10 @@
             templateUrl: 'pages/messagedetail.html',
             controller: 'MessageDetailsController',
             controllerAs : 'msgdtlCtrl' //controlers
-             }).when('/login', {
-            templateUrl: 'pages/login.html',
-            controller: 'loginController',
-            controllerAs : 'loginCtrl' //controlers
              }).when('/register', {
             templateUrl: 'pages/register.html',
-            controller: 'registerController',
-            controllerAs : 'registerCtrl' //controlers
+            controller: 'LoginController',
+            controllerAs : 'loginCtrl' //controlers
 
 
        /*
@@ -43,7 +39,23 @@
 
 
         }).otherwise({ //default routes
-            redirectTo: '/groups'
+            redirectTo: '/login'
         });
     }]);
+
+     app.service('loggedUser', function () {
+
+            this.setUser = function(user) {
+                localStorage.setItem('loggedUser',JSON.stringify(user));
+                return;
+            }
+            this.getUser = function() {
+                return JSON.parse(localStorage.getItem('loggedUser'));
+            }
+            this.deleteUser = function() {
+                localStorage.removeItem('loggedUser');
+            }
+});
+
+
 })();

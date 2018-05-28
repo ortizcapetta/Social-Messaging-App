@@ -1,64 +1,89 @@
+angular.module('AppChat').controller('LoginController', ['$http', '$log', '$scope', '$location', '$routeParams', 'loggedUser',
+    function($http, $log, $scope, $location, $routeParams, loggedUser) {
 
-
-angular.module('AppChat').controller('GroupChatController', ['$http', '$log', '$scope', '$location',
-    function($http, $log, $scope, $location) {
         var thisCtrl = this;
+        this.loggedUser = {};
 
-        this.groupList = [];
-
-
-        this.loadChatGroups = function(){
-
-            uID = 5
-            // First set up the url for the route
-            var url = "http://localhost:5000/users/"+uID+"/groups";
-
-            // Now set up the $http object
-            // It has two function call backs, one for success and one for error
-            $http.get(url).then(// success call back
+        this.checkLogin = function(email, password){
+            var reqURL = "http://localhost:5000/login";
+                console.log("reqURL: " + reqURL);
+                var data = {'email': email, 'password': password}
+                // Now issue the http request to the rest API
+                $http.post(reqURL, data).then(
+                    // Success function
+                    function (response) {
+                        console.log("data: " + JSON.stringify(response.data));
+                        thisCtrl.loggedUser = response.data.Users;
+                        loggedUser.setUser(thisCtrl.loggedUser);
+                        console.log(loggedUser.getUser()[0].uID)
+                        $location.path('/groups');
+                    },
                 function (response){
-                // The is the sucess function!
-                // Copy the list of parts in the data variable
-                // into the list of parts in the controller.
+                    // This is the error function
+                    // If we get here, some error occurred.
+                    // Verify which was the cause and show an alert.
+                    var status = response.status;
+                    if (status == 0){
+                        alert("No hay conexion a Internet");
+                    }
+                    else if (status == 401){
+                        alert("Su sesion expiro. Conectese de nuevo.");
+                    }
+                    else if (status == 403){
+                        alert("No esta autorizado a usar el sistema.");
+                    }
+                    else if (status == 404){
+                        alert("No se encontro la informacion solicitada.");
+                    }
+                    else {
+                        alert("Error interno del sistema.");
+                    }
+                });
 
-                    console.log("response: " + JSON.stringify(response));
 
-                    thisCtrl.groupList = response.data.Groups;
-
-            }, // error callback
-            function (response){
-                // This is the error function
-                // If we get here, some error occurred.
-                // Verify which was the cause and show an alert.
-                console.log("Err response: " + JSON.stringify(response));
-
-                var status = response.status;
-                if (status == 0){
-                    alert("No hay conexion a Internet");
-                }
-                else if (status == 401){
-                    alert("Su sesion expiro. Conectese de nuevo.");
-                }
-                else if (status == 403){
-                    alert("No esta autorizado a usar el sistema.");
-                }
-                else if (status == 404){
-                    alert("No se encontro la informacion solicitada.");
-                }
-                else {
-                    alert("Error interno del sistema.");
-                }
-            });
-
-            $log.error("Groups Loaded: ", JSON.stringify(thisCtrl.groupList));
         };
-        this.viewGroup = function (gid) {
-            $location.url('/groups/' + gid + '/messages');
-        };
-        // got to screen to add new parts
-        this.addGroup = function(){
-            $location.url('/newGroup');
-        };
-        this.loadChatGroups();
 
+          this.registerUser = function () {
+            $location.url('/register');
+        };
+
+
+        this.register = function(email,password,fname,lname,phone){
+            var reqURL = "http://localhost:5000/register";
+                console.log("reqURL: " + reqURL);
+                var data = {'uFirstName': fname, 'uLastName': lname, 'password':password,
+                            'phoneNum': phone , 'email':email}
+                // Now issue the http request to the rest API
+                $http.post(reqURL, data).then(
+                    // Success function
+                    function (response) {
+                        console.log("data: " + JSON.stringify(response.data));
+                        thisCtrl.loggedUser = response.data.Users;
+                        loggedUser.setUser(thisCtrl.loggedUser);
+                        $location.path('/groups')
+                    },
+                    function (response){
+                    // This is the error function
+                    // If we get here, some error occurred.
+                    // Verify which was the cause and show an alert.
+                    var status = response.status;
+                    if (status == 0){
+                        alert("No hay conexion a Internet");
+                    }
+                    else if (status == 401){
+                        alert("Su sesion expiro. Conectese de nuevo.");
+                    }
+                    else if (status == 403){
+                        alert("No esta autorizado a usar el sistema.");
+                    }
+                    else if (status == 404){
+                        alert("No se encontro la informacion solicitada.");
+                    }
+                    else {
+                        alert("Error interno del sistema.");
+                    }
+                });
+
+
+        };
 }]);

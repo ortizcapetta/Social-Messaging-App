@@ -1,16 +1,19 @@
 
-angular.module('AppChat').controller('GroupChatController', ['$http', '$log', '$scope', '$location',
-    function($http, $log, $scope, $location) {
+angular.module('AppChat').controller('GroupChatController', ['$http', '$log', '$scope', '$location','$routeParams','loggedUser',
+    function($http, $log, $scope, $location,$routeParams,loggedUser) {
         var thisCtrl = this;
 
         this.groupList = [];
+        this.loggedUser = loggedUser.getUser();
+
 
 
         this.loadChatGroups = function(){
 
-            uID = 5
+            //uID = 5
+
             // First set up the url for the route
-            var url = "http://localhost:5000/users/"+uID+"/groups";
+            var url = "http://localhost:5000/users/"+thisCtrl.loggedUser[0].uID+"/groups";
 
             // Now set up the $http object
             // It has two function call backs, one for success and one for error

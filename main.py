@@ -24,11 +24,11 @@ def home():
 
 @app.route('/register', methods = ['POST'])
 def addUser():
-    return UserHandler().addUser(request.form)
+    return UserHandler().addUser(request.get_json())
 
 @app.route('/login', methods = ['POST'])
 def loginUser():
-    return UserHandler().loginUser(request.form)
+    return UserHandler().loginUser(request.get_json())
 
 ###########################
 #####Routes for Users######
