@@ -109,7 +109,7 @@ def getMessageByID(mid):
 @app.route('/users/messages/<int:mid>/replies', methods = ['GET','POST'])
 def getRepliesByMessage(mid):
     if request.method == 'POST':
-        return RepliesHandler().addReply(request.form)
+        return RepliesHandler().addReply(request.get_json())
     else:
         return RepliesHandler().getRepliesByMessage(mid)
 
