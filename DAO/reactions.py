@@ -134,7 +134,7 @@ class reactionsDAO:
             result.append(row)
         return result
 
-     def getNumberofDislikesByDate(self, dateValue):
+    def getNumberofDislikesByDate(self, dateValue):
         likeValue = -1
         cursor = self.connection.cursor()
         query = "SELECT COUNT ( rID )" \

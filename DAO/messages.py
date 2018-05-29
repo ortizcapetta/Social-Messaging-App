@@ -100,7 +100,7 @@ class messagesDAO:
             result.append(row)
         return result
 
-       def getAmountOfMessagesByDate(self, dateValue):
+    def getAmountOfMessagesByDate(self, dateValue):
         cursor = self.connection.cursor()
         query = "SELECT COUNT ( mID )" \
                 "FROM Messages" \

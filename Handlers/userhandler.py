@@ -108,3 +108,11 @@ class UserHandler:
             user_list.append(self.buildUserDict(row))
         return jsonify(Users=user_list)
 
+    def getActiveUsersbyDate(self, dateValue):
+        dao = userDAO()
+        name = dao.getActiveUsersbyDate(dateValue)
+        user_list = []
+        for row in name:
+            user_list.append(self.buildUserDict(row))
+        return jsonify(Users=user_list)
+

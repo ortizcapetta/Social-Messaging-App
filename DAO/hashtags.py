@@ -83,11 +83,11 @@ class hashtagsDAO:
         cursor = self.connection.cursor()
         query = "SELECT COUNT ( hashtag ) AS Amount, hashtag, timeStamp" \
                 "FROM Hashtags inner join Messages on hashtags.mid = messages.mid" \
-                "WHERE (SELECT date_trunc('day', timeStamp)) as dateValue = %s;"
+                "WHERE (SELECT date_trunc('day', timeStamp)) as dateValue = %s;" \
                 "GROUP BY hashtag" \
                 "ORDER BY Amount DESC" \
                 "LIMIT 10;"
-        cursor.execute(query,(htid,))
+        cursor.execute(query,(dateValue,))
         result = []
         for row in cursor:
             result.append(row)
