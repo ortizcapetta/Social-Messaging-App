@@ -12,11 +12,21 @@ class reactionsDAO:
     #used for registering users
     def addReaction(self, uid, mid, likeValue):
         cursor = self.connection.cursor()
-        query = "insert into Reactions(uid, mid, likeValue) values (%s, %s, %s ) returning rid"
+        query = "insert into Reactions(uid, mid, likeValue, timeStamp) values (%s, %s, %s, now()) returning rid"
         cursor.execute(query, (uid, mid, likeValue,))
         rid = cursor.fetchone()[0]
         self.connection.commit()
         return rid
+
+    #Get reactions by time
+    def getTimeReactions(self, timeStamp):
+        cursor = self.connection.cursor()
+        query = "select * from Reactions where timeStamp = %s;"
+        cursor.execute(query,(timeStamp,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     #Get all messages user has reacted to, 0 for dislike, 1 for like
     def getUserReactions(self, uid):

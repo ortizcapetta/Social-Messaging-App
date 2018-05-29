@@ -52,6 +52,16 @@ class reactionsHandler:
 
         return jsonify(Reactions=reactions_list)
 
+    #returns all reactions w/ timeStamp
+    def getTimeReaction(self, timeStamp):
+        dao = reactionsDAO()
+        reactions = dao.getTimeReactions(timeStamp)
+        reactions_list = []
+        for row in reactions:
+            reactions_list.append(self.buildgReactionsDict(row))
+
+        return jsonify(Reactions=reactions_list)
+
     #returns all reactions of message
     def getMessageReactions(self, mid):
         dao = reactionsDAO()

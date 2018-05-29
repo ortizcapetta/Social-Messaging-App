@@ -26,6 +26,7 @@ CREATE TABLE Reactions (
 	rID			bigserial				primary key,
 	uID			integer  references		Users(uID),
     mID	    	integer references		Messages(mID),
+	timeStamp	timestamp		    	NOT NULL,
     likeValue	int				        NOT NULL
 );
 
