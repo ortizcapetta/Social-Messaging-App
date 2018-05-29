@@ -57,9 +57,9 @@ class RepliesHandler:
             reply_list.append(self.buildMessageDict(row))
         return jsonify(Replies=reply_list)
 
-    def getRepliesbyDate(self, form):
+    def getRepliesbyDate(self, dateValue):
         dao = repliesDAO()
-        dateValue = form.get("timeStamp")
+        #dateValue = form.get("timeStamp")
         name = dao.getAmountOfRepliesByDate(dateValue)
         reply_list = []
         for row in name:

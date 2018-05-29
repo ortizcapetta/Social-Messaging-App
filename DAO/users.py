@@ -90,7 +90,7 @@ class userDAO:
                 "GROUP BY uFirstName" \
                 "ORDER BY Amount DESC" \
                 "LIMIT 10;"
-        cursor.execute(query)
+        cursor.execute(query, (dateValue,))
         result = []
         for row in cursor:
             result.append(row)
