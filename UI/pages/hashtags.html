@@ -1,20 +1,24 @@
 <div ng-cloak style="align-content: right">
 
+
     <!--<div  id="chat-list" style="height:300px;overflow:auto">-->
 
         <!-- Here come the messages in the chat, each one presented in card -->
-        <div ng-repeat="m in contactCtrl.contactList">
+        <div ng-repeat="m in hashCtrl.hashtagList">
             <!-- This card prodives space for the message and Like/dislike buttons -->
             <div class="row">
                 <div class="col s12 m6">
                     <div class="card">
                         <div class="card-content">
                             <!-- Card Title is the person who write the message -->
-                            <span class="card-title">{{m.Name}}</span>
+                            <span class="card-title">{{m.content}}</span>
 
-                            <p><button class="btn" type="submit" ng-click="contactCtrl.addToGroup(m.uID)">add to Group</button></p>
+
+
+
+
+
                     </div>
-
                 </div>
             </div>
         </div>

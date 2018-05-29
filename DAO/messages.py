@@ -70,7 +70,7 @@ class messagesDAO:
     #might need to edit once schema is updated because we might have to remove gid from Messages, if so use a natural inner join
     def getGroupMessages(self, gid):
         cursor = self.connection.cursor()
-        query = query = "select Messages.mid,Messages.uid,gid,timestamp,content,ufirstname,ulastname," \
+        query = query = "select Messages.mid,Messages.uid,gid,Messages.timestamp,content,ufirstname,ulastname," \
                 "sum(case likeValue when 1 then 1 else 0 end) as likes,sum(case likeValue when -1 then 1 else 0 end) as dislikes" \
                 " from Messages natural inner join users left join Reactions on Reactions.mID = Messages.mID " \
                 "where Messages.gID =%s group by(Messages.mid,messages.uid,gid,timestamp,content,ufirstname,ulastname) order by(timestamp) DESC;"
@@ -95,17 +95,6 @@ class messagesDAO:
         cursor = self.connection.cursor()
         query = "select * from Messages where uID = %s;"
         cursor.execute(query,(uid,))
-        result = []
-        for row in cursor:
-            result.append(row)
-        return result
-
-    def getAmountOfMessagesByDate(self, dateValue):
-        cursor = self.connection.cursor()
-        query = "SELECT COUNT ( mID )" \
-                "FROM Messages" \
-                "WHERE (SELECT date_trunc('day', timeStamp)) as dateValue = %s;"
-        cursor.execute(query)
         result = []
         for row in cursor:
             result.append(row)
