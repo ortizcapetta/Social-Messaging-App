@@ -48,7 +48,7 @@ class userDAO:
 
     def getUsersPhone(self,phone): #searches for phone in DB
         cursor = self.connection.cursor()
-        query = "select * from Users where phone= %s;"
+        query = "select * from Users where phoneNum= %s;"
         cursor.execute(query, (phone,))
         result = []
         for row in cursor:

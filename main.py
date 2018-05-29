@@ -24,11 +24,11 @@ def home():
 
 @app.route('/register', methods = ['POST'])
 def addUser():
-    return UserHandler().addUser(request.form)
+    return UserHandler().addUser(request.get_json())
 
 @app.route('/login', methods = ['POST'])
 def loginUser():
-    return UserHandler().loginUser(request.form)
+    return UserHandler().loginUser(request.get_json())
 
 ###########################
 #####Routes for Users######
@@ -45,9 +45,10 @@ def getUserById(uid):
     return UserHandler().getUsersID(uid)
 
 
-@app.route('/users/<int:uid>/contacts') #view user's contact list
+@app.route('/users/<int:uid>/contacts',methods=['GET']) #view user's contact list
 def getUserContacts(uid):
-    return ContactsHandler().getUserContacts(uid)
+    if request.method == 'GET':
+        return ContactsHandler().getUserContacts(uid)
 
 @app.route('/users/contacts')
 def getAllContacts():
@@ -89,7 +90,7 @@ def getMessagesByUser(uid):
 @app.route('/users/groups/<int:gid>/messages', methods=['GET','POST'])
 def getMessagesByGroup(gid):
     if request.method == 'POST':
-        return MessagesHandler().addMessage(request.form)
+        return MessagesHandler().addMessage(request.get_json())
     else:
         return MessagesHandler().getGroupMessages(gid)
 
@@ -106,10 +107,10 @@ def getMessageByID(mid):
     return MessagesHandler().getMessageID(mid)
 
 ##routes for replies##
-@app.route('/users/messages/<int:mid>/replies', methods = ['POST', 'GET'])
+@app.route('/users/messages/<int:mid>/replies', methods = ['GET','POST'])
 def getRepliesByMessage(mid):
     if request.method == 'POST':
-        return RepliesHandler().addReply(request.form)
+        return RepliesHandler().addReply(request.get_json())
     else:
         return RepliesHandler().getRepliesByMessage(mid)
 
@@ -122,7 +123,7 @@ def getAllReplies():
 @app.route('/users/messages/<int:mid>/reactions', methods=['GET','POST']) #search for message id's reactions
 def getMessageReactions(mid):
     if request.method == 'POST':
-        return reactionsHandler().addReaction(request.form)
+        return reactionsHandler().addReaction(request.get_json())
     else:
         return reactionsHandler().getMessageReactions(mid)
 
@@ -173,7 +174,7 @@ def getGroupsByName(gname):
     group = GroupsHandler()
     return group.getGroupName(gname)
 
-@app.route('/users/<int:uid>/groups', methods = 'GET') #get all groups with User
+@app.route('/users/<int:uid>/groups', methods = ["GET"]) #get all groups with User
 def getUserGroups(uid):
     group = gUsersHandler()
     if(request.method == 'GET'):
@@ -192,14 +193,19 @@ def getGroupOwner(gid):
     return group.getGroupOwner(gid)
 
 
-@app.route('/users/groups/<int:gid>/users', methods = 'POST') #get all users in group
+@app.route('/users/groups/<int:gid>/users', methods = ['POST','GET']) #get all users in group
 def getGroupUsers(gid):
     group = gUsersHandler()
     if request.method == 'POST':
-        return group.addGroupUser(request.form)
+        return group.addGroupUser(request.get_json())
     else:
         return group.getGroupUsers(gid)
     
+
+@app.route('/users/groups/<int:gid>/hashtags') #get all users in group
+def getHashtagsByGroup(gid):
+    hashtags = hashtagsHandler()
+    return hashtags.getMessageWithHashtagByGroup(gid)
 
 
 if __name__ == '__main__':

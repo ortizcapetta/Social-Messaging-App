@@ -28,11 +28,12 @@ class MessagesHandler:
     def addMessage(self, form):
             uid = form.get("uid")
             gid = form.get("gid")
-            timeStamp = form.get("timeStamp")
+            #removed timestamp because we can just put now()
+            #timeStamp = form.get("timeStamp")
             content = form.get("content")
-            if uid and gid and timeStamp and content:
+            if uid and gid and content:
                 dao = messagesDAO()
-                uid = dao.addMessage(uid, gid, timeStamp, content)
+                uid = dao.addMessage(uid, gid, content)
                 return self.getMessageID(uid)
             else:
                 return jsonify(Error="Unexpected attributes in post request"), 400
@@ -60,7 +61,7 @@ class MessagesHandler:
         messages = dao.getGroupMessages(gid)
         message_list = []
         for row in messages:
-            message_list.append(self.buildMessageDict(row))
+            message_list.append(self.buildMessageDict2(row))
 
         return jsonify(Messages=message_list)
 
@@ -69,7 +70,7 @@ class MessagesHandler:
         messages = dao.getMessageID(mid)
         message_list = []
         for row in messages:
-            message_list.append(self.buildMessageDict(row))
+            message_list.append(self.buildMessageDict2(row))
 
         return jsonify(Messages=message_list)
             

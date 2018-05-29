@@ -14,6 +14,7 @@ class reactionsHandler:
     def buildLikesDict(self, row):
         reactions = {}
         reactions['Name'] = row[0] + " " + row[1]
+        reactions['uID'] = row[2]
 
         return reactions
 
@@ -33,7 +34,7 @@ class reactionsHandler:
             likeValue = form.get("likeValue")
             if uid and mid:
                 dao = reactionsDAO()
-                if dao.getUserMessageReaction(uid, mid) is not None:
+                if dao.getUserMessageReaction(uid, mid) !=[]:
                     return jsonify(Error="Reaction from user already exists for message"), 400
                 else:
                     rid = dao.addReaction(uid, mid, likeValue)

@@ -24,9 +24,9 @@ class UserHandler:
             password = pwd_context.encrypt(form.get("password"))
             if email and password:
                 dao = userDAO()
-                if dao.getUsersEmail(email) is not None:
+                if dao.getUsersEmail(email) != []:
                     user = self.getUsersEmail(email)
-                    if dao.getUsersPass(password) == dao.getUsersEmail(email):
+                    if dao.getUsersPass(password) == dao.getUsersEmail(password):
                         return user
                     else:
                         return jsonify(Error="Invalid email or password"), 400
@@ -47,7 +47,7 @@ class UserHandler:
             email = form.get("email")
             if fname and lname and password and phoneNum and email:
                 dao = userDAO()
-                if dao.getUsersEmail(email) is not None or dao.getUsersPhone(phoneNum) is not None:
+                if dao.getUsersEmail(email) !=[] or dao.getUsersPhone(phoneNum) !=[]:
                     return jsonify(Error="User already exists"), 400
                 else:
                     uid = dao.addUser(fname, lname, password, phoneNum, email)
