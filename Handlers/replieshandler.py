@@ -1,5 +1,5 @@
 from DAO.replies import repliesDAO
-from DAO.messages import messagesDAO
+from DAO.messages import *
 from flask import *
 
 class RepliesHandler:
@@ -56,3 +56,11 @@ class RepliesHandler:
         for row in replies:
             reply_list.append(self.buildMessageDict(row))
         return jsonify(Replies=reply_list)
+
+    def getActiveUsersbyDate(self, dateValue):
+        dao = repliesDAO()
+        name = dao.getAmountOfRepliesByDate(dateValue)
+        reply_list = []
+        for row in name:
+            reply_list.append(self.buildMessageDict(row))
+        return jsonify(Users=reply_list)
