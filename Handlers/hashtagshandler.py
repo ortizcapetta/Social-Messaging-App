@@ -10,6 +10,8 @@ class hashtagsHandler:
         hashtags['mID'] = row[1]
         hashtags['hashtag'] = row[2]
         return hashtags
+
+
     def buildgHashtagsDict2(self, row):
         hashtags = {}
         hashtags['htID'] = row[0]

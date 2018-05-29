@@ -10,7 +10,14 @@
             templateUrl: 'pages/login.html',
             controller: 'LoginController',
             controllerAs : 'loginCtrl'
-
+            }).when('/home', {
+            templateUrl: 'pages/home.html',
+            controller: 'HomeController',
+            controllerAs : 'homeCtrl'//controlers
+             }).when('/:gid/contacts', {
+            templateUrl: 'pages/groupUsers.html',
+            controller: 'ContactController',
+            controllerAs : 'contactCtrl'//controlers
              }).when('/groups', { //detail from specific part, i can add /chat/gid or smthng
             templateUrl: 'pages/chatgroups.html',
             controller: 'GroupChatController',
@@ -26,7 +33,9 @@
              }).when('/register', {
             templateUrl: 'pages/register.html',
             controller: 'LoginController',
-            controllerAs : 'loginCtrl' //controlers
+            controllerAs : 'loginCtrl'
+
+
 
 
        /*
@@ -35,8 +44,6 @@
             controller: 'ChatController',
             controllerAs : 'chatCtrl' //controlers
             */
-
-
 
         }).otherwise({ //default routes
             redirectTo: '/login'

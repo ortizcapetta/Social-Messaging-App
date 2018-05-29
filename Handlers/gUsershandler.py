@@ -7,8 +7,7 @@ class gUsersHandler:
     def buildgUserDict(self, row):
       users = {}
       users['uID'] = row[0]
-      users['uFirstName'] = row[1]
-      users['uLastName'] = row[2]
+      users['Name'] = row[1] +" "+ row[2]
       return users
 
     def buildGroupDict(self, row):
@@ -47,7 +46,7 @@ class gUsersHandler:
             uid = form.get("uID")
             if gid and uid:
                 dao = gUsersDAO()
-                if dao.getUidInGroup(uid, gid) is not None:
+                if dao.getUidInGroup(uid, gid) != []:
                     return jsonify(Error="User already exists in group"), 400
                 else:
                     uid = dao.addGroupUser(gid, uid)

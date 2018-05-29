@@ -5,18 +5,25 @@
         <div class="col s12 m6">
             <div class="card teal darken-1">
                 <div class="card-content ">
-                   <a class="waves-effect  red lighten-1 btn-small" ng-click="partsCtrl.addPart()">Add Contact to Chat</a>
+                   <a class="waves-effect  red lighten-1 btn-small" ng-click="msgCtrl.viewContacts()">Add Contact to Chat</a>
                     <a class="waves-effect  red lighten-1 btn-small" ng-click="msgCtrl.loadMessages()">Refresh Messages</a>
                      <a class="waves-effect  red lighten-1 btn-small" ng-click="msgCtrl.viewHashtags()">View Hashtags</a>
+                    <h5>Members</h5>
+            <div ng-repeat="m in msgCtrl.memberList">{{m.Name}}</div>
 
                 </div>
 
             </div>
+
         </div>
+
+     </div>
 
 
 
 </center>
+
+
 
 
     <div class="row">

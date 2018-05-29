@@ -16,7 +16,7 @@ angular.module('AppChat').controller('LoginController', ['$http', '$log', '$scop
                         thisCtrl.loggedUser = response.data.Users;
                         loggedUser.setUser(thisCtrl.loggedUser);
                         console.log(loggedUser.getUser()[0].uID)
-                        $location.path('/groups');
+                        $location.path('/home');
                     },
                 function (response){
                     // This is the error function
@@ -60,7 +60,7 @@ angular.module('AppChat').controller('LoginController', ['$http', '$log', '$scop
                         console.log("data: " + JSON.stringify(response.data));
                         thisCtrl.loggedUser = response.data.Users;
                         loggedUser.setUser(thisCtrl.loggedUser);
-                        $location.path('/groups')
+                        $location.path('/home')
                     },
                     function (response){
                     // This is the error function

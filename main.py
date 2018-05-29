@@ -45,9 +45,10 @@ def getUserById(uid):
     return UserHandler().getUsersID(uid)
 
 
-@app.route('/users/<int:uid>/contacts') #view user's contact list
+@app.route('/users/<int:uid>/contacts',methods=['GET']) #view user's contact list
 def getUserContacts(uid):
-    return ContactsHandler().getUserContacts(uid)
+    if request.method == 'GET':
+        return ContactsHandler().getUserContacts(uid)
 
 @app.route('/users/contacts')
 def getAllContacts():
@@ -192,7 +193,7 @@ def getGroupOwner(gid):
     return group.getGroupOwner(gid)
 
 
-@app.route('/users/groups/<int:gid>/users', methods = ["POST"]) #get all users in group
+@app.route('/users/groups/<int:gid>/users', methods = ['POST','GET']) #get all users in group
 def getGroupUsers(gid):
     group = gUsersHandler()
     if request.method == 'POST':
