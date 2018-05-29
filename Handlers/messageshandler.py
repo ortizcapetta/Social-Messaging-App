@@ -1,4 +1,5 @@
 from DAO.messages import *
+from DAO.hashtags import *
 from flask import *
 
 
@@ -33,10 +34,22 @@ class MessagesHandler:
             content = form.get("content")
             if uid and gid and content:
                 dao = messagesDAO()
-                uid = dao.addMessage(uid, gid, content)
-                return self.getMessageID(uid)
+                mid = dao.addMessage(uid, gid, content)
+                #htids isn't used atm but I'm putting it here in case we need to use it later
+                htids = self.hashtagCheck(content, mid)
+                return self.getMessageID(mid)
             else:
                 return jsonify(Error="Unexpected attributes in post request"), 400
+
+    def hashtagCheck(self, content, mid):
+        if content.find("#") != -1:
+            dao = hashtagsDAO()
+            words = content.split(" ")
+            htids = []
+            for word in words:
+                if(word[0] == "#"):
+                    htids.append(dao.addHashtag(word, mid))
+            return htids
 
     def getMessages(self):
         dao = messagesDAO()

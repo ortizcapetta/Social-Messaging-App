@@ -18,6 +18,15 @@ class hashtagsDAO:
             result.append(row)
         return result
 
+    #used for logging new hashtags
+    def addHashtag(self, hashtag, mid):
+        cursor = self.connection.cursor()
+        query = "insert into Hashtags(hashtag, mid) values ( %s, %s) returning htID"
+        cursor.execute(query, (hashtag, mid,))
+        htid = cursor.fetchone()[0]
+        self.connection.commit()
+        return htid
+
     def getMessagesWithHashtagsByGroup(self,gID):
         cursor = self.connection.cursor()
         query = "select htid,hashtags.mID, hashtag,content from hashtags natural inner join messages where messages.gid = %s;"
