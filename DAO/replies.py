@@ -54,3 +54,14 @@ class repliesDAO:
         for row in cursor:
             result.append(row)
         return result
+
+    def getAmountOfRepliesByDate(self, dateValue):
+        cursor = self.connection.cursor()
+        query = "SELECT COUNT ( replyID )" \
+                "FROM Replies" \
+                "WHERE (SELECT date_trunc('day', timeStamp)) as dateValue = %s;"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
