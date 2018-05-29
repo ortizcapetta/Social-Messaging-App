@@ -26,6 +26,10 @@
             templateUrl: 'pages/messages.html',
             controller: 'MessageController',
             controllerAs : 'msgCtrl' //controlers
+            }).when('/groups/:gid/hashtags', {
+            templateUrl: 'pages/hashtags.html',
+            controller: 'HashtagController',
+            controllerAs : 'hashCtrl'
             }).when('/messages/:mid', {
             templateUrl: 'pages/messagedetail.html',
             controller: 'MessageDetailsController',
@@ -34,6 +38,7 @@
             templateUrl: 'pages/register.html',
             controller: 'LoginController',
             controllerAs : 'loginCtrl'
+
 
 
 

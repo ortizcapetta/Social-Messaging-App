@@ -261,7 +261,9 @@ angular.module('AppChat').controller('MessageController', ['$http', '$log', '$sc
                         alert("Error interno del sistema.");
                     }
                 }
+
             );
+
         };
 
 
@@ -274,7 +276,13 @@ angular.module('AppChat').controller('MessageController', ['$http', '$log', '$sc
             $location.url(gid + "/contacts");
         };
 
+         this.hashtags = function (gid) {
+           var gid = $routeParams.gid;
+
+            $location.url("/groups/"+gid+"/hashtags");
+        };
+
         this.loadGroupMembers();
         this.loadMessages();
-       this.viewHashtags();
+
 }]);

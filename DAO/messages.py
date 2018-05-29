@@ -70,7 +70,7 @@ class messagesDAO:
     #might need to edit once schema is updated because we might have to remove gid from Messages, if so use a natural inner join
     def getGroupMessages(self, gid):
         cursor = self.connection.cursor()
-        query = query = "select Messages.mid,Messages.uid,gid,timestamp,content,ufirstname,ulastname," \
+        query = query = "select Messages.mid,Messages.uid,gid,Messages.timestamp,content,ufirstname,ulastname," \
                 "sum(case likeValue when 1 then 1 else 0 end) as likes,sum(case likeValue when -1 then 1 else 0 end) as dislikes" \
                 " from Messages natural inner join users left join Reactions on Reactions.mID = Messages.mID " \
                 "where Messages.gID =%s group by(Messages.mid,messages.uid,gid,timestamp,content,ufirstname,ulastname) order by(timestamp) DESC;"

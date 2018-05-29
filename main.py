@@ -198,6 +198,7 @@ def getGroupUsers(gid):
     group = gUsersHandler()
     if request.method == 'POST':
         return group.addGroupUser(request.get_json())
+
     else:
         return group.getGroupUsers(gid)
     
