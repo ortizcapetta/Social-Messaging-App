@@ -1,4 +1,5 @@
 from DAO.replies import repliesDAO
+from DAO.messages import messagesDAO
 from flask import *
 
 class RepliesHandler:
@@ -16,10 +17,31 @@ class RepliesHandler:
         messages['gID'] = row[3]
         messages['timestamp'] = row[4]
         messages['content'] = row[5]
+        messages['original'] = row[6]
 
         return messages
 
-    def getRepliesByMessage(self,mid):
+    #reply logging
+    def addReply(self, form):
+        if len(form) != 4:
+            return jsonify(Error = "Malformed post request") , 400
+        else:
+            originID = form.get("originID")
+            #replyID = form.get("replyID")
+            uid = form.get("uid")
+            gid = form.get("gid")
+            #timeStamp = form.get("timeStamp")
+            content = form.get("content")
+            if originID and uid and gid and content:
+                dao = repliesDAO()
+                mdao = messagesDAO()
+                mid = mdao.addMessage(uid, gid, content)
+                dao.addReply(originID, mid)
+                return self.getRepliesByMessage(mid)
+            else:
+                return jsonify(Error="Unexpected attributes in post request"), 400
+
+    def getRepliesByMessage(self, mid):
         dao = repliesDAO()
         replies = dao.getReplies(mid)
         reply_list = []

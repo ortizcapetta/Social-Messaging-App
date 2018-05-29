@@ -5,17 +5,9 @@ from flask import *
 class gUsersHandler:
 
     def buildgUserDict(self, row):
-      ''' gUsers = {}
-        gUsers['gID'] = row[0]
-        gUsers['uID'] = row[1]
-        return gUsers'''
       users = {}
       users['uID'] = row[0]
-      users['uFirstName'] = row[1]
-      users['uLastName'] = row[2]
-      users['password'] = row[3]
-      users['phone'] = row[4]
-      users['email'] = row[5]
+      users['Name'] = row[1] +" "+ row[2]
       return users
 
     def buildGroupDict(self, row):
@@ -44,3 +36,20 @@ class gUsersHandler:
             groups_list.append(self.buildGroupDict(row))
 
         return jsonify(Groups=groups_list)
+
+    #guser registration
+    def addGroupUser(self, form):
+        if len(form) != 2:
+            return jsonify(Error = "Malformed post request") , 400
+        else:
+            gid = form.get("gID")
+            uid = form.get("uID")
+            if gid and uid:
+                dao = gUsersDAO()
+                if dao.getUidInGroup(uid, gid) != []:
+                    return jsonify(Error="User already exists in group"), 400
+                else:
+                    uid = dao.addGroupUser(gid, uid)
+                    return self.getGroupUsers(gid)
+            else:
+                return jsonify(Error="Unexpected attributes in post request"), 400

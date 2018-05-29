@@ -15,8 +15,7 @@ class ContactsHandler:
     def buildUserDict(self, row):
         users = {}
         users['uID'] = row[0]
-        users['uFirstName'] = row[1]
-        users['uLastName'] = row[2]
+        users['Name'] = row[1] + " " + row[2]
         users['password'] = row[3]
         users['phone'] = row[4]
         users['email'] = row[5]

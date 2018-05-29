@@ -1,0 +1,61 @@
+  <style>
+
+.register {
+    max-width: 500px;
+    margin: auto;
+}
+
+
+</style>
+  <!--
+  <ng-cloak style="align-content: center; text-align: center">
+  <div class ="register">
+      <section class="register">
+        <form name="register" action="index_submit" ng-submit="loginCtrl.register(email,password,fname,lname,phone)" method="post" accept-charset="utf-8">
+            <ul>
+                <p>E-Mail <input type="email" name="email" placeholder="placeholder@email.com" required ng-model="email"></p>
+                <p>Password <input type="password" name="password" placeholder="password" required ng-model="password"></p>
+                <p>First Name <input type="text" name="fname" placeholder="First Name" required ng-model="fname"></p>
+                <p>Last Name  <input type="text" name="lname" placeholder="Last Name" required ng-model="lname"></p>
+                <p>Phone Number<input type="tel" name="phone" placeholder="phone num" required ng-model="phone"></p>
+
+
+
+
+
+            </ul>
+        </form>
+
+          <p><button class="btn" type="submit" ng-click="loginCtrl.registerUser()">Register</button></p>
+        </section>
+      </div>
+  </ng-cloak>
+-->
+  <style>
+  <style>
+
+.login {
+    max-width: 500px;
+    margin: auto;
+}
+
+</style>
+  <ng-cloak style="align-content: center; text-align: center">
+  <div class ="register">
+
+    <form ng-submit="loginCtrl.register(email, password,fname,lname,phone)" name="regForm">
+     <p> E-Mail <input type="email" placeholder="email" required ng-model="email"><p>
+      <p>Password<input type="password" placeholder="Password" required ng-model="password"></p>
+        <p>First Name</p> <input type="text" placeholder="John" required ng-model="fname">
+      <p>Last Name</p><input type="text" placeholder="Doe" required ng-model="lname">
+      <p>Phone Number</p><input type="text" placeholder="(XXX)-XXX-XXXX" required ng-model="phone">
+      <div>
+        <button type="submit">Register</button>
+      </div>
+
+      <div style="color: blue; padding: 1em .5em;" ng-bind="debug | json">
+      </div>
+    </form>
+
+      </div>
+  </ng-cloak>

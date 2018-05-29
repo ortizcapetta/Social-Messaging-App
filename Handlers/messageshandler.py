@@ -1,4 +1,5 @@
 from DAO.messages import *
+from DAO.hashtags import *
 from flask import *
 
 
@@ -20,9 +21,36 @@ class MessagesHandler:
         messages['timestamp'] = row[3]
         messages['content'] = row[4]
         messages['name'] = row[5] + " " + row[6] #ufirstname + ulastname
-
-
+        messages['likes'] = row[7]
+        messages['dislikes'] = row[8]
         return messages
+
+    #message logging
+    def addMessage(self, form):
+            uid = form.get("uid")
+            gid = form.get("gid")
+            #removed timestamp because we can just put now()
+            #timeStamp = form.get("timeStamp")
+            content = form.get("content")
+            if uid and gid and content:
+                dao = messagesDAO()
+                mid = dao.addMessage(uid, gid, content)
+                #htids isn't used atm but I'm putting it here in case we need to use it later
+                htids = self.hashtagCheck(content, mid)
+                return self.getMessageID(mid)
+            else:
+                return jsonify(Error="Unexpected attributes in post request"), 400
+
+    def hashtagCheck(self, content, mid):
+        if content.find("#") != -1:
+            dao = hashtagsDAO()
+            words = content.split(" ")
+            htids = []
+            for word in words:
+                if(word[0] == "#"):
+                    htids.append(dao.addHashtag(word, mid))
+            return htids
+
     def getMessages(self):
         dao = messagesDAO()
         messages = dao.getMessages()
@@ -46,7 +74,7 @@ class MessagesHandler:
         messages = dao.getGroupMessages(gid)
         message_list = []
         for row in messages:
-            message_list.append(self.buildMessageDict(row))
+            message_list.append(self.buildMessageDict2(row))
 
         return jsonify(Messages=message_list)
 
@@ -55,7 +83,7 @@ class MessagesHandler:
         messages = dao.getMessageID(mid)
         message_list = []
         for row in messages:
-            message_list.append(self.buildMessageDict(row))
+            message_list.append(self.buildMessageDict2(row))
 
         return jsonify(Messages=message_list)
             

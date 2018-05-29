@@ -1,0 +1,118 @@
+ <!--<div  id="chat-list" style="height:300px;overflow:auto">-->
+    <div>
+        <!-- Here come the messages in the chat, each one presented in card -->
+        <div ng-repeat="m in msgdtlCtrl.messageDetails">
+            <!-- This card prodives space for the message and Like/dislike buttons -->
+            <div class="row">
+                <div class="col s12 m6">
+                    <div class="card">
+                        <div class="card-content">
+                            <!-- Card Title is the person who write the message -->
+                            <span class="card-title">{{m.name}}</span>
+                            <!-- Here comes the message text -->
+                             <p style = "font-size:20px"> {{m.content}}</p>
+
+                             <p style = "font-size:10px;color:blue"> {{m.timestamp}}</p>
+
+
+<center>
+                        <div class="card-action">
+                            <style>th, td {
+                            padding: 5px;
+                            text-align: center;}</style>
+
+
+                            <table style="width:35%">
+                                  <tr>
+                                    <th>Likes</th>
+                                    <th>Dislikes</th>
+
+                                  </tr>
+                                  <tr>
+                                       <td>
+                                            <button class="btn-floating btn-small waves-effect waves-light blue" type="submit" name="action" ng-click="msgCtrl.reactToMessage(m.mID,1)">
+                                          <i class="material-icons">thumb_up
+                                            </i>
+                                        </button>
+                                      </td>
+                                      <td>
+                                            <button class="btn-floating btn-small waves-effect waves-light blue" type="submit" name="action" ng-click="msgCtrl.reactToMessage(m.mID,-1)">
+                                          <i class="material-icons">thumb_down
+                                          </i></button>
+
+                                      </td>
+
+
+                                  </tr>
+                                  <tr>
+                                       <td>{{m.likes}}</td>
+                                       <td>{{m.dislikes}}</td>
+                                  </tr>
+
+                                </table>
+
+
+                           <!-- <a class="waves-effect  blue lighten-1 btn-small" ng-click="msgCtrl.viewDetails(m.mID)">View Message Details</a>
+                                -->
+
+                            <style>th, td {
+                            padding: 5px;
+                            text-align: center;}</style>
+
+                            <div style ="align:left">
+                            <table style="width:35%;">
+                                  <tr>
+                                    <th>Liked By</th>
+
+
+
+
+                                  </tr>
+
+                                  <tr ng-repeat="m in msgdtlCtrl.messageLikes">
+                                       <td>{{m.Name}}</td>
+
+                                  </tr>
+
+
+
+                                </table>
+                                </div>
+                               <style>th, td {
+                            padding: 5px;
+                            text-align: center;}</style>
+
+
+                            <table style="width:35%;align:right">
+                                  <tr>
+
+                                      <th>DislikedBy</th>
+
+
+
+                                  </tr>
+
+
+
+                                <tr ng-repeat="m in msgdtlCtrl.messageDislikes">
+                                       <td>{{m.Name}}</td>
+
+                                  </tr>
+
+
+                                </table>
+
+
+
+                        </div>
+    </center>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+

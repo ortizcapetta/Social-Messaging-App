@@ -17,7 +17,37 @@ class hashtagsDAO:
         for row in cursor:
             result.append(row)
         return result
+
+    #used for logging new hashtags
+    def addHashtag(self, hashtag, mid):
+        cursor = self.connection.cursor()
+        query = "insert into Hashtags(hashtag, mid) values ( %s, %s) returning htID"
+        cursor.execute(query, (hashtag, mid,))
+        htid = cursor.fetchone()[0]
+        self.connection.commit()
+        return htid
+
+    def getMessagesWithHashtagsByGroup(self,gID):
+        cursor = self.connection.cursor()
+        query = "select htid,hashtags.mID, hashtag,content from hashtags natural inner join messages where messages.gid = %s;"
+        cursor.execute(query,(gID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+
     
+    #Get hashtags by gID
+    def getGroupHashtags(self, gid):
+        cursor = self.connection.cursor()
+        query = "select htID, hashtag, mID from Hashtags inner join Messages where gid = %s;"
+        cursor.execute(query,(gid,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
     #Get hashtags by mID
     def getMessageHashtags(self, mid):
         cursor = self.connection.cursor()

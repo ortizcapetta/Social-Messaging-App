@@ -10,6 +10,14 @@ class userDAO:
 
         self.connection = psycopg2._connect(curl)
 
+    #used for registering users
+    def addUser(self, fname, lname, password, phoneNum, email):
+        cursor = self.connection.cursor()
+        query = "insert into Users(uFirstName, uLastName, password, phoneNum, email) values ( %s, %s, %s, %s, %s ) returning uid"
+        cursor.execute(query, (fname,lname,password,phoneNum,email,))
+        uid = cursor.fetchone()[0]
+        self.connection.commit()
+        return uid
 
     def getUsers(self):
         cursor = self.connection.cursor()
@@ -40,7 +48,7 @@ class userDAO:
 
     def getUsersPhone(self,phone): #searches for phone in DB
         cursor = self.connection.cursor()
-        query = "select * from Users where phone= %s;"
+        query = "select * from Users where phoneNum= %s;"
         cursor.execute(query, (phone,))
         result = []
         for row in cursor:
@@ -65,3 +73,11 @@ class userDAO:
             result.append(row)
         return result
 
+    def getUsersPass(self, password):
+        cursor = self.connection.cursor()
+        query = "select * from Users where password= %s;"
+        cursor.execute(query, (password,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result

@@ -11,10 +11,30 @@ class hashtagsHandler:
         hashtags['hashtag'] = row[2]
         return hashtags
 
+
+    def buildgHashtagsDict2(self, row):
+        hashtags = {}
+        hashtags['htID'] = row[0]
+        hashtags['mID'] = row[1]
+        hashtags['hashtag'] = row[2]
+        hashtags['content'] = row[3]
+        return hashtags
+
+
     #returns all hashtags of message
     def getMessageHashtags(self, mid):
         dao = hashtagsDAO()
         hashtags = dao.getMessageHashtags(mid)
+        hashtags_list = []
+        for row in hashtags:
+            hashtags_list.append(self.buildgHashtagsDict(row))
+
+        return jsonify(hashtags=hashtags_list)
+
+    #returns all hashtags in group
+    def getGroupHashtags(self, gid):
+        dao = hashtagsDAO()
+        hashtags = dao.getGroupHashtags(gid)
         hashtags_list = []
         for row in hashtags:
             hashtags_list.append(self.buildgHashtagsDict(row))
@@ -28,6 +48,15 @@ class hashtagsHandler:
         hashtags_list = []
         for row in hashtags:
             hashtags_list.append(self.buildgHashtagsDict(row))
+
+        return jsonify(hashtags=hashtags_list)
+
+    def getMessageWithHashtagByGroup(self,gID):
+        dao = hashtagsDAO()
+        hashtags = dao.getMessagesWithHashtagsByGroup(gID)
+        hashtags_list = []
+        for row in hashtags:
+            hashtags_list.append(self.buildgHashtagsDict2(row))
 
         return jsonify(hashtags=hashtags_list)
 

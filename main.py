@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template, flash, url_for, redirect
+from flask import Flask, request, jsonify, render_template, flash, url_for, redirect, session
 from Handlers.userhandler import *
 from Handlers.contactshandler import *
 from Handlers.messageshandler import *
@@ -8,49 +8,30 @@ from Handlers.groupshandler import *
 from Handlers.gUsershandler import *
 from Handlers.hashtagshandler import *
 from flask_cors import CORS, cross_origin
-
+import os
 
 app = Flask(__name__)
 CORS(app)
 
 @app.route('/')
 def home():
+    #return render_template('index.html')
     return "Welcome to Message App"
 
+###########################
+#Routes for login/register#
+###########################
+
+@app.route('/register', methods = ['POST'])
+def addUser():
+    return UserHandler().addUser(request.get_json())
+
+@app.route('/login', methods = ['POST'])
+def loginUser():
+    return UserHandler().loginUser(request.get_json())
 
 ###########################
-######Route for Login######
-###########################
-
-#untested, hard coded username/password for now as placeholder
-@app.route('/login/', methods=["GET","POST"])
-def login_page():
-
-    error = ''
-    try:
-	
-        if request.method == "POST":
-		
-            attempted_username = request.form['username']
-            attempted_password = request.form['password']
-
-            #flash(attempted_username)
-            #flash(attempted_password)
-
-            if attempted_username == "admin" and attempted_password == "password":
-                return redirect(url_for('getAllMessages'))
-				
-            else:
-                error = "Invalid credentials. Try Again."
-
-        return render_template("login.html", error = error)
-    except Exception as e:
-        #flash(e)
-        return render_template("login.html", error = error)
-
-
-###########################
-######Routes for Users######
+#####Routes for Users######
 ###########################
 
 @app.route('/users') #get all users
@@ -64,9 +45,10 @@ def getUserById(uid):
     return UserHandler().getUsersID(uid)
 
 
-@app.route('/users/<int:uid>/contacts') #view user's contact list
+@app.route('/users/<int:uid>/contacts',methods=['GET']) #view user's contact list
 def getUserContacts(uid):
-    return ContactsHandler().getUserContacts(uid)
+    if request.method == 'GET':
+        return ContactsHandler().getUserContacts(uid)
 
 @app.route('/users/contacts')
 def getAllContacts():
@@ -104,18 +86,33 @@ def getAllMessages():
 def getMessagesByUser(uid):
     return MessagesHandler().getUserMessages(uid)
 
-@app.route('/users/groups/<int:gid>/messages')
+#need to check how to add messages as replies as well in the same route, on hold for now
+@app.route('/users/groups/<int:gid>/messages', methods=['GET','POST'])
 def getMessagesByGroup(gid):
-    return MessagesHandler().getGroupMessages(gid)
+    if request.method == 'POST':
+        return MessagesHandler().addMessage(request.get_json())
+    else:
+        return MessagesHandler().getGroupMessages(gid)
+
+#getting hashtags in a group, else returns all hashtags
+@app.route('/users/groups/<int:gid>/messages/hashtags', methods=['GET'])
+def getMessagesHashtagsByGroup(gid):
+    if request.method == 'GET':
+        return hashtagsHandler().getGroupHashtags(gid)
+    else:
+        return hashtagsHandler().getHashtags()
 
 @app.route('/users/messages/<int:mid>')
 def getMessageByID(mid):
     return MessagesHandler().getMessageID(mid)
 
 ##routes for replies##
-@app.route('/users/messages/<int:mid>/replies')
+@app.route('/users/messages/<int:mid>/replies', methods = ['GET','POST'])
 def getRepliesByMessage(mid):
-    return RepliesHandler().getRepliesByMessage(mid)
+    if request.method == 'POST':
+        return RepliesHandler().addReply(request.get_json())
+    else:
+        return RepliesHandler().getRepliesByMessage(mid)
 
 @app.route('/users/messages/replies')
 def getAllReplies():
@@ -123,9 +120,12 @@ def getAllReplies():
 
 
 ##routes for reactions##
-@app.route('/users/messages/<int:mid>/reactions') #search for message id's reactions
+@app.route('/users/messages/<int:mid>/reactions', methods=['GET','POST']) #search for message id's reactions
 def getMessageReactions(mid):
-    return reactionsHandler().getMessageReactions(mid)
+    if request.method == 'POST':
+        return reactionsHandler().addReaction(request.get_json())
+    else:
+        return reactionsHandler().getMessageReactions(mid)
 
 
 @app.route('/users/messages/<int:mid>/reactions/likedby') #search for message id's reactions
@@ -174,10 +174,13 @@ def getGroupsByName(gname):
     group = GroupsHandler()
     return group.getGroupName(gname)
 
-@app.route('/users/<int:uid>/groups') #get all groups with User
+@app.route('/users/<int:uid>/groups', methods = ["GET"]) #get all groups with User
 def getUserGroups(uid):
     group = gUsersHandler()
-    return group.getGroupsWithUser(uid)
+    if(request.method == 'GET'):
+        return group.getGroupsWithUser(uid)
+    else:
+        return group.getGroupsWithUser(uid)
 
 @app.route('/users/<int:uid>/groups/owner') #get all groups owned by user
 def getOwnerGroups(uid):
@@ -190,10 +193,19 @@ def getGroupOwner(gid):
     return group.getGroupOwner(gid)
 
 
-@app.route('/users/groups/<int:gid>/users') #get all users in group
+@app.route('/users/groups/<int:gid>/users', methods = ['POST','GET']) #get all users in group
 def getGroupUsers(gid):
-    users = gUsersHandler()
-    return users.getGroupUsers(gid)
+    group = gUsersHandler()
+    if request.method == 'POST':
+        return group.addGroupUser(request.get_json())
+    else:
+        return group.getGroupUsers(gid)
+    
+
+@app.route('/users/groups/<int:gid>/hashtags') #get all users in group
+def getHashtagsByGroup(gid):
+    hashtags = hashtagsHandler()
+    return hashtags.getMessageWithHashtagByGroup(gid)
 
 
 if __name__ == '__main__':

@@ -20,7 +20,7 @@ class groupsDAO:
     #searches for groups with specific owner
     def getOwnerGroups(self, uid):
         cursor = self.connection.cursor()
-        query = "select * from Groups where gowner = %s ;"
+        query = "select * from Groups where gowner = %s;"
         cursor.execute(query,(uid,))
         result = []
         for row in cursor:
@@ -29,11 +29,11 @@ class groupsDAO:
 
     #searches for owner of specific group
 
-    #REVISIT !!!!!!! #
+    #I think this is redundant but i'll leave it for now
     def getGroupOwner(self, gid):
         cursor = self.connection.cursor()
-        # i am confused with this query @_@
-        query = "select * from Groups natural inner join Users where gid = %s and uID = gowner"
+
+        query = "select uID,ufirstname,ulastname from groups inner join users on gOwner = uID where gID = %s"
         cursor.execute(query, (gid,))
         result = []
         for row in cursor:
@@ -60,5 +60,3 @@ class groupsDAO:
         for row in cursor:
             result.append(row)
         return result
-        
-        
