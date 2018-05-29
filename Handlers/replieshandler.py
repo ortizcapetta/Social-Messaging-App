@@ -1,5 +1,5 @@
 from DAO.replies import repliesDAO
-from DAO.messages import messagesDAO
+from DAO.messages import *
 from flask import *
 
 class RepliesHandler:
@@ -54,5 +54,14 @@ class RepliesHandler:
         replies = dao.getAllReplies()
         reply_list = []
         for row in replies:
+            reply_list.append(self.buildMessageDict(row))
+        return jsonify(Replies=reply_list)
+
+    def getRepliesbyDate(self, dateValue):
+        dao = repliesDAO()
+        #dateValue = form.get("timeStamp")
+        name = dao.getAmountOfRepliesByDate(dateValue)
+        reply_list = []
+        for row in name:
             reply_list.append(self.buildMessageDict(row))
         return jsonify(Replies=reply_list)

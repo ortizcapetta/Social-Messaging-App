@@ -79,3 +79,13 @@ class hashtagsHandler:
             hashtags_list.append(self.buildgHashtagsDict(row))
 
         return jsonify(hashtags=hashtags_list)
+
+    def getHashtagsbyDate(self, dateValue):
+        dao = hashtagsDAO()
+        #dateValue = form.get("timeStamp")
+        name = dao.getPopularHashtags(dateValue)
+        hashtag_list = []
+        for row in name:
+            hashtag_list.append(self.buildgHashtagsDict(row))
+        return jsonify(Users=hashtag_list)
+

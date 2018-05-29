@@ -21,7 +21,7 @@ class reactionsDAO:
     #Get reactions by time
     def getTimeReactions(self, timeStamp):
         cursor = self.connection.cursor()
-        query = "select * from Reactions where timeStamp = %s;"
+        query = "select * from Reactions where reactTime = %s;"
         cursor.execute(query,(timeStamp,))
         result = []
         for row in cursor:
@@ -134,13 +134,13 @@ class reactionsDAO:
             result.append(row)
         return result
 
-     def getNumberofDislikesByDate(self, dateValue):
+    def getNumberofDislikesByDate(self, dateValue):
         likeValue = -1
         cursor = self.connection.cursor()
         query = "SELECT COUNT ( rID )" \
                 "FROM Reactions" \
                 "WHERE (SELECT date_trunc('day', timeStamp)) AS dateValue = %s AND likeValue = %s;"
-        cursor.execute(query)
+        cursor.execute(query, (dateValue,))
         result = []
         for row in cursor:
             result.append(row)
