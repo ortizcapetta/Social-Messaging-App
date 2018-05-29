@@ -12,7 +12,7 @@ class reactionsDAO:
     #used for registering users
     def addReaction(self, uid, mid, likeValue):
         cursor = self.connection.cursor()
-        query = "insert into Reactions(uid, mid, likeValue, timeStamp) values (%s, %s, %s, now()) returning rid"
+        query = "insert into Reactions(uid, mid, likeValue, reactTime) values (%s, %s, %s, now()) returning rid"
         cursor.execute(query, (uid, mid, likeValue,))
         rid = cursor.fetchone()[0]
         self.connection.commit()
