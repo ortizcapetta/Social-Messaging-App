@@ -81,3 +81,17 @@ class userDAO:
         for row in cursor:
             result.append(row)
         return result
+
+    def getActiveUsersbyDate(self, dateValue):
+        cursor = self.connection.cursor()
+        query = "SELECT COUNT ( uID ) AS Amount, uFirstName, uLastName" \
+                "FROM Users inner join Messages on users.uid = messages.uid" \
+                "WHERE (SELECT date_trunc('day', timeStamp)) as dateValue = %s" \
+                "GROUP BY uFirstName" \
+                "ORDER BY Amount DESC" \
+                "LIMIT 10;"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
