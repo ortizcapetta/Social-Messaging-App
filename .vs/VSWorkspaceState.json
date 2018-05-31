@@ -3,11 +3,10 @@
     "",
     "\\dashboard",
     "\\dashboard\\appjs",
-    "\\dashboard\\js",
     "\\UI",
     "\\UI\\appjs",
     "\\UI\\pages"
   ],
-  "SelectedNode": "\\dashboard\\appjs\\dashboard.js",
+  "SelectedNode": "\\main.py",
   "PreviewInSolutionExplorer": false
 }
