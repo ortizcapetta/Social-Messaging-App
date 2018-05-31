@@ -21,6 +21,23 @@ class ContactsHandler:
         users['email'] = row[5]
         return users
 
+    #contact registration
+    def addUserContact(self, form):
+        if len(form) != 2:
+            return jsonify(Error = "Malformed post request") , 400
+        else:
+            uid = form.get("uid")
+            friend = form.get("friend")
+            if uid and friend:
+                dao = contactsDAO()
+                if (dao.getUserContacts(uid) != []) and (dao.getUserContacts(uid) != dao.getUserContacts(friend)):
+                    return jsonify(Error="Contact already exists"), 400
+                else:
+                    uid = dao.addUserContact(uid, friend)
+                    return self.getUserContacts(uid)
+            else:
+                return jsonify(Error="Unexpected attributes in post request"), 400
+
     #get contacts of a user
     def getUserContacts(self,uid):
         dao = contactsDAO()
