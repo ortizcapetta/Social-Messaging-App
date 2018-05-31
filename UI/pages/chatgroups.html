@@ -1,3 +1,30 @@
+
+
+<div ng-cloak style="align-content: right">
+      <style>
+
+.group {
+    max-width: 500px;
+    margin: auto;
+}
+
+
+</style>
+    <ng-cloak style="align-content: center; text-align: center">
+  <div class ="group">
+
+    <form ng-submit="groupChatCtrl.createNewGroup(gName)" name="regForm">
+     <p> Create New Chat Group<input type="text" placeholder="Enter Group Name" required ng-model="text"><p>
+      <div>
+        <button type="submit">Create</button>
+      </div>
+
+      <div style="color: blue; padding: 1em .5em;" ng-bind="debug | json">
+      </div>
+    </form>
+
+      </div>
+  </ng-cloak>
 <div ng-cloak style="align-content: right">
 
             <a class="waves-effect  red lighten-1 btn-small" ng-click="partsCtrl.addPart()">Create New Group</a>
