@@ -159,7 +159,7 @@ def getHashtags():
 
 ##########################
 #####Routes for Groups####
-###########################
+##########################
 
 @app.route('/users/groups') #get all groups
 def getGroups():
@@ -214,6 +214,59 @@ def getHashtagsByGroup(gid):
         return hashtags.getContentHashtags(request.get_json())
     else:
         return hashtags.getMessageWithHashtagByGroup(gid)
+
+##########################
+#####Routes for Charts####
+##########################
+
+@app.route('/charts/hashtags', methods=['GET']) #Trending topics via #hashtags (top 10)
+def getPopularHashtags():
+    hashtags = hashtagsHandler()
+    if(request.method == 'GET'):
+        return hashtags.getHashtagsbyDate(request.get_json())
+    else:
+        return hashtags.getHashtagsbyDate(request.get_json())
+
+@app.route('charts/messages', methods=['GET']) #Number of message per day
+def getMessageNum():
+    messages = MessagesHandler()
+    if(request.method == 'GET'):
+        return messages.getMessagesbyDate(request.get_json())
+    else:
+        return messages.getMessagesbyDate(request.get_json())
+
+@app.route('charts/replies', methods=['GET']) #Number of replies per day
+def getRepliesNum():
+    replies = RepliesHandler()
+    if(request.method == 'GET'):
+        return replies.getRepliesbyDate(request.get_json())
+    else:
+        return replies.getRepliesbyDate(request.get_json())
+
+@app.route('charts/likes', methods=['GET']) #Number of likes per day
+def getLikesNum():
+    reactions = reactionsHandler()
+    if(request.method == 'GET'):
+        return reactions.getLikesbyDate(request.get_json())
+    else:
+        return reactions.getLikesbyDate(request.get_json())
+
+@app.route('charts/dislikes', methods=['GET']) #Number of dislikes per day
+def getDislikesNum():
+    reactions = reactionsHandler()
+    if(request.method == 'GET'):
+        return reactions.getDislikesbyDate(request.get_json())
+    else:
+        return reactions.getDislikesbyDate(request.get_json())
+
+@app.route('charts/Users', methods=['GET']) #Active users posting messages or replies per day (top 10)
+def getUsersNum():
+    users = UserHandler()
+    if(request.method == 'GET'):
+        return users.getActiveUsersbyDate(request.get_json())
+    else:
+        return users.getActiveUsersbyDate(request.get_json())
+
 
 
 if __name__ == '__main__':

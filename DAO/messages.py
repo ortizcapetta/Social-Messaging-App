@@ -99,3 +99,15 @@ class messagesDAO:
         for row in cursor:
             result.append(row)
         return result
+
+
+    def getAmountOfMessagesByDate(self, dateValue):
+        cursor = self.connection.cursor()
+        query = "SELECT COUNT ( mID )" \
+                "FROM Messages" \
+                "WHERE (SELECT date_trunc('day', timeStamp)) as dateValue = %s;"
+        cursor.execute(query, (dateValue,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result

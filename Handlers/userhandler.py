@@ -110,6 +110,7 @@ class UserHandler:
 
     def getActiveUsersbyDate(self, dateValue):
         dao = userDAO()
+        #dateValue = form.get("uFirstName")
         name = dao.getActiveUsersbyDate(dateValue)
         user_list = []
         for row in name:

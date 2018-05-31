@@ -86,4 +86,11 @@ class MessagesHandler:
             message_list.append(self.buildMessageDict2(row))
 
         return jsonify(Messages=message_list)
-            
+
+    def getMessagesbyDate(self, dateValue):
+        dao = messagesDAO()
+        name = dao.getAmountOfMessagesByDate(dateValue)
+        message_list = []
+        for row in name:
+            message_list.append(self.buildMessageDict2(row))
+        return jsonify(Messages=message_list)

@@ -60,7 +60,7 @@ class repliesDAO:
         query = "SELECT COUNT ( replyID )" \
                 "FROM Replies" \
                 "WHERE (SELECT date_trunc('day', timeStamp)) as dateValue = %s;"
-        cursor.execute(query)
+        cursor.execute(query, (dateValue,))
         result = []
         for row in cursor:
             result.append(row)
