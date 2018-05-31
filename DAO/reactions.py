@@ -128,7 +128,7 @@ class reactionsDAO:
         query = "SELECT COUNT ( rID )" \
                 "FROM Reactions" \
                 "WHERE (SELECT date_trunc('day', timeStamp)) AS dateValue = %s AND likeValue = %s;"
-        cursor.execute(query, (dateValue, likeValue))
+        cursor.execute(query)
         result = []
         for row in cursor:
             result.append(row)
@@ -140,7 +140,7 @@ class reactionsDAO:
         query = "SELECT COUNT ( rID )" \
                 "FROM Reactions" \
                 "WHERE (SELECT date_trunc('day', timeStamp)) AS dateValue = %s AND likeValue = %s;"
-        cursor.execute(query, (dateValue, likeValue))
+        cursor.execute(query)
         result = []
         for row in cursor:
             result.append(row)
