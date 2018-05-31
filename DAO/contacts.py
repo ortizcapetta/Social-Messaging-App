@@ -8,6 +8,15 @@ class contactsDAO:
                                                      dbconfig['password'])
         self.connection = psycopg2._connect(curl)
 
+    #used for registering users
+    def addUserContact(self, uid, friend):
+        cursor = self.connection.cursor()
+        query = "insert into Users(uid, friend) values ( %s, %s) returning uid"
+        cursor.execute(query, (uid, friend,))
+        uid = cursor.fetchone()[0]
+        self.connection.commit()
+        return uid
+
     def getUserContacts(self, uid):
         cursor = self.connection.cursor()
         #THIS IS THE UGLIEST THING I HAVE EVER DONE, PLEASE MAKE BETTER

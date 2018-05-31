@@ -17,6 +17,23 @@ class GroupsHandler:
         groups['gName'] = row[1]
         groups['gOwner'] = row[2]
 
+    #contact registration
+    def addGroup(self, form):
+        if len(form) != 3:
+            return jsonify(Error = "Malformed post request") , 400
+        else:
+            gName = form.get("gName")
+            gOwner = form.get("gOwner")
+            if gName and gOwner:
+                dao = groupsDAO()
+                if (dao.getGroupName(gName) != []):
+                    return jsonify(Error="Group already exists"), 400
+                else:
+                    gid = dao.addGroup(gName, gOwner)
+                    return self.getGroupID(gid)
+            else:
+                return jsonify(Error="Unexpected attributes in post request"), 400
+
     #returns all groups
     def getGroups(self):
         dao = groupsDAO()
