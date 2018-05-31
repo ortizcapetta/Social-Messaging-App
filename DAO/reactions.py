@@ -21,7 +21,7 @@ class reactionsDAO:
     #Get reactions by time
     def getTimeReactions(self, timeStamp):
         cursor = self.connection.cursor()
-        query = "select * from Reactions where timeStamp = %s;"
+        query = "select * from Reactions where reactTime = %s;"
         cursor.execute(query,(timeStamp,))
         result = []
         for row in cursor:

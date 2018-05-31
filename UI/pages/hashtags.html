@@ -1,4 +1,30 @@
+
+
 <div ng-cloak style="align-content: right">
+    <style>
+
+.group {
+    max-width: 500px;
+    margin: auto;
+}
+
+
+</style>
+    <ng-cloak style="align-content: center; text-align: center">
+  <div class ="group">
+
+    <form ng-submit="groupChatCtrl.createNewGroup(gName)" name="regForm">
+     <p> <input type="text" placeholder="Enter Hashtag" required ng-model="text"><p>
+      <div>
+        <button type="submit">Search by Hashtag</button>
+      </div>
+
+      <div style="color: blue; padding: 1em .5em;" ng-bind="debug | json">
+      </div>
+    </form>
+
+      </div>
+  </ng-cloak>
 
 
     <!--<div  id="chat-list" style="height:300px;overflow:auto">-->
