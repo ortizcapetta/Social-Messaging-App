@@ -8,6 +8,15 @@ class groupsDAO:
 
         self.connection = psycopg2._connect(curl)
 
+    #used for registering users
+    def addGroup(self, gName, gOwner):
+        cursor = self.connection.cursor()
+        query = "insert into Users(gName, gOwner) values (%s, %s) returning gid"
+        cursor.execute(query, (gName, gOwner,))
+        gid = cursor.fetchone()[0]
+        self.connection.commit()
+        return gid
+
     def getGroups(self):
         cursor = self.connection.cursor()
         query = "select * from Groups;"

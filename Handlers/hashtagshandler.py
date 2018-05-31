@@ -42,8 +42,9 @@ class hashtagsHandler:
         return jsonify(hashtags=hashtags_list)
 
     #returns all hashtags with content
-    def getContentHashtags(self, content):
+    def getContentHashtags(self, form):
         dao = hashtagsDAO()
+        content = form.get("hashtag")
         hashtags = dao.getContentHashtags(content)
         hashtags_list = []
         for row in hashtags:

@@ -50,9 +50,12 @@ def getUserContacts(uid):
     if request.method == 'GET':
         return ContactsHandler().getUserContacts(uid)
 
-@app.route('/users/contacts')
+@app.route('/users/contacts', methods=['POST'])
 def getAllContacts():
-    return ContactsHandler().getAllContacts()
+    if request.method == 'POST':
+        return ContactsHandler().addUserContact(request.get_json())
+    else:
+        return ContactsHandler().getAllContacts()
 
 @app.route('/users/email/<email>')  #by email
 def getUserByEmail(email):
@@ -174,11 +177,12 @@ def getGroupsByName(gname):
     group = GroupsHandler()
     return group.getGroupName(gname)
 
-@app.route('/users/<int:uid>/groups', methods = ["GET"]) #get all groups with User
+@app.route('/users/<int:uid>/groups', methods = ["GET", "POST"]) #get all groups with User
 def getUserGroups(uid):
     group = gUsersHandler()
-    if(request.method == 'GET'):
-        return group.getGroupsWithUser(uid)
+    groupAdd = GroupsHandler()
+    if(request.method == 'POST'):
+        return groupAdd.addGroup(request.get_json())
     else:
         return group.getGroupsWithUser(uid)
 
@@ -203,10 +207,13 @@ def getGroupUsers(gid):
         return group.getGroupUsers(gid)
     
 
-@app.route('/users/groups/<int:gid>/hashtags') #get all users in group
+@app.route('/users/groups/<int:gid>/hashtags', methods = ['GET'])
 def getHashtagsByGroup(gid):
     hashtags = hashtagsHandler()
-    return hashtags.getMessageWithHashtagByGroup(gid)
+    if request.method == 'GET':
+        return hashtags.getContentHashtags(request.get_json())
+    else:
+        return hashtags.getMessageWithHashtagByGroup(gid)
 
 
 if __name__ == '__main__':

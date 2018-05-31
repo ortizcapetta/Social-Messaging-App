@@ -12,7 +12,7 @@ class reactionsDAO:
     #used for registering users
     def addReaction(self, uid, mid, likeValue):
         cursor = self.connection.cursor()
-        query = "insert into Reactions(uid, mid, likeValue, reacttime) values (%s, %s, %s, now()) returning rid"
+        query = "insert into Reactions(uid, mid, likeValue, reactTime) values (%s, %s, %s, now()) returning rid"
         cursor.execute(query, (uid, mid, likeValue,))
         rid = cursor.fetchone()[0]
         self.connection.commit()
@@ -21,7 +21,7 @@ class reactionsDAO:
     #Get reactions by time
     def getTimeReactions(self, timeStamp):
         cursor = self.connection.cursor()
-        query = "select * from Reactions where timeStamp = %s;"
+        query = "select * from Reactions where reactTime = %s;"
         cursor.execute(query,(timeStamp,))
         result = []
         for row in cursor:
@@ -117,6 +117,30 @@ class reactionsDAO:
         query = "select mid,count(likeValue) from Reactions where mid = %s and likeValue = %s" \
                 " group by(mid)"
         cursor.execute(query, (mid, likeValue,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getNumberofLikesByDate(self, dateValue):
+        likeValue = 1
+        cursor = self.connection.cursor()
+        query = "SELECT COUNT ( rID )" \
+                "FROM Reactions" \
+                "WHERE (SELECT date_trunc('day', timeStamp)) AS dateValue = %s AND likeValue = %s;"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getNumberofDislikesByDate(self, dateValue):
+        likeValue = -1
+        cursor = self.connection.cursor()
+        query = "SELECT COUNT ( rID )" \
+                "FROM Reactions" \
+                "WHERE (SELECT date_trunc('day', timeStamp)) AS dateValue = %s AND likeValue = %s;"
+        cursor.execute(query)
         result = []
         for row in cursor:
             result.append(row)
