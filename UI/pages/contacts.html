@@ -13,11 +13,10 @@
   <ng-cloak style="align-content: center; text-align: center">
 <div class ="group">
 
-  <form ng-submit="contactCtrl.createNewContact(uid, friend)" name="regForm">
-   <p> <input type="text" placeholder="Enter 1st user ID" required ng-model="text"><p>
-        <p> <input type="text" placeholder="Enter 2nd User ID" required ng-model="text"><p>
+  <form ng-submit="contactCtrl.searchUsers(email)" name="regForm">
+        <p> <input type="text" placeholder="Enter friend email" required ng-model="email"><p>
     <div>
-      <button type="submit">Create New Contact</button>
+      <button type="submit">Search by e-mail</button>
     </div>
 
     <div style="color: blue; padding: 1em .5em;" ng-bind="debug | json">
@@ -40,7 +39,7 @@
                   <div class="card">
                       <div class="card-content">
                           <!-- Card Title is the person who write the message -->
-                          <span class="card-title">{{m.uid}}</span>
+                          <span class="card-title">{{m.Name}}</span>
 
 
 
@@ -54,7 +53,7 @@
                           <a class="btn-floating btn-small waves-effect waves-light blue"><i class="material-icons">thumb_down
                           </i></a><span ng-bind="m.uid">  </span>
                           <p></p>-->
-                          <a class="waves-effect  blue lighten-1 btn-small"  ng-click="contactCtrl.viewUserContacts(m.uid)">View Contacts</a>
+                          <a class="waves-effect  blue lighten-1 btn-small" type ="submit"  ng-click="contactCtrl.addToContacts(m.uID)">Add Friend</a>
 
 
                       </div>

@@ -60,7 +60,7 @@ angular.module('AppChat').controller('GroupChatController', ['$http', '$log', '$
             // Get the target part id from the parameter in the url
             // using the $routerParams object
             var gid = $routeParams.gid;
-            var data = {'gOwner':thisCtrl.loggedUser[0].uID,'gName':gName}
+            var data = {'gName':gName,'gOwner':thisCtrl.loggedUser[0].uID};
 
             console.log("data:" + JSON.stringify(data));
 

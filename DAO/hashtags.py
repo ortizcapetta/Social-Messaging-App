@@ -71,8 +71,8 @@ class hashtagsDAO:
     #Get hashtags by content
     def getContentGroupHashtags(self, hashtag, gid):
         cursor = self.connection.cursor()
-        query = "select htID, hashtag, mID from Hashtags inner join Messages where hashtag = %s and gID = %s;"
-        cursor.execute(query,(hashtag,))
+        query = "select htid,hashtags.mID, hashtag,content from Hashtags natural inner join Messages where hashtag = %s and gID = %s;"
+        cursor.execute(query,(hashtag,gid,))
         result = []
         for row in cursor:
             result.append(row)

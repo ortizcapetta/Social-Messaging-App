@@ -38,6 +38,10 @@
             templateUrl: 'pages/register.html',
             controller: 'LoginController',
             controllerAs : 'loginCtrl'
+             }).when('/contacts', {
+            templateUrl: 'pages/contacts.html',
+            controller: 'ContactController',
+            controllerAs : 'contactCtrl'
 
 
 
