@@ -31,6 +31,17 @@ def loginUser():
     return UserHandler().loginUser(request.get_json())
 
 ###########################
+#####Routes for Adding#####
+###########################
+
+
+###########################
+####Routes for Getting#####
+###########################
+
+
+
+###########################
 #####Routes for Users######
 ###########################
 
@@ -53,17 +64,23 @@ def getUserContacts(uid):
 @app.route('/users/contacts', methods=['POST'])
 def getAllContacts():
     if request.method == 'POST':
-        return ContactsHandler().addUserContact(request.get_json())
+        return ContactsHandler().addUserContact(request.form)
     else:
         return ContactsHandler().getAllContacts()
 
-@app.route('/users/email/<email>')  #by email
-def getUserByEmail(email):
-    return UserHandler().getUsersEmail(email)
+@app.route('/users/email', methods=['GET'])  #by email
+def getUserByEmail():
+    if request.method == 'GET':
+        return UserHandler().getUsersEmail(request.get_json())
+    else:
+        return ContactsHandler().getAllContacts()
 
-@app.route('/users/phone/<int:phone>') #phone
-def getUsersByPhone(phone):
-    return UserHandler().getUsersPhone(phone)
+@app.route('/users/phone', methods=['GET']) #phone
+def getUsersByPhone():
+    if request.method == 'GET':
+        return UserHandler().getUsersPhone(request.get_json())
+    else:
+        return ContactsHandler().getAllContacts()
 
 @app.route('/users/name/<name>_<lname>') #full name, name and last name
 def getUsersByFullName(name,lname):
@@ -81,9 +98,12 @@ def getUserReactions(uid):
 ##Routes for Messages##
 #######################
 
-@app.route('/users/messages')
+@app.route('/users/messages', methods=['GET'])
 def getAllMessages():
-    return MessagesHandler().getMessages()
+    if request.method == 'GET':
+        return MessagesHandler().getMessagesWithHashtag(request.get_json())
+    else:
+        return MessagesHandler().getMessages()
 
 @app.route('/users/<int:uid>/messages')
 def getMessagesByUser(uid):
@@ -101,7 +121,7 @@ def getMessagesByGroup(gid):
 @app.route('/users/groups/<int:gid>/messages/hashtags', methods=['GET'])
 def getMessagesHashtagsByGroup(gid):
     if request.method == 'GET':
-        return hashtagsHandler().getGroupHashtags(gid)
+        return hashtagsHandler().getMessageWithHashtagByGroup(gid)
     else:
         return hashtagsHandler().getHashtags()
 
@@ -151,9 +171,13 @@ def getMessageDislikesCount(mid):
     return reactionsHandler().getMessageDislikeCount(mid)
 
 ###routes for hashtags##
-@app.route('/users/messages/hashtags')
+@app.route('/users/messages/hashtags', methods = ['GET'])
 def getHashtags():
-    return hashtagsHandler().getHashtags()
+    hashtags = hashtagsHandler()
+    if request.method == 'GET':
+        return hashtags.getContentHashtags(request.get_json())
+    else:
+        return hashtags.getHashtags()
 
 
 
@@ -207,13 +231,13 @@ def getGroupUsers(gid):
         return group.getGroupUsers(gid)
     
 
-@app.route('/users/groups/<int:gid>/hashtags', methods = ['GET'])
-def getHashtagsByGroup(gid):
+@app.route('/users/groups/hashtags', methods = ['GET'])
+def getHashtagsByGroupContent():
     hashtags = hashtagsHandler()
     if request.method == 'GET':
-        return hashtags.getContentHashtags(request.get_json())
+        return hashtags.getContentGroupHashtags(request.get_json())
     else:
-        return hashtags.getMessageWithHashtagByGroup(gid)
+        return hashtags.getHashtags()
 
 ##########################
 #####Routes for Charts####
@@ -227,7 +251,7 @@ def getPopularHashtags():
     else:
         return hashtags.getHashtagsbyDate(request.get_json())
 
-@app.route('charts/messages', methods=['GET']) #Number of message per day
+@app.route('/charts/messages', methods=['GET']) #Number of message per day
 def getMessageNum():
     messages = MessagesHandler()
     if(request.method == 'GET'):
@@ -235,7 +259,7 @@ def getMessageNum():
     else:
         return messages.getMessagesbyDate(request.get_json())
 
-@app.route('charts/replies', methods=['GET']) #Number of replies per day
+@app.route('/charts/replies', methods=['GET']) #Number of replies per day
 def getRepliesNum():
     replies = RepliesHandler()
     if(request.method == 'GET'):
@@ -243,7 +267,7 @@ def getRepliesNum():
     else:
         return replies.getRepliesbyDate(request.get_json())
 
-@app.route('charts/likes', methods=['GET']) #Number of likes per day
+@app.route('/charts/likes', methods=['GET']) #Number of likes per day
 def getLikesNum():
     reactions = reactionsHandler()
     if(request.method == 'GET'):
@@ -251,7 +275,7 @@ def getLikesNum():
     else:
         return reactions.getLikesbyDate(request.get_json())
 
-@app.route('charts/dislikes', methods=['GET']) #Number of dislikes per day
+@app.route('/charts/dislikes', methods=['GET']) #Number of dislikes per day
 def getDislikesNum():
     reactions = reactionsHandler()
     if(request.method == 'GET'):
@@ -259,7 +283,7 @@ def getDislikesNum():
     else:
         return reactions.getDislikesbyDate(request.get_json())
 
-@app.route('charts/Users', methods=['GET']) #Active users posting messages or replies per day (top 10)
+@app.route('/charts/Users', methods=['GET']) #Active users posting messages or replies per day (top 10)
 def getUsersNum():
     users = UserHandler()
     if(request.method == 'GET'):

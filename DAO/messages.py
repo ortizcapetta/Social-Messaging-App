@@ -43,6 +43,16 @@ class messagesDAO:
         for row in cursor:
             result.append(row)
         return result
+
+    def getMessagesWithHashtag(self, htID):
+        cursor = self.connection.cursor()
+        query = "select mid, uid, gid, timeStamp, content from Messages inner join Hashtags where htID = %s;"
+        cursor.execute(query,(htID,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
     #returns message content with matching ids
     def getMessageID(self, mid):
         cursor = self.connection.cursor()

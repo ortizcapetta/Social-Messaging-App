@@ -1,4 +1,5 @@
 from DAO.groups import *
+from DAO.gUsers import *
 from flask import *
 
 
@@ -19,7 +20,7 @@ class GroupsHandler:
 
     #contact registration
     def addGroup(self, form):
-        if len(form) != 3:
+        if len(form) != 2:
             return jsonify(Error = "Malformed post request") , 400
         else:
             gName = form.get("gName")
@@ -30,6 +31,7 @@ class GroupsHandler:
                     return jsonify(Error="Group already exists"), 400
                 else:
                     gid = dao.addGroup(gName, gOwner)
+                    gUsersDAO().addGroupUser(gid, gOwner)
                     return self.getGroupID(gid)
             else:
                 return jsonify(Error="Unexpected attributes in post request"), 400

@@ -29,7 +29,7 @@ class hashtagsDAO:
 
     def getMessagesWithHashtagsByGroup(self,gID):
         cursor = self.connection.cursor()
-        query = "select htid,hashtags.mID, hashtag,content from hashtags natural inner join messages where messages.gid = %s;"
+        query = "select htid,hashtags.mID, hashtag,content from hashtags natural inner join messages where gID = %s;"
         cursor.execute(query,(gID,))
         result = []
         for row in cursor:
@@ -62,6 +62,16 @@ class hashtagsDAO:
     def getContentHashtags(self, hashtag):
         cursor = self.connection.cursor()
         query = "select * from Hashtags where hashtag = %s;"
+        cursor.execute(query,(hashtag,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    #Get hashtags by content
+    def getContentGroupHashtags(self, hashtag, gid):
+        cursor = self.connection.cursor()
+        query = "select htID, hashtag, mID from Hashtags inner join Messages where hashtag = %s and gID = %s;"
         cursor.execute(query,(hashtag,))
         result = []
         for row in cursor:

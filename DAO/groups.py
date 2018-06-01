@@ -11,7 +11,7 @@ class groupsDAO:
     #used for registering users
     def addGroup(self, gName, gOwner):
         cursor = self.connection.cursor()
-        query = "insert into Users(gName, gOwner) values (%s, %s) returning gid"
+        query = "insert into Groups(gName, gOwner) values (%s, %s) returning gid"
         cursor.execute(query, (gName, gOwner,))
         gid = cursor.fetchone()[0]
         self.connection.commit()
