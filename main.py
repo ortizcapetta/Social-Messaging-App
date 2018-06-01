@@ -101,9 +101,7 @@ def getUserReactions(uid):
 @app.route('/users/messages', methods=['GET'])
 def getAllMessages():
     if request.method == 'GET':
-        return MessagesHandler().getMessagesWithHashtag(request.get_json())
-    else:
-        return MessagesHandler().getMessages()
+      return MessagesHandler().getMessages()
 
 @app.route('/users/<int:uid>/messages')
 def getMessagesByUser(uid):
@@ -256,9 +254,9 @@ def getPopularHashtags():
 def getMessageNum():
     messages = MessagesHandler()
     if(request.method == 'GET'):
-        return messages.getMessagesbyDate(request.get_json())
+        return messages.getMessagesbyDate(request.args)
     else:
-        return messages.getMessagesbyDate(request.get_json())
+        return messages.getMessagesbyDate(request.args);
 
 @app.route('/charts/replies', methods=['GET']) #Number of replies per day
 def getRepliesNum():
