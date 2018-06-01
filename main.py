@@ -64,14 +64,14 @@ def getUserContacts(uid):
 @app.route('/users/contacts', methods=['POST'])
 def getAllContacts():
     if request.method == 'POST':
-        return ContactsHandler().addUserContact(request.request_json())
+        return ContactsHandler().addUserContact(request.get_json())
     else:
         return ContactsHandler().getAllContacts()
 
 @app.route('/users/email', methods=['GET'])  #by email
 def getUserByEmail():
     if request.method == 'GET':
-        return UserHandler().getUsersEmail(request.get_json())
+        return UserHandler().getUsersEmail(request.args)
     else:
         return ContactsHandler().getAllContacts()
 

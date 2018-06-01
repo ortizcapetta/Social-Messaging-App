@@ -57,7 +57,7 @@ class hashtagsHandler:
         dao = hashtagsDAO()
         content = form['hashtag'].replace('!','#')
         gID = form.get("gID")
-        print(content)
+        #print(content)
         hashtags = dao.getContentGroupHashtags(content, gID)
         hashtags_list = []
         for row in hashtags:
