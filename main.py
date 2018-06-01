@@ -68,13 +68,19 @@ def getAllContacts():
     else:
         return ContactsHandler().getAllContacts()
 
-@app.route('/users/email/<email>')  #by email
-def getUserByEmail(email):
-    return UserHandler().getUsersEmail(email)
+@app.route('/users/email', methods=['GET'])  #by email
+def getUserByEmail():
+    if request.method == 'GET':
+        return UserHandler().getUsersEmail(request.get_json())
+    else:
+        return ContactsHandler().getAllContacts()
 
-@app.route('/users/phone/<int:phone>') #phone
-def getUsersByPhone(phone):
-    return UserHandler().getUsersPhone(phone)
+@app.route('/users/phone', methods=['GET']) #phone
+def getUsersByPhone():
+    if request.method == 'GET':
+        return UserHandler().getUsersPhone(request.get_json())
+    else:
+        return ContactsHandler().getAllContacts()
 
 @app.route('/users/name/<name>_<lname>') #full name, name and last name
 def getUsersByFullName(name,lname):
