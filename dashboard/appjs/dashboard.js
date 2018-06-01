@@ -3,10 +3,10 @@
  */
 
 // Load the Visualization API and the piechart package.
-google.charts.load('current', {'packages': ['corechart']});
+google.charts.load('current', {'packages': ['corechart', 'controls']});
 
 // Set a callback to run when the Google Visualization API is loaded.
-google.charts.setOnLoadCallback(drawChart);
+google.charts.setOnLoadCallback(drawDashboard);
 
 function reformatData(jsonData){
     var temp= jsonData.PartCounts;
@@ -25,9 +25,9 @@ function reformatData(jsonData){
     return result;
 }
 
-function drawChart() {
+function drawDashboard() {
     var jsonData = $.ajax({
-        url: "http://localhost:5000/PartApp/parts/countbypartid",
+        url: "http://localhost:5000/charts/messages",
         dataType: "json",
         async: false
     }).responseText;
@@ -52,6 +52,11 @@ function drawChart() {
         }
     };
 
+     // Create a dashboard.
+     var dashboard = new google.visualization.Dashboard(
+        document.getElementById('dashboard_div'));
+
+
     var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
 
     chart.draw(data, options);
@@ -60,6 +65,6 @@ function drawChart() {
 
 
 google.charts.load('current', {packages: ['corechart', 'bar']});
-google.charts.setOnLoadCallback(drawChart);
+google.charts.setOnLoadCallback(drawDashboard);
 
 
