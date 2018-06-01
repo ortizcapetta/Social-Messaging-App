@@ -111,14 +111,12 @@ class messagesDAO:
         return result
 
 
-    def getAmountOfMessagesByDate(self, timeStamp):
+    def getAmountOfMessagesByDate(self):
         cursor = self.connection.cursor()
-        print(timeStamp)
-
-        query = "SELECT COUNT (mID ) " \
+        query = "SELECT COUNT (timeStamp::date) , timeStamp::date " \
                 "FROM Messages " \
-                "WHERE timeStamp::date = %s;"
-        cursor.execute(query, (timeStamp,))
+                "GROUP BY timeStamp::date;"
+        cursor.execute(query)
         result = []
 
         for row in cursor:

@@ -23,7 +23,7 @@ class hashtagsHandler:
     def buildHashtagDashDict(self,row):
         messages = {}
         messages['Count'] = row[0]
-        messages['Date'] = row[1]
+        messages['Hashtag'] = row[1]
         return messages
 
     #returns all hashtags of message
@@ -100,12 +100,11 @@ class hashtagsHandler:
 
         return jsonify(hashtags=hashtags_list)
 
-    def getHashtagsbyDate(self, form):
+    def getHashtagsbyDate(self):
         dao = hashtagsDAO()
-        dateValue = form.get("timeStamp")
-        name = dao.getPopularHashtags(dateValue)
+        name = dao.getPopularHashtags()
         hashtag_list = []
         for row in name:
             hashtag_list.append(self.buildHashtagDashDict(row))
-        return jsonify(Users=hashtag_list)
+        return jsonify(hashtags=hashtag_list)
 

@@ -19,9 +19,9 @@ google.charts.setOnLoadCallback(drawDislikesChart);
 // Set a callback to run when the Google Visualization API is loaded.
 google.charts.setOnLoadCallback(drawUsersChart);
 
-/**
+// Default
 function reformatData(jsonData){
-    var temp= jsonData.PartCounts;
+    var temp= jsonData;
     console.log("temp: " + JSON.stringify(temp));
     var result = [];
     var i;
@@ -36,7 +36,114 @@ function reformatData(jsonData){
     console.log("Data: " + JSON.stringify(result));
     return result;
 }
-*/
+
+// hashtags
+function reformatHashtagData(jsonData){
+    var temp= jsonData.hashtags;
+    console.log("temp: " + JSON.stringify(temp));
+    var result = [];
+    var i;
+    var row;
+    for (i=0; i < temp.length; ++i){
+        row= temp[i]
+        dataElement = [];
+        dataElement.push(row.id + '-' + row.name);
+        dataElement.push(row.count);
+        result.push(dataElement);
+    }
+    console.log("Data: " + JSON.stringify(result));
+    return result;
+}
+
+// Messages
+function reformatMessagesData(jsonData){
+    var temp= jsonData;
+    console.log("temp: " + JSON.stringify(temp));
+    var result = [];
+    var i;
+    var row;
+    for (i=0; i < temp.length; ++i){
+        row= temp[i]
+        dataElement = [];
+        dataElement.push(row.id + '-' + row.name);
+        dataElement.push(row.count);
+        result.push(dataElement);
+    }
+    console.log("Data: " + JSON.stringify(result));
+    return result;
+}
+
+// Replies
+function reformatRepliesData(jsonData){
+    var temp= jsonData;
+    console.log("temp: " + JSON.stringify(temp));
+    var result = [];
+    var i;
+    var row;
+    for (i=0; i < temp.length; ++i){
+        row= temp[i]
+        dataElement = [];
+        dataElement.push(row.id + '-' + row.name);
+        dataElement.push(row.count);
+        result.push(dataElement);
+    }
+    console.log("Data: " + JSON.stringify(result));
+    return result;
+}
+
+// Likes
+function reformatLikesData(jsonData){
+    var temp= jsonData;
+    console.log("temp: " + JSON.stringify(temp));
+    var result = [];
+    var i;
+    var row;
+    for (i=0; i < temp.length; ++i){
+        row= temp[i]
+        dataElement = [];
+        dataElement.push(row.id + '-' + row.name);
+        dataElement.push(row.count);
+        result.push(dataElement);
+    }
+    console.log("Data: " + JSON.stringify(result));
+    return result;
+}
+
+// Dislikes
+function reformatDislikesData(jsonData){
+    var temp= jsonData;
+    console.log("temp: " + JSON.stringify(temp));
+    var result = [];
+    var i;
+    var row;
+    for (i=0; i < temp.length; ++i){
+        row= temp[i]
+        dataElement = [];
+        dataElement.push(row.id + '-' + row.name);
+        dataElement.push(row.count);
+        result.push(dataElement);
+    }
+    console.log("Data: " + JSON.stringify(result));
+    return result;
+}
+
+// Users
+function reformatUsersData(jsonData){
+    var temp= jsonData.users;
+    console.log("temp: " + JSON.stringify(temp));
+    var result = [];
+    var i;
+    var row;
+    for (i=0; i < temp.length; ++i){
+        row= temp[i]
+        dataElement = [];
+        dataElement.push(row.id + '-' + row.name);
+        dataElement.push(row.count);
+        result.push(dataElement);
+    }
+    console.log("Data: " + JSON.stringify(result));
+    return result;
+}
 
 // Draw Trending topics via #hashtags (top 10)
 function drawHashtagsChart() {
@@ -47,11 +154,13 @@ function drawHashtagsChart() {
         async: false
     }).responseText;
 
+    console.log("Json Data: " + JSON.parse(jsonData));
+
     // Create our data table out of JSON data loaded from server.
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Hashtag');
     data.addColumn('number', 'Count');
-    data.addRows(JSON.parse(jsonData));
+    data.addRows(reformatHashtagData(JSON.parse(jsonData)));
 
     var options = {
         title: 'Top 10 Hashtags',
@@ -86,7 +195,7 @@ function drawMessagesChart() {
     var data = new google.visualization.DataTable();
     data.addColumn('number', 'Count');
     data.addColumn('datetime', 'Date');
-    data.addRows(JSON.parse(jsonData));
+    data.addRows(reformatMessagesData(JSON.parse(jsonData)));
 
     var options = {
         title: 'Messages per date',
@@ -121,7 +230,7 @@ function drawRepliesChart() {
     var data = new google.visualization.DataTable();
     data.addColumn('number', 'Count');
     data.addColumn('datetime', 'Date');
-    data.addRows(JSON.parse(jsonData));
+    data.addRows(reformatRepliesData(JSON.parse(jsonData)));
 
     var options = {
         title: 'Replies per date',
@@ -156,7 +265,7 @@ function drawLikesChart() {
     var data = new google.visualization.DataTable();
     data.addColumn('number', 'Count');
     data.addColumn('datetime', 'Date');
-    data.addRows(JSON.parse(jsonData));
+    data.addRows(reformatLikesData(JSON.parse(jsonData)));
 
     var options = {
         title: 'Likes per date',
@@ -191,7 +300,7 @@ function drawDislikesChart() {
     var data = new google.visualization.DataTable();
     data.addColumn('number', 'Count');
     data.addColumn('datetime', 'Date');
-    data.addRows(JSON.parse(jsonData));
+    data.addRows(reformatDislikesData(JSON.parse(jsonData)));
 
     var options = {
         title: 'Dislikes per date',
@@ -226,7 +335,7 @@ function drawUsersChart() {
     var data = new google.visualization.DataTable();
     data.addColumn('number', 'Count');
     data.addColumn('datetime', 'Date');
-    data.addRows(JSON.parse(jsonData));
+    data.addRows(reformatUsersData(JSON.parse(jsonData)));
 
     var options = {
         title: 'Active users per date',

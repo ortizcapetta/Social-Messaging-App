@@ -122,25 +122,27 @@ class reactionsDAO:
             result.append(row)
         return result
 
-    def getNumberofLikesByDate(self, dateValue):
+    def getNumberofLikesByDate(self):
         likeValue = 1
         cursor = self.connection.cursor()
-        query = "SELECT COUNT ( rID )" \
-                "FROM Reactions" \
-                "WHERE (SELECT date_trunc('day', timeStamp)) AS dateValue = %s AND likeValue = %s;"
-        cursor.execute(query)
+        query = "SELECT COUNT ( reactTime::date ) , reactTime::date " \
+                "FROM Reactions " \
+                "WHERE likeValue = %s " \
+                "GROUP BY reactTime::date;"
+        cursor.execute(query,(likeValue,))
         result = []
         for row in cursor:
             result.append(row)
         return result
 
-    def getNumberofDislikesByDate(self, dateValue):
+    def getNumberofDislikesByDate(self):
         likeValue = -1
         cursor = self.connection.cursor()
-        query = "SELECT COUNT ( rID )" \
-                "FROM Reactions" \
-                "WHERE (SELECT date_trunc('day', timeStamp)) AS dateValue = %s AND likeValue = %s;"
-        cursor.execute(query)
+        query = "SELECT COUNT ( reactTime::date ) , reactTime::date " \
+                "FROM Reactions " \
+                "WHERE likeValue = %s " \
+                "GROUP BY reactTime::date;"
+        cursor.execute(query,(likeValue,))
         result = []
         for row in cursor:
             result.append(row)

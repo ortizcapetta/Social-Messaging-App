@@ -89,15 +89,14 @@ class hashtagsDAO:
         return result
 
     #Get hashtags by popularity (top10)
-    def getPopularHashtags(self, dateValue):
+    def getPopularHashtags(self):
         cursor = self.connection.cursor()
-        query = "SELECT COUNT ( hashtag ) AS Amount, hashtag, timeStamp" \
-                "FROM Hashtags inner join Messages on hashtags.mid = messages.mid" \
-                "WHERE (SELECT date_trunc('day', timeStamp)) as dateValue = %s;" \
-                "GROUP BY hashtag" \
-                "ORDER BY Amount DESC" \
+        query = "SELECT COUNT ( timeStamp::date ) AS Amount, hashtag, timeStamp::date " \
+                "FROM Hashtags inner join Messages on hashtags.mid = messages.mid " \
+                "GROUP BY hashtag, timeStamp::date " \
+                "ORDER BY Amount DESC " \
                 "LIMIT 10;"
-        cursor.execute(query,(dateValue,))
+        cursor.execute(query)
         result = []
         for row in cursor:
             result.append(row)

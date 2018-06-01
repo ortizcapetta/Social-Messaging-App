@@ -101,12 +101,11 @@ class MessagesHandler:
 
         return jsonify(Messages=message_list)
 
-    def getMessagesbyDate(self, form):
+    def getMessagesbyDate(self):
         dao = messagesDAO()
-        dateValue = form.get("timeStamp")
-        print(dateValue)
+       
 
-        name = dao.getAmountOfMessagesByDate(dateValue)
+        name = dao.getAmountOfMessagesByDate()
         message_list = []
         for row in name:
             message_list.append(self.buildMessageDashDict(row))

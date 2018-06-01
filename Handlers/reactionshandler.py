@@ -139,28 +139,25 @@ class reactionsHandler:
 
         return jsonify(Reactions=reactions_list)
 
-    def getReactionsbyDate(self, form):
+    def getReactionsbyDate(self):
         dao = reactionsDAO()
-        dateValue = form.get("timeStamp")
-        name = dao.getNumberofLikesByDate(dateValue)
+        name = dao.getNumberofLikesByDate()
         reaction_list = []
         for row in name:
             reaction_list.append(self.buildReactionsDashDict(row))
         return jsonify(Reactions=reaction_list)
 
-    def getLikesbyDate(self, form):
+    def getLikesbyDate(self):
         dao = reactionsDAO()
-        dateValue = form.get("timeStamp")
-        name = dao.getNumberofLikesByDate(dateValue)
+        name = dao.getNumberofLikesByDate()
         reaction_list = []
         for row in name:
             reaction_list.append(self.buildLikesDashDict(row))
         return jsonify(Reactions=reaction_list)
 
-    def getDislikesbyDate(self, form):
+    def getDislikesbyDate(self):
         dao = reactionsDAO()
-        dateValue = form.get("timeStamp")
-        name = dao.getNumberofDislikesByDate(dateValue)
+        name = dao.getNumberofDislikesByDate()
         reaction_list = []
         for row in name:
             reaction_list.append(self.buildDislikesDashDict(row))

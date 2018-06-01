@@ -246,49 +246,49 @@ def getHashtagsByGroupContent():
 def getPopularHashtags():
     hashtags = hashtagsHandler()
     if(request.method == 'GET'):
-        return hashtags.getHashtagsbyDate(request.get_json())
+        return hashtags.getHashtagsbyDate()
     else:
-        return hashtags.getHashtagsbyDate(request.get_json())
+        return hashtags.getHashtagsbyDate()
 
 @app.route('/charts/messages', methods=['GET']) #Number of message per day
 def getMessageNum():
     messages = MessagesHandler()
     if(request.method == 'GET'):
-        return messages.getMessagesbyDate(request.args)
+        return messages.getMessagesbyDate()
     else:
-        return messages.getMessagesbyDate(request.args);
+        return messages.getMessagesbyDate()
 
 @app.route('/charts/replies', methods=['GET']) #Number of replies per day
 def getRepliesNum():
     replies = RepliesHandler()
     if(request.method == 'GET'):
-        return replies.getRepliesbyDate(request.get_json())
+        return replies.getRepliesbyDate()
     else:
-        return replies.getRepliesbyDate(request.get_json())
+        return replies.getRepliesbyDate()
 
 @app.route('/charts/likes', methods=['GET']) #Number of likes per day
 def getLikesNum():
     reactions = reactionsHandler()
     if(request.method == 'GET'):
-        return reactions.getLikesbyDate(request.get_json())
+        return reactions.getLikesbyDate()
     else:
-        return reactions.getLikesbyDate(request.get_json())
+        return reactions.getLikesbyDate()
 
 @app.route('/charts/dislikes', methods=['GET']) #Number of dislikes per day
 def getDislikesNum():
     reactions = reactionsHandler()
     if(request.method == 'GET'):
-        return reactions.getDislikesbyDate(request.get_json())
+        return reactions.getDislikesbyDate()
     else:
-        return reactions.getDislikesbyDate(request.get_json())
+        return reactions.getDislikesbyDate()
 
 @app.route('/charts/Users', methods=['GET']) #Active users posting messages or replies per day (top 10)
 def getUsersNum():
     users = UserHandler()
     if(request.method == 'GET'):
-        return users.getActiveUsersbyDate(request.get_json())
+        return users.getActiveUsersbyDate()
     else:
-        return users.getActiveUsersbyDate(request.get_json())
+        return users.getActiveUsersbyDate()
 
 
 
