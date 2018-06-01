@@ -32,9 +32,9 @@ class hashtagsHandler:
         return jsonify(hashtags=hashtags_list)
 
     #returns all hashtags in group
-    def getGroupHashtags(self, form):
+    def getGroupHashtags(self,gid):
         dao = hashtagsDAO()
-        hashtags = dao.getGroupHashtags(form.get("gID"))
+        hashtags = dao.getGroupHashtags(gid)
         hashtags_list = []
         for row in hashtags:
             hashtags_list.append(self.buildgHashtagsDict(row))

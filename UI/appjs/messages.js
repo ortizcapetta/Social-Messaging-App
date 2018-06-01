@@ -157,6 +157,7 @@ angular.module('AppChat').controller('MessageController', ['$http', '$log', '$sc
                 // Success function
                 function (response) {
                      console.log("data: " + JSON.stringify(response.data));
+
                 }, //Error function
                 function (response) {
                     // This is the error function

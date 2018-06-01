@@ -20,7 +20,7 @@ class GroupsHandler:
 
     #contact registration
     def addGroup(self, form):
-        if len(form) != 3:
+        if len(form) != 2:
             return jsonify(Error = "Malformed post request") , 400
         else:
             gName = form.get("gName")
