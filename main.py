@@ -101,7 +101,7 @@ def getMessagesByGroup(gid):
 @app.route('/users/groups/<int:gid>/messages/hashtags', methods=['GET'])
 def getMessagesHashtagsByGroup(gid):
     if request.method == 'GET':
-        return hashtagsHandler().getGroupHashtags(gid)
+        return hashtagsHandler().getMessageWithHashtagByGroup(gid)
     else:
         return hashtagsHandler().getHashtags()
 
