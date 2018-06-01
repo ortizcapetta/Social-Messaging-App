@@ -99,9 +99,9 @@ def getMessagesByGroup(gid):
 
 #getting hashtags in a group, else returns all hashtags
 @app.route('/users/groups/<int:gid>/messages/hashtags', methods=['GET'])
-def getMessagesHashtagsByGroup():
+def getMessagesHashtagsByGroup(gid):
     if request.method == 'GET':
-        return hashtagsHandler().getGroupHashtags(request.get_json())
+        return hashtagsHandler().getGroupHashtags(gid)
     else:
         return hashtagsHandler().getHashtags()
 
