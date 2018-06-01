@@ -55,12 +55,13 @@ class hashtagsHandler:
     #returns all hashtags with content and group
     def getContentGroupHashtags(self, form):
         dao = hashtagsDAO()
-        content = form.get("hashtag")
+        content = form['hashtag'].replace('!','#')
         gID = form.get("gID")
+        print(content)
         hashtags = dao.getContentGroupHashtags(content, gID)
         hashtags_list = []
         for row in hashtags:
-            hashtags_list.append(self.buildgHashtagsDict(row))
+            hashtags_list.append(self.buildgHashtagsDict2(row))
 
         return jsonify(hashtags=hashtags_list)
 
