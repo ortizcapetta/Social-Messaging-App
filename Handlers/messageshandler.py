@@ -25,6 +25,11 @@ class MessagesHandler:
         messages['dislikes'] = row[8]
         return messages
 
+    def buildMessageDashDict(self,row):
+        messages = {}
+        messages['Count'] = row[0]
+        return messages
+
     #message logging
     def addMessage(self, form):
             uid = form.get("uid")
@@ -95,10 +100,13 @@ class MessagesHandler:
 
         return jsonify(Messages=message_list)
 
-    def getMessagesbyDate(self, dateValue):
+    def getMessagesbyDate(self, form):
         dao = messagesDAO()
+        dateValue = form.get("timeStamp")
+        print(dateValue)
+
         name = dao.getAmountOfMessagesByDate(dateValue)
         message_list = []
         for row in name:
-            message_list.append(self.buildMessageDict2(row))
+            message_list.append(self.buildMessageDashDict(row))
         return jsonify(Messages=message_list)
