@@ -95,9 +95,9 @@ class hashtagsHandler:
 
         return jsonify(hashtags=hashtags_list)
 
-    def getHashtagsbyDate(self, dateValue):
+    def getHashtagsbyDate(self, form):
         dao = hashtagsDAO()
-        #dateValue = form.get("timeStamp")
+        dateValue = form.get("timeStamp")
         name = dao.getPopularHashtags(dateValue)
         hashtag_list = []
         for row in name:
