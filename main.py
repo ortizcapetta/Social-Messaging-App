@@ -53,7 +53,7 @@ def getUserContacts(uid):
 @app.route('/users/contacts', methods=['POST'])
 def getAllContacts():
     if request.method == 'POST':
-        return ContactsHandler().addUserContact(request.get_json())
+        return ContactsHandler().addUserContact(request.form)
     else:
         return ContactsHandler().getAllContacts()
 
@@ -227,7 +227,7 @@ def getPopularHashtags():
     else:
         return hashtags.getHashtagsbyDate(request.get_json())
 
-@app.route('charts/messages', methods=['GET']) #Number of message per day
+@app.route('/charts/messages', methods=['GET']) #Number of message per day
 def getMessageNum():
     messages = MessagesHandler()
     if(request.method == 'GET'):
@@ -235,7 +235,7 @@ def getMessageNum():
     else:
         return messages.getMessagesbyDate(request.get_json())
 
-@app.route('charts/replies', methods=['GET']) #Number of replies per day
+@app.route('/charts/replies', methods=['GET']) #Number of replies per day
 def getRepliesNum():
     replies = RepliesHandler()
     if(request.method == 'GET'):
@@ -243,7 +243,7 @@ def getRepliesNum():
     else:
         return replies.getRepliesbyDate(request.get_json())
 
-@app.route('charts/likes', methods=['GET']) #Number of likes per day
+@app.route('/charts/likes', methods=['GET']) #Number of likes per day
 def getLikesNum():
     reactions = reactionsHandler()
     if(request.method == 'GET'):
@@ -251,7 +251,7 @@ def getLikesNum():
     else:
         return reactions.getLikesbyDate(request.get_json())
 
-@app.route('charts/dislikes', methods=['GET']) #Number of dislikes per day
+@app.route('/charts/dislikes', methods=['GET']) #Number of dislikes per day
 def getDislikesNum():
     reactions = reactionsHandler()
     if(request.method == 'GET'):
@@ -259,7 +259,7 @@ def getDislikesNum():
     else:
         return reactions.getDislikesbyDate(request.get_json())
 
-@app.route('charts/Users', methods=['GET']) #Active users posting messages or replies per day (top 10)
+@app.route('/charts/Users', methods=['GET']) #Active users posting messages or replies per day (top 10)
 def getUsersNum():
     users = UserHandler()
     if(request.method == 'GET'):

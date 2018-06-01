@@ -28,9 +28,12 @@ class ContactsHandler:
         else:
             uid = form.get("uid")
             friend = form.get("friend")
+
             if uid and friend:
                 dao = contactsDAO()
-                if (dao.getUserContacts(uid) != []) and (dao.getUserContacts(uid) != dao.getUserContacts(friend)):
+                clause = friend in dao.getUserContacts(uid)
+                print(clause)
+                if clause:
                     return jsonify(Error="Contact already exists"), 400
                 else:
                     uid = dao.addUserContact(uid, friend)

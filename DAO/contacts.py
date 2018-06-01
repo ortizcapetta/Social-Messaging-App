@@ -11,7 +11,7 @@ class contactsDAO:
     #used for registering users
     def addUserContact(self, uid, friend):
         cursor = self.connection.cursor()
-        query = "insert into Users(uid, friend) values ( %s, %s) returning uid"
+        query = "insert into Contacts(uid, friend) values ( %s, %s) returning uid"
         cursor.execute(query, (uid, friend,))
         uid = cursor.fetchone()[0]
         self.connection.commit()
@@ -28,7 +28,7 @@ class contactsDAO:
         result = []
         for row in cursor:
             result.append(row)
-            print(row)
+
 
         return result
 
