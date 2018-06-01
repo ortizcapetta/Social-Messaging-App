@@ -78,7 +78,7 @@ def getUserByEmail():
 @app.route('/users/phone', methods=['GET']) #phone
 def getUsersByPhone():
     if request.method == 'GET':
-        return UserHandler().getUsersPhone(request.get_json())
+        return UserHandler().getUsersPhone(request.args)
     else:
         return ContactsHandler().getAllContacts()
 
