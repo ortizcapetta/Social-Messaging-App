@@ -150,6 +150,7 @@ angular.module('AppChat').controller('MessageController', ['$http', '$log', '$sc
             console.log("data:" + JSON.stringify(data));
 
             // Now create the url with the route to talk with the rest API
+            // Now create the url with the route to talk with the rest API
              var url = "http://localhost:5000/users/messages/"+mid+"/reactions";
             console.log("reqURL: " + url);
             // Now issue the http request to the rest API
@@ -230,7 +231,7 @@ angular.module('AppChat').controller('MessageController', ['$http', '$log', '$sc
             var gid = $routeParams.gid;
 
             // Now create the url with the route to talk with the rest API
-             var url = "http://localhost:5000/users/groups/"+gid+"/hashtags";
+             var url = "http://localhost:5000/users/groups/"+gid+"/messages/hashtags";
             console.log("reqURL: " + url);
             // Now issue the http request to the rest API
             $http.get(url).then(
@@ -266,6 +267,8 @@ angular.module('AppChat').controller('MessageController', ['$http', '$log', '$sc
             );
 
         };
+
+
 
 
          this.viewDetails = function (mid) {

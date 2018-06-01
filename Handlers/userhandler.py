@@ -14,6 +14,15 @@ class UserHandler:
         users['email'] = row[5]
         return users
 
+    def buildUserDict2(self, row):
+        users = {}
+        users['uID'] = row[0]
+        users['Name'] = row[1] +" "+ row[2]
+        users['password'] = row[3]
+        users['phone'] = row[4]
+        users['email'] = row[5]
+        return users
+
     #user login
     def loginUser(self, form):
         if len(form) != 2:
@@ -99,7 +108,7 @@ class UserHandler:
         email = dao.getUsersEmail(form.get("email"))
         user_list = []
         for row in email:
-            user_list.append(self.buildUserDict(row))
+            user_list.append(self.buildUserDict2(row))
         return jsonify(Users=user_list)
     #search by phone
     def getUsersPhone(self,form):

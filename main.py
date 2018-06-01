@@ -64,14 +64,14 @@ def getUserContacts(uid):
 @app.route('/users/contacts', methods=['POST'])
 def getAllContacts():
     if request.method == 'POST':
-        return ContactsHandler().addUserContact(request.form)
+        return ContactsHandler().addUserContact(request.get_json())
     else:
         return ContactsHandler().getAllContacts()
 
 @app.route('/users/email', methods=['GET'])  #by email
 def getUserByEmail():
     if request.method == 'GET':
-        return UserHandler().getUsersEmail(request.get_json())
+        return UserHandler().getUsersEmail(request.args)
     else:
         return ContactsHandler().getAllContacts()
 
@@ -113,6 +113,7 @@ def getMessagesByUser(uid):
 @app.route('/users/groups/<int:gid>/messages', methods=['GET','POST'])
 def getMessagesByGroup(gid):
     if request.method == 'POST':
+
         return MessagesHandler().addMessage(request.get_json())
     else:
         return MessagesHandler().getGroupMessages(gid)
@@ -235,7 +236,7 @@ def getGroupUsers(gid):
 def getHashtagsByGroupContent():
     hashtags = hashtagsHandler()
     if request.method == 'GET':
-        return hashtags.getContentGroupHashtags(request.get_json())
+        return hashtags.getContentGroupHashtags(request.args)
     else:
         return hashtags.getHashtags()
 
