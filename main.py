@@ -206,7 +206,7 @@ def getUserGroups(uid):
     group = gUsersHandler()
     groupAdd = GroupsHandler()
     if(request.method == 'POST'):
-        return groupAdd.addGroup(request.form)
+        return groupAdd.addGroup(request.get_json())
     else:
         return group.getGroupsWithUser(uid)
 
