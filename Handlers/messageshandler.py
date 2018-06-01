@@ -51,6 +51,14 @@ class MessagesHandler:
                     htids.append(dao.addHashtag(word, mid))
             return htids
 
+    def getMessagesWithHashtag(self, form):
+        dao = messagesDAO()
+        messages = dao.getMessagesWithHashtag(form.get("htID"))
+        message_list = []
+        for row in messages:
+            message_list.append(self.buildMessageDict2(row))
+        return jsonify(Messages=message_list)
+
     def getMessages(self):
         dao = messagesDAO()
         messages = dao.getMessages()

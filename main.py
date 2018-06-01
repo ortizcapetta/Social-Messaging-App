@@ -31,6 +31,17 @@ def loginUser():
     return UserHandler().loginUser(request.get_json())
 
 ###########################
+#####Routes for Adding#####
+###########################
+
+
+###########################
+####Routes for Getting#####
+###########################
+
+
+
+###########################
 #####Routes for Users######
 ###########################
 
@@ -81,9 +92,12 @@ def getUserReactions(uid):
 ##Routes for Messages##
 #######################
 
-@app.route('/users/messages')
+@app.route('/users/messages', methods=['GET'])
 def getAllMessages():
-    return MessagesHandler().getMessages()
+    if request.method == 'GET':
+        return MessagesHandler().getMessagesWithHashtag(request.get_json())
+    else:
+        return MessagesHandler().getMessages()
 
 @app.route('/users/<int:uid>/messages')
 def getMessagesByUser(uid):
