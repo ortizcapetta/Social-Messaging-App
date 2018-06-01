@@ -1,5 +1,6 @@
 from DAO.replies import repliesDAO
 from DAO.messages import *
+from DAO.hashtags import *
 from flask import *
 
 class RepliesHandler:
@@ -37,9 +38,20 @@ class RepliesHandler:
                 mdao = messagesDAO()
                 mid = mdao.addMessage(uid, gid, content)
                 dao.addReply(originID, mid)
+                htids = self.hashtagCheck(content, mid)
                 return self.getRepliesByMessage(mid)
             else:
                 return jsonify(Error="Unexpected attributes in post request"), 400
+
+    def hashtagCheck(self, content, mid):
+        if content.find("#") != -1:
+            dao = hashtagsDAO()
+            words = content.split(" ")
+            htids = []
+            for word in words:
+                if(word[0] == "#"):
+                    htids.append(dao.addHashtag(word, mid))
+            return htids
 
     def getRepliesByMessage(self, mid):
         dao = repliesDAO()
