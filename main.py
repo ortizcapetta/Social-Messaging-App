@@ -99,9 +99,9 @@ def getMessagesByGroup(gid):
 
 #getting hashtags in a group, else returns all hashtags
 @app.route('/users/groups/<int:gid>/messages/hashtags', methods=['GET'])
-def getMessagesHashtagsByGroup(gid):
+def getMessagesHashtagsByGroup():
     if request.method == 'GET':
-        return hashtagsHandler().getGroupHashtags(gid)
+        return hashtagsHandler().getGroupHashtags(request.get_json())
     else:
         return hashtagsHandler().getHashtags()
 
@@ -151,9 +151,13 @@ def getMessageDislikesCount(mid):
     return reactionsHandler().getMessageDislikeCount(mid)
 
 ###routes for hashtags##
-@app.route('/users/messages/hashtags')
+@app.route('/users/messages/hashtags', methods = ['GET'])
 def getHashtags():
-    return hashtagsHandler().getHashtags()
+    hashtags = hashtagsHandler()
+    if request.method == 'GET':
+        return hashtags.getContentHashtags(request.get_json())
+    else:
+        return hashtags.getHashtags()
 
 
 
@@ -207,13 +211,13 @@ def getGroupUsers(gid):
         return group.getGroupUsers(gid)
     
 
-@app.route('/users/groups/<int:gid>/hashtags', methods = ['GET'])
-def getHashtagsByGroup(gid):
+@app.route('/users/groups/hashtags', methods = ['GET'])
+def getHashtagsByGroupContent():
     hashtags = hashtagsHandler()
     if request.method == 'GET':
-        return hashtags.getContentHashtags(request.get_json())
+        return hashtags.getContentGroupHashtags(request.get_json())
     else:
-        return hashtags.getMessageWithHashtagByGroup(gid)
+        return hashtags.getHashtags()
 
 ##########################
 #####Routes for Charts####
