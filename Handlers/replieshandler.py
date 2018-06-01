@@ -22,6 +22,12 @@ class RepliesHandler:
 
         return messages
 
+    def buildRepliesDashDict(self,row):
+        messages = {}
+        messages['Count'] = row[0]
+        messages['Date'] = row[1]
+        return messages
+
     #reply logging
     def addReply(self, form):
         if len(form) != 4:
@@ -75,5 +81,5 @@ class RepliesHandler:
         name = dao.getAmountOfRepliesByDate(dateValue)
         reply_list = []
         for row in name:
-            reply_list.append(self.buildMessageDict(row))
+            reply_list.append(self.buildRepliesDict(row))
         return jsonify(Replies=reply_list)

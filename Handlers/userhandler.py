@@ -23,6 +23,12 @@ class UserHandler:
         users['email'] = row[5]
         return users
 
+    def buildUserDashDict(self,row):
+        messages = {}
+        messages['Count'] = row[0]
+        messages['Date'] = row[1]
+        return messages
+
     #user login
     def loginUser(self, form):
         if len(form) != 2:
@@ -143,6 +149,6 @@ class UserHandler:
         name = dao.getActiveUsersbyDate(dateValue)
         user_list = []
         for row in name:
-            user_list.append(self.buildUserDict(row))
+            user_list.append(self.buildUserDashDict(row))
         return jsonify(Users=user_list)
 

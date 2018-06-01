@@ -28,6 +28,7 @@ class MessagesHandler:
     def buildMessageDashDict(self,row):
         messages = {}
         messages['Count'] = row[0]
+        messages['Date'] = row[1]
         return messages
 
     #message logging

@@ -20,6 +20,11 @@ class hashtagsHandler:
         hashtags['content'] = row[3]
         return hashtags
 
+    def buildHashtagDashDict(self,row):
+        messages = {}
+        messages['Count'] = row[0]
+        messages['Date'] = row[1]
+        return messages
 
     #returns all hashtags of message
     def getMessageHashtags(self, mid):
@@ -101,6 +106,6 @@ class hashtagsHandler:
         name = dao.getPopularHashtags(dateValue)
         hashtag_list = []
         for row in name:
-            hashtag_list.append(self.buildgHashtagsDict(row))
+            hashtag_list.append(self.buildHashtagDashDict(row))
         return jsonify(Users=hashtag_list)
 

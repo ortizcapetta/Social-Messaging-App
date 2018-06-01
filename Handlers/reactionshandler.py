@@ -23,7 +23,25 @@ class reactionsHandler:
         reactions['mID'] = row[0]
         reactions['count'] = row[1]
 
-        return reactions
+        return 
+        
+    def buildReactionsDashDict(self,row):
+        messages = {}
+        messages['Count'] = row[0]
+        messages['Date'] = row[1]
+        return messages
+
+    def buildLikesDashDict(self,row):
+        messages = {}
+        messages['Count'] = row[0]
+        messages['Date'] = row[1]
+        return messages
+        
+    def buildDislikesDashDict(self,row):
+        messages = {}
+        messages['Count'] = row[0]
+        messages['Date'] = row[1]
+        return messages
 
     def addReaction(self, form):
         if len(form) != 3:
@@ -127,7 +145,7 @@ class reactionsHandler:
         name = dao.getNumberofLikesByDate(dateValue)
         reaction_list = []
         for row in name:
-            reaction_list.append(self.buildgReactionsDict(row))
+            reaction_list.append(self.buildReactionsDashDict(row))
         return jsonify(Reactions=reaction_list)
 
     def getLikesbyDate(self, form):
@@ -136,7 +154,7 @@ class reactionsHandler:
         name = dao.getNumberofLikesByDate(dateValue)
         reaction_list = []
         for row in name:
-            reaction_list.append(self.buildgReactionsDict(row))
+            reaction_list.append(self.buildLikesDashDict(row))
         return jsonify(Reactions=reaction_list)
 
     def getDislikesbyDate(self, form):
@@ -145,5 +163,5 @@ class reactionsHandler:
         name = dao.getNumberofDislikesByDate(dateValue)
         reaction_list = []
         for row in name:
-            reaction_list.append(self.buildgReactionsDict(row))
+            reaction_list.append(self.buildDislikesDashDict(row))
         return jsonify(Reactions=reaction_list)
