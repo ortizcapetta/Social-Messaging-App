@@ -25,7 +25,7 @@ class UserHandler:
             if email and password:
                 dao = userDAO()
                 if dao.getUsersEmail(email) != []:
-                    user = self.getUsersEmail(email)
+                    user = self.getUsersEmailLogin(email)
                     if dao.getUsersPass(password) == dao.getUsersEmail(password):
                         return user
                     else:
@@ -74,6 +74,25 @@ class UserHandler:
             user_list.append(self.buildUserDict(row))
         return jsonify(Users=user_list)
         
+
+
+    #search by email
+    def getUsersEmailLogin(self,email):
+        dao = userDAO()
+        email = dao.getUsersEmail(email)
+        user_list = []
+        for row in email:
+            user_list.append(self.buildUserDict(row))
+        return jsonify(Users=user_list)
+    #search by phone
+    def getUsersPhoneLogin(self,phone):
+        dao = userDAO()
+        phone = dao.getUsersPhone(phone)
+        user_list = []
+        for row in phone:
+            user_list.append(self.buildUserDict(row))
+        return jsonify(Users=user_list)
+
     #search by email
     def getUsersEmail(self,form):
         dao = userDAO()
